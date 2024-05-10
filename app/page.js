@@ -1,113 +1,96 @@
 import Image from "next/image";
+import TopBanner from "./components/layout/top-banner";
+import PaddingContainer from "./components/layout/padding-container";
+import BlogContainer from "./components/layout/blog-container";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.js</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <div>
+      <TopBanner />
+
+
+
+      {/* <!--Product Catrgories Icons--> */}
+      <PaddingContainer >
+      <section className="  w-full h-auto grid grid-cols-3 gap-5 md:gap-4 md:flex md:flex-row  justify-between  md:-mt-33    relative z-50  ">
+            <a  href="#" className="flex flex-col text-center items-center ">
+              <Image className="w-24 md:w-25 text-center" src="/images/engine-oil.svg" width={250} height={250} alt="" />
+              <h2 className="uppercase text-md font-bold text-darkYellow mt-2">Engine Oil</h2>
+            </a>
+            <a  href="#"  className="flex flex-col text-center items-center ">
+              <Image className="w-24 md:w-25" src="/images/aviation.svg" width={250} height={250} alt="" />
+              <h2 className="uppercase text-md font-bold text-darkYellow mt-2">Avaition</h2>
+            </a>
+            <a  href="#"  className="flex flex-col text-center items-center">
+              <Image className="w-24 md:w-25" src="/images/Steering.svg" width={250} height={250} alt="" />
+              <h2 className="uppercase text-md font-bold text-darkYellow mt-2">Steering</h2>
+            </a>
+            <a  href="#"  className="flex flex-col text-center items-center">
+              <Image className="w-24 md:w-25 " src="/images/transmission.svg" width={250} height={250} alt="" />
+              <h2 className="uppercase text-md font-bold text-darkYellow mt-2">Transmission</h2>
+            </a>
+           
+
+            <a  href="#"  className="flex flex-col text-center items-center">
+              <Image className="w-24 md:w-25" src="/images/brake-fluid.svg" width={250} height={250} alt="" />
+              <h2 className="uppercase text-md font-bold text-darkYellow mt-2">Brake Fliud</h2>
+            </a>
+
+            <a  href="#"  className="flex flex-col text-center items-center">
+              <Image className="w-24 md:w-25" src="/images/marine.svg" width={250} height={250} alt="" />
+              <h2 className="uppercase text-md font-bold text-darkYellow mt-2">Marine Oil</h2>
+            </a>
+
+            <a  href="#"  className="flex flex-col text-center items-center">
+              <Image className="w-24 md:w-25" src="/images/grease.svg" width={250} height={250} alt="" />
+              <h2 className="uppercase text-md font-bold text-darkYellow mt-2">Grease</h2>
+            </a>
+      </section>
+    {/* <!--End Product Catrgories Icons--> */}
+
+
+
+    {/* <!-- media section--> */}
+      <section className="w-full h-auto flex flex-col md:flex-row mt-20 p-12 pb-0 justify-between  space-x-0 space-y-20 md:space-y-0 md:space-x-20">
+    
+        <div className="flex items-center md:-mt-10">
+            <Image className="" src="/images/video-image.jpg" width={600} height={600} alt="" />
         </div>
-      </div>
+        <div>
+            <Image className="" src="/images/atlantic-products.png" width={600} height={600} alt="" />
+        </div>
+        
+      </section>
+      {/* <!-- end media section--> */}
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-full sm:before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full sm:after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
 
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
+       {/* <!-- Certification--> */}
+       <section className="w-full h-auto flex flex-col md:flex-row  p-12 md:-mt-12  pt-0 justify-between  space-x-0 space-y-20  md:space-y-0 md:space-x-20">
+    
+        <div className=" md:w-1/3">
+            <Image className="" src="/images/certificate.png" width={600} height={600} alt="" />
+        </div>
+        <div className="flex flex-col  md:w-2/3">
+             <h2 className="text-darkYellow uppercase pb-4 font-bold text-3xl">OEM APPROVALS</h2>
+             <p className="text-white text-base text-left " >At Atlantic Grease and Lubricants, we have secured approvals leading automobile manufacturers. Thus, we demonstrate our commitment  to delivering the best possible outcomes to our customers. Recognizing the significance of quality to our valued customers,  we uphold the utmost standards of excellence in all our endeavors.</p>
+             <h2 className="text-darkYellow uppercase   mt-8 pb-4 font-bold text-3xl" >Maintain Stringent Quality Standards</h2>
+             <p className="text-white text-base text-left"  >Achieving premium quality standards sits at the core of Atlantic Grease & Lubricants operations. Ensuring the quality of our products  we are committed to systematically testing and monitoring at every stage of production. While manufacturing our products, we make use of cutting-edge technology and premium solutions to ensure the highest quality standards at its maximum potential.</p>
+        </div>
+        
+      </section>
+      {/* <!-- end Certificationn--> */}
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800 hover:dark:bg-opacity-30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
+    </PaddingContainer>
+   
+   <BlogContainer /> 
+  
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore starter templates for Next.js.
-          </p>
-        </a>
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50 text-balance`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    <br/>
+
+
+
+  </div>
+      
   );
 }
