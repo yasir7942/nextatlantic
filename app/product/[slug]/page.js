@@ -3,7 +3,7 @@
 const Product = () => {
   return (
     <div>
-      
+        show single product featch form slug
     </div>
   )
 }

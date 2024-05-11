@@ -7,7 +7,7 @@ const Footer = () => {
   return (
     <div>
       
-      <footer className="w-full  mt-10 pt-5 pb-8 bg-[#0D0D0D]">
+      <footer className="w-full  mt-10 pt-5 pb-8 bg-[#040404]">
 
         <PaddingContainer>
             {/* main container */}

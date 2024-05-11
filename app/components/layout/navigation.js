@@ -23,9 +23,9 @@ const Navigation = () => {
             </a>
        
         <ul className="hidden md:flex text-gray-200 md:space-x-4 lg:space-x-6  text-lg md:font-normal  lg:font-semibold capitalize tracking-wider ">
-            <li><a href="#">Home</a></li>
+            <li><a href="/">Home</a></li>
             <li><a href="#">About Us</a></li>
-            <li><a href="#">Product</a></li>
+            <li><a href="/products">Product</a></li>
             <li><a href="#">Blog</a></li>
             <li><a href="#">Contact Us</a></li>
         </ul>

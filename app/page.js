@@ -2,12 +2,21 @@ import Image from "next/image";
 import TopBanner from "./components/layout/top-banner";
 import PaddingContainer from "./components/layout/padding-container";
 import BlogContainer from "./components/layout/blog-container";
+import Certification from "./components/layout/certification";
+import { flattenAttributes } from "@/lib/utils";
+import { getStrapiData } from "@/lib/helper";
 
-export default function Home() {
+ 
+
+export default async function Home() {
+
+  
+  const strapiData = await getStrapiData("home-page", true);
+   console.dir(strapiData, { depth:null});
+
   return (
     <div>
-      <TopBanner />
-
+      <TopBanner lgImage={"/images/atlantic-top-banner.png"}  mdImage={"/images/top-banner-md.jpg"} text1={"Enhance"} text2="The performace <br/> of you vehicle" />
 
 
       {/* <!--Product Catrgories Icons--> */}
@@ -49,7 +58,7 @@ export default function Home() {
     {/* <!--End Product Catrgories Icons--> */}
 
 
-
+      
     {/* <!-- media section--> */}
       <section className="w-full h-auto flex flex-col md:flex-row mt-20 p-12 pb-0 justify-between  space-x-0 space-y-20 md:space-y-0 md:space-x-20">
     
@@ -63,22 +72,8 @@ export default function Home() {
       </section>
       {/* <!-- end media section--> */}
 
-
-       {/* <!-- Certification--> */}
-       <section className="w-full h-auto flex flex-col md:flex-row  p-12 md:-mt-12  pt-0 justify-between  space-x-0 space-y-20  md:space-y-0 md:space-x-20">
-    
-        <div className=" md:w-1/3">
-            <Image className="" src="/images/certificate.png" width={600} height={600} alt="" />
-        </div>
-        <div className="flex flex-col  md:w-2/3">
-             <h2 className="text-darkYellow uppercase pb-4 font-bold text-3xl">OEM APPROVALS</h2>
-             <p className="text-white text-base text-left " >At Atlantic Grease and Lubricants, we have secured approvals leading automobile manufacturers. Thus, we demonstrate our commitment  to delivering the best possible outcomes to our customers. Recognizing the significance of quality to our valued customers,  we uphold the utmost standards of excellence in all our endeavors.</p>
-             <h2 className="text-darkYellow uppercase   mt-8 pb-4 font-bold text-3xl" >Maintain Stringent Quality Standards</h2>
-             <p className="text-white text-base text-left"  >Achieving premium quality standards sits at the core of Atlantic Grease & Lubricants operations. Ensuring the quality of our products  we are committed to systematically testing and monitoring at every stage of production. While manufacturing our products, we make use of cutting-edge technology and premium solutions to ensure the highest quality standards at its maximum potential.</p>
-        </div>
-        
-      </section>
-      {/* <!-- end Certificationn--> */}
+      <Certification/>
+       
 
     </PaddingContainer>
    

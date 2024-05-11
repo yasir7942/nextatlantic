@@ -1,7 +1,7 @@
 //import { Inter } from "next/font/google";
 import "./globals.css";
 import Navigation from "./components/layout/navigation";
-import {Oswald} from "@next/font/google"
+import {Oswald} from "next/font/google"
 import Footer from "./components/layout/footer";
 
 
@@ -9,7 +9,7 @@ import Footer from "./components/layout/footer";
 
 const oswald =Oswald ({
   subsets :['latin'],
-  weight: ['200']
+  weight: ['200','500','600','700']
 })
 
 export const metadata = {
