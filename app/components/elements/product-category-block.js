@@ -5,11 +5,13 @@ const ProductCategoryBlock = ({colorImage, grayImage, url, text}) => {
   return (
     
       
-      <div className=" relative w-50 h-64  md:w-64 md:h-72 lg:w-72 lg:h-80 xl:w-80 xl:h-96 bg-gray-500 rounded-md overflow-hidden group ">
-                <a href="/" >
-                    <Image className="absolute inset-0 w-full h-full object-cover filter grayscale group-hover:filter-none" src="/images/engine-oil-category.png" width={500} height={500} alt="" />
-                 <div className="text-darkYellow text-3xl font-normal absolute bottom-4 right-3 shadow-black drop-shadow-2xl" >Engine Oil</div>
+      <div className=" relative w-54 h-64  md:w-72 md:h-54 lg:w-72 lg:h-72 xl:w-64 xl:h-80  rounded-md overflow-hidden group  ">
+                <a href={url} >
+                    <Image className="absolute inset-0 w-full h-full object-cover transition duration-300 ease-in-out" src={grayImage} width={500} height={500} alt={text} />
+                    <Image className="absolute inset-0 w-full h-full object-cover opacity-0 transition duration-300 ease-in-out group-hover:opacity-100" src={colorImage} width={500} height={500} alt={"text"} />
+                 <div className="text-darkYellow text-2xl   lg:text-3xl font-normal absolute bottom-4 right-3  uppercase drop-shadow-[0px_1px_18px_rgba(0,0,0,1)]" >{text}</div>
                 </a>
+
      </div>
      
   )

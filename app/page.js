@@ -11,12 +11,13 @@ import { getStrapiData } from "@/lib/helper";
 export default async function Home() {
 
   
+  
   const strapiData = await getStrapiData("home-page", true);
    console.dir(strapiData, { depth:null});
 
   return (
-    <div>
-      <TopBanner lgImage={"/images/atlantic-top-banner.png"}  mdImage={"/images/top-banner-md.jpg"} text1={"Enhance"} text2="The performace <br/> of you vehicle" />
+    <div className="bg-backgroundColor">
+      <TopBanner lgImage={"/images/atlantic-top-banner.png"}   mdImage={"/images/top-banner-md.jpg"} home text1={"Enhance"} text2="The performace <br/> of you vehicle" />
 
 
       {/* <!--Product Catrgories Icons--> */}
