@@ -3,8 +3,8 @@ import TopBanner from "./components/layout/top-banner";
 import PaddingContainer from "./components/layout/padding-container";
 import BlogContainer from "./components/layout/blog-container";
 import Certification from "./components/layout/certification";
-import { flattenAttributes } from "@/lib/utils";
-import { getStrapiData } from "@/lib/helper";
+import { flattenAttributes } from "@/libs/utils";
+import { getStrapiData } from "@/libs/helper";
 
  
 
@@ -12,12 +12,24 @@ export default async function Home() {
 
   
   
-  const strapiData = await getStrapiData("home-page", true);
-   console.dir(strapiData, { depth:null});
+  const strapiData = await getStrapiData("home-page", "", ["banner.webBanner","banner.mobileBanner"]);
+   
+   // console.log("-------------------------------------------------------------------------");
+   // console.dir(strapiData.data, { depth:null});
+   // console.log("---------------------------End-----------------------end-----------------------");
+   //console.dir(strapiData.attributes.banner.mobileBanner.data.attributes.url);
 
-  return (
+   var  baseUrl =process.env.LOCAL_BASE_IMAGE_URL;
+   const LgImage= baseUrl + strapiData.attributes.banner.webBanner.data.attributes.url;
+   const mdImage= baseUrl + strapiData.attributes.banner.mobileBanner.data.attributes.url;
+  //console.log(LgImage);
+  //console.log(mdImage);
+
+
+   return (
     <div className="bg-backgroundColor">
-      <TopBanner lgImage={"/images/atlantic-top-banner.png"}   mdImage={"/images/top-banner-md.jpg"} home text1={"Enhance"} text2="The performace <br/> of you vehicle" />
+      
+      <TopBanner lgImage={LgImage}   mdImage={mdImage} home text1={strapiData.attributes.banner.title} text2={strapiData.attributes.banner.subTitle} />
 
 
       {/* <!--Product Catrgories Icons--> */}
@@ -72,10 +84,10 @@ export default async function Home() {
         
       </section>
       {/* <!-- end media section--> */}
-
-      <Certification/>
        
-
+      
+          <Certification heading1={strapiData.attributes.bodyHeading1} text1={strapiData.attributes.bodyText1} heading2={strapiData.attributes.bodyHeading2} text2={strapiData.attributes.bodyText2} />
+         
     </PaddingContainer>
    
    <BlogContainer /> 

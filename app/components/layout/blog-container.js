@@ -1,7 +1,19 @@
 import Image from "next/image"
 import PaddingContainer from "./padding-container"
+import { getStrapiData } from "@/libs/helper";
 
-const BlogContainer = () => {
+const BlogContainer = async () => {
+
+
+  const postData = await getStrapiData("posts", "?sort=publishedAt&pagination[page]=1&pagination[pageSize]=3" , ["*"]);
+   
+    console.log("------------------------------Post---Data----------------------------------------");
+    console.dir(postData, { depth:null});
+    console.log("---------------------------End-----------------------end-----------------------");
+  
+
+
+
   return (
     <div>
       

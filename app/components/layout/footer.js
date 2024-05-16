@@ -42,7 +42,7 @@ const Footer = () => {
                <div className="flex flex-col space-y-3" >
                   <div className="uppercase text-white font-medium py-4 text-xl">Quick Links</div>
 
-                   <ul className="text-gray-300 space-y-1">
+                   <ul className="text-gray-300  space-y-1 font-light">
                         <li>
                             <a href="#" >Certifications & Approvals </a>
                         </li>
@@ -67,7 +67,7 @@ const Footer = () => {
                <div className="flex flex-col space-y-3" >
                   <div className="uppercase text-white font-medium py-4 text-xl">Product Categories</div>
 
-                   <ul className="text-gray-300 space-y-1">
+                   <ul className="text-gray-300 space-y-1  font-light">
                         <li>
                             <a href="#" >Certifications & Approvals </a>
                         </li>
