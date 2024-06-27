@@ -3,14 +3,47 @@ import PaddingContainer from "../components/layout/padding-container"
 import TopBanner from "../components/layout/top-banner"
 import ProductCategoryBlock from "../components/elements/product-category-block"
 import Certification from "../components/layout/certification"
+import { geGridCategoybyProduct } from "../data/loader"
 
 
+
+export const generateStaticParams = async () => {
+
+  try {
+    const pcategorySlugs = await geAllProductCategorySlug();
+
+    const paramsSlugs = pcategorySlugs?.data?.map((pCat) => {
+      //console.log("*****Product category slug: "+ pCat.slug);
+      return {
+        slug: pCat.slug
+      };
+    })
+
+    return paramsSlugs || [];
+  } catch (error) {
+        console.log(error);
+        throw new Error("Error Fetching generateStaticParams");
+  }
+
+}
+
+
+
+
+const PageData = await geGridCategoybyProduct( );
 
 const Products = () => {
+
+  
+    console.log("-----------------------product category  Grid--------------------------------------------------");
+//   console.dir(PageData, { depth:null});
+// console.log("---------------------------End-----------------------end-----------------------");
+
+
   return (
     <div>
-      <TopBanner lgImage={"/images/product-banner.png"}  mdImage={"/images/product-banner-md.jpg"} text1={"Enhance"} text2="The performace <br/> of you vehicle" />
-   
+        <TopBanner banner={PageData.banner} />
+     
    {/* product category container */}
     <section>
       <PaddingContainer>

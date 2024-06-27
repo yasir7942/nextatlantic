@@ -17,7 +17,8 @@ const nextConfig = {
                 protocol: "http", 
             }
         ],
-    }
+    },
+    
 
 };
 

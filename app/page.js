@@ -3,33 +3,29 @@ import TopBanner from "./components/layout/top-banner";
 import PaddingContainer from "./components/layout/padding-container";
 import BlogContainer from "./components/layout/blog-container";
 import Certification from "./components/layout/certification";
-import { flattenAttributes } from "@/libs/utils";
-import { getStrapiData } from "@/libs/helper";
-
+import {getHomePage} from "@/app/data/loader"
+import {getImageUrl} from "@/libs/helper"
  
 
 export default async function Home() {
 
   
-  
-  const strapiData = await getStrapiData("home-page", "", ["banner.webBanner","banner.mobileBanner"]);
+  //Home Page
    
-   // console.log("-------------------------------------------------------------------------");
-   // console.dir(strapiData.data, { depth:null});
-   // console.log("---------------------------End-----------------------end-----------------------");
-   //console.dir(strapiData.attributes.banner.mobileBanner.data.attributes.url);
 
-   var  baseUrl =process.env.LOCAL_BASE_IMAGE_URL;
-   const LgImage= baseUrl + strapiData.attributes.banner.webBanner.data.attributes.url;
-   const mdImage= baseUrl + strapiData.attributes.banner.mobileBanner.data.attributes.url;
-  //console.log(LgImage);
-  //console.log(mdImage);
+  const homeData = await getHomePage( );
+   
+    //  console.log("-----------------------home page--------------------------------------------------");
+      //  console.dir(homeData, { depth:null});
+    //  console.log("---------------------------End-----------------------end-----------------------");
+
+ 
 
 
    return (
     <div className="bg-backgroundColor">
       
-      <TopBanner lgImage={LgImage}   mdImage={mdImage} home text1={strapiData.attributes.banner.title} text2={strapiData.attributes.banner.subTitle} />
+       <TopBanner   banner={homeData.banner}    home  />  
 
 
       {/* <!--Product Catrgories Icons--> */}
@@ -86,12 +82,12 @@ export default async function Home() {
       {/* <!-- end media section--> */}
        
       
-          <Certification heading1={strapiData.attributes.bodyHeading1} text1={strapiData.attributes.bodyText1} heading2={strapiData.attributes.bodyHeading2} text2={strapiData.attributes.bodyText2} />
-         
+       <Certification heading1={homeData.bodyHeading1} text1={homeData.bodyText1} heading2={homeData.bodyHeading2} text2={homeData.bodyText2} />
+           
     </PaddingContainer>
-   
+     
    <BlogContainer /> 
-  
+    
 
 
     <br/>

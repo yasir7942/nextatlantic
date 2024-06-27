@@ -1,63 +1,36 @@
-//import { flattenAttributes } from "@/libs/utils";
+import { BlocksRenderer } from "@strapi/blocks-react-renderer";
+import { Replace } from "lucide-react";
+import Image from "next/image";
 
-/*
 
-export const  getReadingTime = (text)=> {
-
-    return  (text).text;
-
+export const  getImageUrl = (path)=> {
+ if( process.env.NEXT_PUBLIC_MODE == "dev" ){
+   return process.env.NEXT_PUBLIC_LOCAL_BASE_IMAGE_URL + path;
+ }
+   else{
+      return process.env.NEXT_PUBLIC_ADMIN_BASE_URL +path;
+   }
 }
 
-*/
 
-export async function getStrapiData(path, filter,  populateList =[] ){
-    
-   let  baseUrl =process.env.LOCAL_BASE_URL +  path + filter ;
-   let isFirstIteration = true;
-   if(filter != "")
-    {
-      isFirstIteration = false;
-    }
-    if(populateList.length > 0){
-         populateList.forEach(function(element) {
-                     
-                    if (isFirstIteration) {
-                       baseUrl += "?populate=" +element
-                      isFirstIteration = false; // Update to false after the first iteration
-                  }
-                  else{
-                    baseUrl += "&populate=" +element
-                  }
-                    
-                });
-    }
-    else
-    {
-        baseUrl = process.env.LOCAL_BASE_URL +  path;
-    }
-    
- 
-      console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++");
-      console.log(baseUrl);
-      console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++");
-  
-     
-      try {
-        const response = await fetch(baseUrl  , {cache: "no-cache"});
-        const data = await response.json();
-         //const flattenedData = flattenAttributes(data);
+export const  getFirstDescriptionText=(descriptionArray) => {
+  if (descriptionArray.length === 0) return "";
+  return (descriptionArray[0].children.map(child => child.text).join('')).slice(0, 160);
+}
 
 
-         
+export const validateCanonicalSlug = (link) => {
+  if (!link || link === null || link === "") return "";
 
-         //return flattenedData;
-       
- 
-        return data.data;
-              
-      } catch (error) {
-         console.log(error);
-      }
-   }
+  let ConLink = link;
+  if (!ConLink.startsWith('/')) {
+    ConLink = '/' + ConLink;
+  }
+  if (!ConLink.endsWith('/')) {
+    ConLink = ConLink + '/';
+  }
+
+  return ConLink;
+}
 
    

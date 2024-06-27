@@ -17,6 +17,7 @@ module.exports = {
       },
     },
     extend: {
+       
       colors: {
         backgroundColor: '#010202',
         darkYellow: '#FFDE00',

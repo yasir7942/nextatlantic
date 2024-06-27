@@ -1,15 +1,24 @@
 import Image from "next/image"
 import PaddingContainer from "./padding-container"
-import { getStrapiData } from "@/libs/helper";
+import {getPostLimitedData} from "@/app/data/loader"
+import {getImageUrl} from "@/libs/helper"
+import Link from "next/link";
+
+var  baseUrl =process.env.LOCAL_BASE_IMAGE_URL;
+
 
 const BlogContainer = async () => {
 
 
-  const postData = await getStrapiData("posts", "?sort=publishedAt&pagination[page]=1&pagination[pageSize]=3" , ["*"]);
+
    
-    console.log("------------------------------Post---Data----------------------------------------");
-    console.dir(postData, { depth:null});
-    console.log("---------------------------End-----------------------end-----------------------");
+  const postData = await getPostLimitedData();
+    
+    //   console.log("------------------------------Post---Data-222222---------------------------------------");
+   
+     //  console.dir(postData, { depth:null});
+ 
+    //  console.log("---------------------------End-----------------------end-----------------------");
   
 
 
@@ -22,6 +31,7 @@ const BlogContainer = async () => {
 
        {/* <!--Latest News --> */}
         <section className="flex flex-col p-12 md:p-0 lg:p-12 mt-4" > 
+
             {/* <!--heading--> */}
            <div className="flex flex-col">
                   <div className="font-semibold text-6xl md:text-8xl  tracking-widest uppercase text-gray-700 opacity-40 z-10" >Latest News</div>
@@ -30,48 +40,23 @@ const BlogContainer = async () => {
            {/* <!--news blocks--> */}
            <div className=" w-full flex flex-col md:flex-row pt-10 md:p-0 md:py-10 lg:p-12 justify-between md:space-x-12 space-y-6 md:space-y-0  ">
                 {/* <!--new block--> */}
-                <div className="w-full flex flex-col text-white  md:text-left cursor-pointer ">
-                      <Image className="w-full " src="/images/blog-1.jpg" width={500} height={500} alt="" />
-                       <h2 className="text-darkYellow font-semibold  leading-6 text-lg md:text-base pt-3  text-justify">
-                           Get The Most Out Of Your Equipment With The Power Of The Best Grease
+
+                  {
+                postData.data.map(post => (
+                
+                <div key={post.id} className="w-full flex flex-col text-white  md:text-left  ">
+                       <Link href={`/blog/${post.slug}`} > 
+                        <Image className="w-full " src={getImageUrl(post.featureImage.url)} width={500} height={350} alt={post.title} />
+                        <h2 className="text-darkYellow font-semibold  leading-6 text-lg md:text-base pt-3  text-justify">
+                            {post.title}
                        </h2>
-                       <p className="text-lx md:text-sm text-justify">For centuries, people have used lubricants to make machinery run smoothly. Early greases were simple mixtures of animal fats or plant-based oils. The discovery</p>
-                       
+                       <p className="text-lx md:text-sm text-justify">{post.seo.seoDesctiption}</p>
+                       </Link>
+                      
                 </div>
-
-                {/* <!--new block--> */}
-                <div className="w-full flex flex-col text-white  md:text-left cursor-pointer  ">
-                    <Image className="w-full"   src="/images/blog-2.jpg" width={500} height={500} alt="" />
-                    <h2 className="text-darkYellow font-semibold  leading-6 text-lg md:text-base pt-3  text-justify">
-                        Get The Most Out Of Your Equipment With The Power Of The Best Grease
-                    </h2>
-                    <p className="text-lx md:text-sm text-justify">For centuries, people have used lubricants to make machinery run smoothly. Early greases were simple mixtures of animal fats or plant-based oils. The discovery</p>
-                    
-                  </div>
-
-
-                  {/* <!--new block--> */}
-                  <div className="w-full flex flex-col text-white  md:text-left cursor-pointer  ">
-                    <Image className="w-full "  src="/images/blog-3.jpg" width={500} height={500} alt="" />
-                    <h2 className="text-darkYellow font-semibold  leading-6 text-lg md:text-base pt-3  text-justify">
-                        Get The Most Out Of Your Equipment With The Power Of The Best Grease
-                    </h2>
-                    <p className="text-lx md:text-sm text-justify">For centuries, people have used lubricants to make machinery run smoothly. Early greases were simple mixtures of animal fats or plant-based oils. The discovery</p>
-                    
-                  </div>
-
-
-                  {/* <!--new block--> 
-                  <div className="w-full flex flex-col text-white  md:text-left cursor-pointer ">
-                    <Image className="w-full "  src="/images/blog-4.jpg" width={500} height={500} alt="" />
-                    <h2 className="text-darkYellow font-semibold  leading-6 text-lg md:text-base pt-3  text-justify">
-                        Get The Most Out Of Your Equipment With The Power Of The Best Grease
-                    </h2>
-                    <p className="text-lx md:text-sm text-justify">For centuries, people have used lubricants to make machinery run smoothly. Early greases were simple mixtures of animal fats or plant-based oils. The discovery</p>
-                    
-                  </div>
-
-                  */}
+                 
+               ))}  
+                
 
 
            </div>

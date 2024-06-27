@@ -67,6 +67,19 @@
     }
   }
 
+
+  @layer utilities {
+
+    .rich-text h2, .rich-text strong{
+       @apply text-lg font-normal mb-3;
+
+      }
+
+      .rich-text p{
+        @apply text-lg font-light  ;
+ 
+       }
+  }
   @layer base {
    
     body {

@@ -1,4 +1,5 @@
 import { IoMdMenu } from "react-icons/io";
+import {geProductCategoryLeftMenu} from "@/app/data/loader"
 import {
     Sheet,
     SheetContent,
@@ -7,11 +8,19 @@ import {
     SheetTitle,
     SheetTrigger,
   } from "@/components/ui/sheet"
+import Link from "next/link";
 
   
 
-const ProductCategoryMenu = () => {
-    const numbers = Array.from({ length: 7 }, (_, index) => index + 1);
+const ProductCategoryMenu =  async () => {
+
+  const menuData = await geProductCategoryLeftMenu();
+  const filteredMenuData = menuData.data.filter(menu => menu.products.data.length > 0);
+
+   //console.log(menuData.data[1].products.data.length);
+    //console.dir(filteredMenuData, { depth:null});
+
+   
   return (
     <div>
        <div className="hidden md:flex flex-row md:flex-col space-y-0 space-x-2 md:space-y-4 md:space-x-0  text-gray-300 uppercase ">
@@ -21,12 +30,14 @@ const ProductCategoryMenu = () => {
                                 <div className="w-full h-[1px] bg-[#0f0f0f]"> </div>
                     </div>
                       {/* Loop through the numbers array and render each number */}
-                        {numbers.map((number) => (
+                        {filteredMenuData.map((menu) => (    
                               
-                              <div className="fex fex-col space-y-3 text-base  md:font-light md:text-lg ">
-                                <a href="#">Transmission {number}</a>
+                             
+                              <div key={menu.id} className="fex fex-col space-y-3 text-base  md:font-light md:text-lg ">
+                                <Link href={`/product-category/${menu.slug}`} >{menu.title} - <span className="text-base"> ({menu.products.data.length}) </span>   </Link>
                                 <div className="w-full h-[1px] bg-[#0f0f0f]"> </div>
                               </div>
+                            
                       ))} 
 
             </div> 
@@ -47,10 +58,10 @@ const ProductCategoryMenu = () => {
                                             <a href="#">Products Categories</a>
                                          </div>
                                         {/* Loop through the numbers array and render each number */}
-                                          {numbers.map((number) => (
+                                        {menuData.data.map((menu) => (    
                                                 
-                                                <div className="fex fex-col text-left pl-2 space-y-3 mt-2 text-base  font-light  ">
-                                                  <a href="#">Transmission {number}</a>
+                                                <div key={"mobile-"+menu.id} className="fex fex-col text-left pl-2 space-y-3 mt-2 text-base  font-light  ">
+                                                  <Link href={`/product-category/${menu.slug}`}>{menu.title}</Link>
                                                   <div className="w-[70%] h-[1px] bg-[#0f0f0f] "> </div>
                                                 </div>
                                         ))}
