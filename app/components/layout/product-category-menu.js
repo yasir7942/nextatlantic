@@ -15,8 +15,8 @@ import Link from "next/link";
 const ProductCategoryMenu =  async () => {
 
   const menuData = await geProductCategoryLeftMenu();
-  const filteredMenuData = menuData.data.filter(menu => menu.products.data.length > 0);
-
+   const filteredMenuData = menuData.data.filter(menu => menu.products.data.length > 0);
+ 
    //console.log(menuData.data[1].products.data.length);
     //console.dir(filteredMenuData, { depth:null});
 

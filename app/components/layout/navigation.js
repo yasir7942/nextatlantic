@@ -29,7 +29,7 @@ const Navigation = () => {
 
         <a href="/" className="w-52">
           <Image
-            src="https://atlanticlubes.com/wp-content/uploads/2023/05/Atlanticlubes-logo.png.webp"
+            src= "/images/logo-486x124.png"
             width={500}
             height={300}
             alt="Atlantic Grease and Lubricants" />

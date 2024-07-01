@@ -3,7 +3,7 @@
 const PostCategory = () => {
   return (
     <div>
-          here we show post single category  and related all posts 
+       Right now we not have categories of Posts
     </div>
   )
 }

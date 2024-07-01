@@ -1,18 +1,49 @@
-
-
 import PaddingContainer from "@/app/components/layout/padding-container"
 import ProductCategoryMenu from "@/app/components/layout/product-category-menu";
 import SearchBar from "@/app/components/layout/search-bar";
 import TopBanner from "@/app/components/layout/top-banner"
 import Image from "next/image";
-import { geAllProductsSlug, geProductsByCategory } from "@/app/data/loader"
+import { geAllProductsSlug, geProductsByCategory, getProductCategory } from "@/app/data/loader"
 import Link from 'next/link';
 import NotFound from "@/app/not-found";
 import { PaginationComponent } from "@/app/components/elements/pagination";
-import { getImageUrl } from "@/libs/helper";
-import { Suspense } from "react";
+import { generateMetadata as generatePageMetadata } from "@/libs/metadata";
+import { getFirstDescriptionText, getImageUrl } from "@/libs/helper";
+import { Suspense  } from "react";
+import SEOSchema from "@/app/components/elements/seo-schema";
 
 
+ 
+
+const pageSize = 5;
+
+export async function generateMetadata({ params }) {
+   
+    const categoryData = await getProductCategory(params.pcategory);
+  
+    const metadataParams = {
+      pageTitle: categoryData.data[0].title,
+      pageSlug: categoryData.data[0].slug,
+      pageDescription: getFirstDescriptionText(categoryData.data[0].description),
+      seoTitle: categoryData.data[0].seo?.seoTitle,
+      seoDescription: categoryData.data[0].seo?.seoDescription,
+      rebotStatus: categoryData.data[0].seo?.preventIndexing,
+      canonicalLinks: categoryData.data[0].seo?.canonicalLinks,
+      dataPublishedTime: categoryData.data[0].publishedAt,
+      category: "",
+      image: categoryData.data[0].banner?.mobileBanner?.url,
+      imageAlternativeText:  categoryData.data[0].banner?.mobileBanner?.alternativeText ,
+      imageExt:  categoryData.data[0].banner?.mobileBanner?.mime,
+    };
+
+   // console.dir(categoryData, { depth:null}); 
+    //console.dir(metadataParams ); 
+  
+    return await generatePageMetadata({ type: "category", path: "/product-category/", params: metadataParams });
+  }
+
+
+  
 
 export const generateStaticParams = async () => {
 
@@ -20,7 +51,6 @@ export const generateStaticParams = async () => {
     const productSlugs = await geAllProductsSlug();
 
     const paramsSlugs = productSlugs?.data?.map((product) => {
-    //  console.log("*******Product slug: "+ product.slug);
       return {
         slug: product.slug
       };
@@ -36,22 +66,18 @@ export const generateStaticParams = async () => {
 
 
 
-const pageSize = 5;
+
 const numbers = Array.from({ length: 12 }, (_, index) => index + 1);
 
 
 const ProductCategory = async ({ params, searchParams }) => {
 
-  const currentPage = Number(searchParams.page) || 1;
+const currentPage = Number(searchParams.page) || 1;
 
-
-
-
-
-   
   // product show by category
 
   const productData = await geProductsByCategory(params.pcategory, currentPage, pageSize);
+ //const productData = await cachedGetingleProductCategory(params.pcategory, currentPage, pageSize);
 
   const PageCount = productData.meta.pagination.pageCount;
   const totalPage = productData.meta.pagination.total;
@@ -67,6 +93,9 @@ const ProductCategory = async ({ params, searchParams }) => {
 
   return (
     <div>
+
+     <SEOSchema schemaList={productData.data[0]?.seo?.schema}  />
+
       <TopBanner banner={productData?.data[0]?.product_categories.data[0].banner} />
 
 
@@ -103,8 +132,6 @@ const ProductCategory = async ({ params, searchParams }) => {
                   </div>
 
                   <Link href={`/product/${product.slug}`} className="uppercase w-full  text-center p-x-5 bg-burnYellow text-black mt-2"> View </Link>
-
-
                 </div>
 
               ))}

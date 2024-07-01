@@ -1,20 +1,49 @@
-
-
-import Image from "next/image";
+//contact us page
 import PaddingContainer from "../components/layout/padding-container";
 import TopBanner from "../components/layout/top-banner";
 import { getContactUsPage } from "../data/loader";
-import BodyDataParse from "../components/elements/data-parse-content";
-import { getImageUrl } from "@/libs/helper";
+import { cache } from 'react';
+import { generateMetadata as generatePageMetadata } from "@/libs/metadata";
+import SEOSchema from "../components/elements/seo-schema";
+
+const cachedGetContactUsPage = cache(getContactUsPage);
+export async function generateMetadata({ params }) {
+ 
+ 
+  const pageData = await cachedGetContactUsPage(); 
+    
+  const metadataParams = {
+    pageTitle:   pageData.slug,
+    pageSlug: "contact",
+    pageDescription: "",
+    seoTitle: pageData.seo?.seoTitle,
+    seoDescription: pageData.seo?.seoDescription,
+    rebotStatus: pageData.seo?.preventIndexing,
+    canonicalLinks: pageData.seo?.canonicalLinks?? "contact",
+    dataPublishedTime: pageData.publishedAt,
+    category: "",
+    image: pageData.banner.mobileBanner?.url,
+    imageAlternativeText:  pageData.banner.mobileBanner?.alternativeText ?? pageData.title,
+    imageExt:  pageData.banner.mobileBanner?.mime,
+  };
+
+  return await generatePageMetadata({ type: "page", path: "", params: metadataParams });
+}
+
+
+
+
 
 const ContactUs = async () => {
 
-    const pageData = await getContactUsPage();
+    const pageData = await cachedGetContactUsPage();
 
  
 
     return (
         <div>
+
+           <SEOSchema schemaList={pageData.seo?.schema}  />
 
             <TopBanner banner={pageData.banner} />
 

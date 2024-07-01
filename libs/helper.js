@@ -14,7 +14,7 @@ export const  getImageUrl = (path)=> {
 
 
 export const  getFirstDescriptionText=(descriptionArray) => {
-  if (descriptionArray.length === 0) return "";
+  if (!Array.isArray(descriptionArray) || descriptionArray.length === 0) return "";
   return (descriptionArray[0].children.map(child => child.text).join('')).slice(0, 160);
 }
 
@@ -33,4 +33,15 @@ export const validateCanonicalSlug = (link) => {
   return ConLink;
 }
 
+
+
+
+export const  addMonths=(date, months) => {
+  const newDate = new Date(date);
+  newDate.setMonth(newDate.getMonth() + months);
+  console.log(newDate);
+  return newDate.toISOString().split('T')[0];
+}
+
+ 
    

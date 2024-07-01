@@ -5,69 +5,39 @@ import PaddingContainer from "@/app/components/layout/padding-container"
 import ProductCategoryMenu from "@/app/components/layout/product-category-menu"
 import TopBanner from "@/app/components/layout/top-banner"
 import { geSingleProduct } from "@/app/data/loader";
-import { getFirstDescriptionText, getImageUrl, validateCanonicalSlug } from "@/libs/helper";
+import { addMonths, getFirstDescriptionText, getImageUrl, validateCanonicalSlug } from "@/libs/helper";
+import { generateMetadata as generatePageMetadata } from "@/libs/metadata";
 import Image from "next/image"
 import { FaDownload } from "react-icons/fa";
 import { cache } from 'react';
+import siteConfig from "@/config/site";
+import SEOSchema from "@/app/components/elements/seo-schema";
+ 
 
 // Cache the geSingleProduct function
 const cachedGeSingleProduct = cache(geSingleProduct);
 
 
 export async function generateMetadata({ params }) {
-    // const productData = await geSingleProduct(params.slug);
-
-    const productData = await cachedGeSingleProduct(params.slug);
-
-    const firstDescriptionText = getFirstDescriptionText(productData.data[0].description);
-
-    const seoTitle = productData.data[0].seo?.seoTitle?.trim() ? productData.data[0].seo.seoTitle : productData.data[0].title;
-    const seoDescription = productData.data[0].seo?.seoDescription?.trim() ? productData.data[0].seo.seoDescription : firstDescriptionText;
-    const rebotStatus = productData.data[0].seo?.preventIndexing ? "noindex" : "index";
-    const dataPublishedTime = productData.data[0].publishedAt;
-    const autoCanonicalSlug = "/product/" + params.slug + "/";
-    const manualCanonicalSlug = validateCanonicalSlug(productData.data[0].seo?.canonicalLinks?.trim());
-    const canonicalLink = process.env.NEXT_PUBLIC_BASE_URL + (productData.data[0].seo?.canonicalLinks?.trim() ? manualCanonicalSlug : autoCanonicalSlug);
-    const category = productData.data[0].product_categories?.data[0].title ? productData.data[0].product_categories.data[0].title : "product";
-
-
-
-    return {
-        metadataBase: new URL('https://atlanticlubes.com'),
-        title: seoTitle,
-        description: seoDescription,
-        category: category,
-        robots: {
-            index: rebotStatus,
-            follow: rebotStatus,
-            nocache: rebotStatus,
-        },
-        alternates: {
-            canonical: canonicalLink,
-            languages: {
-                'en-US': canonicalLink,
-                'en-UK': canonicalLink,
-                'ar-AR': canonicalLink,
-                'fr-FR': canonicalLink,
-                'es-ES': canonicalLink,
-            },
-        },
-        openGraph: {
-            images: getImageUrl(productData.data[0].productImage.url),
-            locale: 'en_US',
-            url: process.env.NEXT_PUBLIC_BASE_URL + canonicalLink,
-            type: 'website',
-            publishedTime: dataPublishedTime,
-        },
-        other: {
-            'og:type': 'product',
-        },
-
-
-
+    const productData = await geSingleProduct(params.slug);
+  
+    const metadataParams = {
+      pageTitle: productData.data[0].title,
+      pageSlug: productData.data[0].slug,
+      pageDescription: getFirstDescriptionText(productData.data[0].description),
+      seoTitle: productData.data[0].seo?.seoTitle,
+      seoDescription: productData.data[0].seo?.seoDescription,
+      rebotStatus: productData.data[0].seo?.preventIndexing,
+      canonicalLinks: productData.data[0].seo?.canonicalLinks,
+      dataPublishedTime: productData.data[0].publishedAt,
+      category: productData.data[0].product_categories?.data[0].title,
+      image: productData.data[0].productImage.url,
+      imageAlternativeText:  productData.data[0].productImage?.alternativeText,
+      imageExt:  productData.data[0].productImage?.mime,
     };
-}
-
+  
+    return await generatePageMetadata({ type: "product", path: "/product/", params: metadataParams });
+  }
 
 
 
@@ -86,53 +56,157 @@ const SingleProductPage = async ({ params }) => {
   */
     const content = productData.data[0].description;
     const productGroup = productData.data[0].related_products;
-    const seoDescription = productData.data[0].seo?.seoDescription?.trim() ? productData.data[0].seo.seoDescription : firstDescriptionText;
+    const firstDescriptionText = getFirstDescriptionText(productData.data[0].description);
+    const seoDescription = productData.data[0].seo?.seoDescription?.trim() ? productData.data[0].seo.seoDescription.trim() : firstDescriptionText;
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+    const category = productData.data[0].product_categories?.data[0].title ? productData.data[0].product_categories.data[0].title : "product Category";
+    const categorySlug = productData.data[0].product_categories?.data[0].slug ? productData.data[0].product_categories.data[0].slug : "#";
+
+
+    let ratingCounter = 0;
+    const reviews = productData.data[0].productSchema?.reviews?.map(review => {
+        ratingCounter += review.bestRating;
+        return {
+            "@type": "Review",
+            "name": review.title,
+            "reviewBody": review.reviewBody,
+            "reviewRating": {
+                "@type": "Rating",
+                "ratingValue": review.bestRating,
+                "bestRating": "5",
+                "worstRating": "1"
+            },
+            "datePublished": review.datePublished,
+            "author": {
+                "@type": "Person",
+                "name": review.author
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "AtlanticLubes"
+            }
+        };
+    });
+
+
+
+    const averageRating = (ratingCounter / productData.data[0].productSchema?.reviews?.length || 0) || 4.8;
+
+
+    console.log("total review: " + productData.data[0].productSchema?.reviews?.length);
+    console.log("avarage: " + ratingCounter)
 
     const jsonLd = {
         "@context": "https://schema.org/",
         "@type": "Product",
         "name": productData.data[0].title,
         "image": getImageUrl(productData.data[0].productImage.url),
+        "image": [
+            getImageUrl(productData.data[0].productImage.url),  //large
+            getImageUrl(productData.data[0].productImage.formats.thumbnail.url),  // medium
+        ],
         "description": seoDescription,
 
         "brand": {
-            "@type": "Thing",
-            "name": "Atlantic"
+            "@type": "Brand",
+            "name": "Atlantic Lubricants and Greases"
         },
+        "sku": productData.data[0].productSchema.sku,
+        "gtin8": productData.data[0].productSchema.gtin8,
+        "mpn": productData.data[0].productSchema.mpn,
+
         "aggregateRating": {
             "@type": "AggregateRating",
-            "ratingValue": "4.8",
-            "reviewCount": "89"
+            "ratingValue": averageRating,   //avarage rating value
+            "reviewCount": productData.data[0].productSchema.offerCount,     // total reviews
+            "bestRating": "5",
+            "worstRating": "2",
         },
         "offers": {
             "@type": "Offer",
-            "priceCurrency": "USD",
-            "price": "20.99",
-            "priceValidUntil": productData.data[0].publishedAt,
-            "itemCondition": "http://schema.org/NewCondition",
+            "priceCurrency": "AED",
+            "price": "119.99",
+            "lowPrice": "1",
+            "highPrice": "2",
+            "priceValidUntil": addMonths(new Date(), 6),    // add 6 form current date
+            "itemCondition": "https://schema.org/NewCondition",
             "availability": "http://schema.org/InStock",
             "seller": {
                 "@type": "Organization",
                 "name": "Atlantic Grease and Lubricant"
             }
-        }
+        },
+        "hasMerchantReturnPolicy": {
+            "@type": "MerchantReturnPolicy",
+            "applicableCountry": "AE",
+            "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+            "merchantReturnDays": 15,
+            "returnMethod": "https://schema.org/ReturnByMail",
+            "returnFees": "https://schema.org/FreeReturn"
+        },
+
+        "review": reviews,
+
     }
+        
+    //  BreadcrumbList
+    const jsonLd2 =
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": baseUrl,
+        }, {
+            "@type": "ListItem",
+            "position": 2,
+            "name": category,
+            "item": baseUrl + '/'+ categorySlug
+        }, {
+            "@type": "ListItem", 
+            "position": 3,
+            "name": productData.data[0].title,
+        }]
+    };
 
-
-
+   // image schema for seo
+    const jsonLd3 =
+    {
+        "@context": "https://schema.org/",
+        "@type": "ImageObject",
+        "contentUrl": getImageUrl(productData.data[0].productImage.url),
+        "license":  siteConfig.imageObject.license,
+        "acquireLicensePage": siteConfig.imageObject.acquireLicensePage,
+        "creditText": siteConfig.imageObject.creditText,
+        "creator": {
+          "@type": "Organization",
+          "name": siteConfig.imageObject.creatorName,
+         },
+        "copyrightNotice": siteConfig.imageObject.copyrightNoticeProduct
+      };
 
 
 
     return (
         <div>
 
-            {/* Add JSON-LD to your page */}
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-            />
+      {/*  JSON-LD of Page */}
+            <script type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+
+            <script type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd2) }} />
+
+            <script type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd3) }} />
 
 
+             
+            <SEOSchema schemaList={productData.data[0].seo?.schema}  />
+
+ 
             <TopBanner banner={productData.data[0].product_categories.data[0].banner} />
 
 

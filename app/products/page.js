@@ -2,9 +2,35 @@ import Image from "next/image"
 import PaddingContainer from "../components/layout/padding-container"
 import TopBanner from "../components/layout/top-banner"
 import ProductCategoryBlock from "../components/elements/product-category-block"
-import Certification from "../components/layout/certification"
-import { geGridCategoybyProduct } from "../data/loader"
+import { geGridCategoybyProduct, geProductCategoryLeftMenu } from "../data/loader"
+import { cache } from 'react';
+import { generateMetadata as generatePageMetadata } from "@/libs/metadata";
+import SEOSchema from "../components/elements/seo-schema"
+ 
 
+const cachedGetGrideCategoryPage = cache(geGridCategoybyProduct);
+export async function generateMetadata({ params }) {
+ 
+ 
+  const pageData = await cachedGetGrideCategoryPage(); 
+    
+  const metadataParams = {
+    pageTitle:   pageData.slug,
+    pageSlug: "product",
+    pageDescription: "",
+    seoTitle: pageData.seo?.seoTitle,
+    seoDescription: pageData.seo?.seoDescription,
+    rebotStatus: pageData.seo?.preventIndexing,
+    canonicalLinks: pageData.seo?.canonicalLinks?? "product",
+    dataPublishedTime: pageData.publishedAt,
+    category: "",
+    image: pageData.banner.mobileBanner?.url,
+    imageAlternativeText:  pageData.banner.mobileBanner?.alternativeText ?? pageData.title,
+    imageExt:  pageData.banner.mobileBanner?.mime,
+  };
+
+  return await generatePageMetadata({ type: "page", path: "", params: metadataParams });
+}
 
 
 export const generateStaticParams = async () => {
@@ -28,41 +54,45 @@ export const generateStaticParams = async () => {
 }
 
 
+const Products = async () => {
 
-
-const PageData = await geGridCategoybyProduct( );
-
-const Products = () => {
-
+  const pageData = await cachedGetGrideCategoryPage();
+  const categoryData = await geProductCategoryLeftMenu();
   
-    console.log("-----------------------product category  Grid--------------------------------------------------");
-//   console.dir(PageData, { depth:null});
-// console.log("---------------------------End-----------------------end-----------------------");
+     console.log("-----------------------product category  Grid--------------------------------------------------");
+    console.dir(categoryData, { depth:null});
+  console.log("---------------------------End-----------------------end-----------------------");
 
 
   return (
     <div>
-        <TopBanner banner={PageData.banner} />
+
+    <SEOSchema schemaList={pageData.seo?.schema}  />
+
+        <TopBanner banner={pageData.banner} />
      
    {/* product category container */}
     <section>
-      <PaddingContainer>
-        <div className="flex flex-col space-y-2 md:space-y-3  ">
-            <div className="grid grid-cols-2 gap-2 md:gap-0 md:flex md:flex-row justify-center space-x-0 md:space-x-2 lg:space-x-3 relative  z-50 "> 
-              <ProductCategoryBlock colorImage={"/images/engine-oil-category.png"} grayImage={"/images/engine-oil-category-BW.png"} url="/product-category/engine-oil" text="Engine Oil" />
-              <ProductCategoryBlock colorImage={"/images/transmission-fluid-category-BW.png"} grayImage={"/images/transmission-fluid-category.png"} url="" text="Transmission" />
-              <ProductCategoryBlock colorImage={"/images/brake-fluid.png"} grayImage={"/images/brake-fluid-BW.png"} url="" text="Brake Fluid" />
-              <ProductCategoryBlock colorImage={"/images/industerial-fluid-category.png"} grayImage={"/images/industerial-fluid-category-BW.png"} url="" text="Engine Oil" />
-            </div>
 
-            
-            <div className="grid grid-cols-2 gap-2 md:gap-0 md:flex md:flex-row justify-center space-x-0 md:space-x-2 lg:space-x-3 relative  z-50 "> 
-              <ProductCategoryBlock colorImage={"/images/coolant.png"} grayImage={"/images/coolant-BW.png"} url="" text="Coolant" />
-              <ProductCategoryBlock colorImage={"/images/steering-fluid-category.png"} grayImage={"/images/steering-fluid-category-WB.png"} url="" text="Steering" />
-              <ProductCategoryBlock colorImage={"/images/marine-oil-category-BW.png"} grayImage={"/images/marine-oil-category.png"} url="" text="Marine" />
-              <ProductCategoryBlock colorImage={"/images/grease-category.png"} grayImage={"/images/grease-category-BW.png"} url="" text="Grease" />
-            </div>
-        </div>
+
+    
+
+      <PaddingContainer>
+
+
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4  gap-4 md:gap-5 md:mx-10 xl:gap-x-0 xl:mx-38   ">
+
+            {categoryData.data.map((category) => (
+               
+                <ProductCategoryBlock  key={category.id}  colorImage={category.image.url} grayImage={category.bImage.url} url={category.slug} text={category.title} />
+            ))}
+
+          </div>
+
+
+
+ 
+ 
       </PaddingContainer>
 
           <div className="relative  w-full h-[855px] justify-center items-center ">
@@ -72,7 +102,7 @@ const Products = () => {
             </a>
           </div>
 
-     <Certification />
+    
     </section>
     </div>
   )

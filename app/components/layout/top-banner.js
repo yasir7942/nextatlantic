@@ -1,9 +1,29 @@
 import Image from "next/image"
 import PaddingContainer from "./padding-container"
 import {getImageUrl} from "@/libs/helper";
+import siteConfig from "@/config/site";
 
 
 const TopBanner = ({ banner="" , home=false }) => {
+
+
+  // image schema for seo
+  const jsonLd =
+  {
+      "@context": "https://schema.org/",
+      "@type": "ImageObject",
+      "contentUrl": getImageUrl(banner?.webBanner?.url),
+      "license":  siteConfig.imageObject.license,
+      "acquireLicensePage": siteConfig.imageObject.acquireLicensePage,
+      "creditText": siteConfig.imageObject.creditText,
+      "creator": {
+        "@type": "Organization",
+        "name": siteConfig.imageObject.creatorName,
+       },
+      "copyrightNotice": siteConfig.imageObject.copyrightNoticeBanner
+    };
+
+
   
    if(!banner || banner.length == 0) return <div className=" mt-32"></div>
   
@@ -11,7 +31,9 @@ const TopBanner = ({ banner="" , home=false }) => {
   // <!--Top Banner-->
 
    <>
-        
+        <script type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+
     <div className={`hidden lg:relative lg:flex z-30 w-full  mt-[-85px] ${home ?  "h-[600px]  xl:h-[810px]" : "h-[480px]  xl:h-[500px]" }  `}>
       <div className={`lg:flex flex-col  justify-center text-left     z-20  ${home ?  "pt-28 xl:pt-36 pl-20 xl:pl-24 " : "pl-24 pt-0 xl:pt-24 " } `}> 
         <div className={`text-darkYellow uppercase font-bold font tracking-wide  ${home ?  " text-8xl xl:text-9xl" : "text-6xl xl:text-8xl" } `} >{banner.title}</div>
