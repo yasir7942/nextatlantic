@@ -28,9 +28,9 @@ export async function generateMetadata({ params }) {
     canonicalLinks: pageData.seo?.canonicalLinks?? "/",
     dataPublishedTime: pageData.publishedAt,
     category: "",
-    image: pageData.banner.mobileBanner?.url,
-    imageAlternativeText:  pageData.banner.mobileBanner?.alternativeText ?? pageData.title,
-    imageExt:  pageData.banner.mobileBanner?.mime,
+    image: pageData.banner?.mobileBanner?.url,
+    imageAlternativeText:  pageData.banner?.mobileBanner?.alternativeText ?? pageData.title,
+    imageExt:  pageData.banner?.mobileBanner?.mime,
   };
 
   return await generatePageMetadata({ type: "page", path: "", params: metadataParams });

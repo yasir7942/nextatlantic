@@ -454,3 +454,15 @@ export async function getCertificateApprovalPage() {
 
   return approvalPage
 }
+
+
+export async function geAllRedirectionUrl() {
+
+  const UrllockQuery = qs.stringify({
+
+    fields: ['soruce','destination']
+
+  });
+  return await fetchData("redirection-url", UrllockQuery);
+
+}

@@ -32,7 +32,7 @@ const Navigation = () => {
             src= "/images/logo-486x124.png"
             width={500}
             height={300}
-            alt="Atlantic Grease and Lubricants" />
+            alt="Atlantic Grease and Lubricants logo" />
         </a>
 
         <ul className="hidden md:flex text-gray-200 md:space-x-3 lg:space-x-6  text-lg md:font-light  lg:font-normal capitalize tracking-wider ">

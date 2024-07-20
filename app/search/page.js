@@ -2,18 +2,18 @@ import PaddingContainer from "@/app/components/layout/padding-container"
 import ProductCategoryMenu from "@/app/components/layout/product-category-menu";
  
 import Image from "next/image";
-import { geAllProductsSlug, geProductsByCategory, geProductsBySearch, geProductsBySearchAdvance, getProductCategory, getSearchPage } from "@/app/data/loader"
+import {   geProductsBySearchAdvance, getSearchPage } from "@/app/data/loader"
 import Link from 'next/link';
  
 import { generateMetadata as generatePageMetadata } from "@/libs/metadata";
-import { getFirstDescriptionText, getImageUrl } from "@/libs/helper";
+import {   getImageUrl } from "@/libs/helper";
 import SearchComponenet from "../components/layout/search-component";
-import { generateMetadata as generatePageMetadata } from "@/libs/metadata";
 import { cache } from 'react';
 import SEOSchema from "../components/elements/seo-schema";
 
 
 const cachedGetSearchPage = cache(getSearchPage);
+
 export async function generateMetadata({ params }) {
  
  
@@ -29,9 +29,9 @@ export async function generateMetadata({ params }) {
     canonicalLinks: pageData.seo?.canonicalLinks?? "search",
     dataPublishedTime: pageData.publishedAt,
     category: "",
-    image: pageData.banner.mobileBanner?.url,
-    imageAlternativeText:  pageData.banner.mobileBanner?.alternativeText ?? pageData.title,
-    imageExt:  pageData.banner.mobileBanner?.mime,
+    image: pageData.banner?.mobileBanner?.url,
+    imageAlternativeText:  pageData.banner?.mobileBanner?.alternativeText ?? pageData.title,
+    imageExt:  pageData.banner?.mobileBanner?.mime,
   };
 
   return await generatePageMetadata({ type: "page", path: "", params: metadataParams });

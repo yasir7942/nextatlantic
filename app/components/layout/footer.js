@@ -16,11 +16,11 @@ const Footer = () => {
                <div className="flex flex-col space-y-3" >
                   <div className="uppercase text-white font-medium py-4 text-xl">About Company</div>
                   <a href="#" className="w-64"> 
-                    <Image
-                            src="https://atlanticlubes.com/wp-content/uploads/2023/05/Atlanticlubes-logo.png.webp"
-                            width={500}
-                            height={300}
-                            alt="" />
+                  <Image
+            src= "/images/logo-486x124.png"
+            width={500}
+            height={300}
+            alt="Atlantic Grease and Lubricants Logo" />
                   </a>
                    <p className=" text-base text-gray-300 font-light max-w-sm md:max-w-60 lg:max-w-80">Atlantic Lubes is a premier quality lubricant product
                     manufacturer and supplier all over the world with certified ISO 9001-2015,ISO 17025-2015,& !SO 14001-2015 17025-BN14013</p>

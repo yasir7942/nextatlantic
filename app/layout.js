@@ -4,6 +4,7 @@ import Navigation from "./components/layout/navigation";
 import { Oswald } from "next/font/google"
 import Footer from "./components/layout/footer";
 import siteConfig from "@/config/site";
+import Script from "next/script";
  
 
 //const inter = Inter({ subsets: ["latin"] });
@@ -135,15 +136,20 @@ const jsonLdSearchBox ={
 
 
 
-
-
-
-
-
   return (
     <html lang="en" className="dark">
 
- 
+
+      {/*  Google tag (gtag.js) */}
+      <Script strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=AW-11316755137"></Script>
+      <Script id="google-analytics">
+        {`window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'AW-11316755137');`}
+      </Script>
+      
       <body className={oswald.className} >
 
         {/*  JSON-LD of Page */}

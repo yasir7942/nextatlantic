@@ -43,5 +43,22 @@ export const  addMonths=(date, months) => {
   return newDate.toISOString().split('T')[0];
 }
 
+
+export const  fetchRedirects=() => {
+  return [
+    {
+      source: '/contact-us', // automatically becomes /docs/with-basePath
+      destination: '/contact', // automatically becomes /docs/another
+      permanent: true,
+    },
+    {
+      // does not add /docs since basePath: false is set
+      source: '/about',
+      destination: '/about-us',
+      permanent: true,
+    },
+  ]
+  
+}
  
    

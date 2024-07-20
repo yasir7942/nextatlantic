@@ -36,11 +36,11 @@ const MobileNavigation = () => {
                   <div className="flex flex-col w-full h-full justify-between items-center py-6 px-4 relative     ">
 
                     <a href="/" className="w-[80%]">
-                      <Image
-                        src="https://atlanticlubes.com/wp-content/uploads/2023/05/Atlanticlubes-logo.png.webp"
-                        width={500}
-                        height={300}
-                        alt="" />
+                    <Image
+                        src= "/images/logo-332x88.png"
+                        width={332}
+                        height={88}
+                        alt="Atlantic Grease and Lubricants logo" />
                     </a>
 
 
