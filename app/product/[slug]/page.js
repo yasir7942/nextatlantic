@@ -12,6 +12,7 @@ import { FaDownload } from "react-icons/fa";
 import { cache } from 'react';
 import siteConfig from "@/config/site";
 import SEOSchema from "@/app/components/elements/seo-schema";
+import ProductSize from "@/app/components/layout/product-size";
  
 
 // Cache the geSingleProduct function
@@ -111,14 +112,14 @@ const SingleProductPage = async ({ params }) => {
             "@type": "Brand",
             "name": "Atlantic Lubricants and Greases"
         },
-        "sku": productData.data[0].productSchema.sku,
-        "gtin8": productData.data[0].productSchema.gtin8,
-        "mpn": productData.data[0].productSchema.mpn,
+        "sku": productData.data[0].productSchema?.sku,
+        "gtin8": productData.data[0].productSchema?.gtin8,
+        "mpn": productData.data[0].productSchema?.mpn,
 
         "aggregateRating": {
             "@type": "AggregateRating",
             "ratingValue": averageRating,   //avarage rating value
-            "reviewCount": productData.data[0].productSchema.offerCount,     // total reviews
+            "reviewCount": productData.data[0].productSchema?.offerCount,     // total reviews
             "bestRating": "5",
             "worstRating": "2",
         },
@@ -187,7 +188,7 @@ const SingleProductPage = async ({ params }) => {
         "copyrightNotice": siteConfig.imageObject.copyrightNoticeProduct
       };
 
-
+     
 
     return (
         <div>
@@ -245,41 +246,14 @@ const SingleProductPage = async ({ params }) => {
                             {/* image section */}
                             <div className="w-full md:w-2/6 items-center ">
                                 <div className="  w-full flex flex-col justify-center pt-20 md:pt-13 lg:pt-10 items-center text-center ">
-                                    <Image className="relative w-44 md:w-36 lg:w-52 text-center" src={getImageUrl(productData.data[0].productImage.url)} height={1000} width={1000} alt={productData.data[0].title} />
-                                    <div className="relative w-full flex justify-center items-start -mt-[1px]   h-[80px] overflow-hidden">
+                                    <Image priority className="relative w-44 md:w-36 lg:w-52 text-center" src={getImageUrl(productData.data[0].productImage.url)} height={1000} width={1000} alt={productData.data[0].title} />
+                                  {/*  <div className="relative w-full flex  justify-center items-start -mt-[1px]   h-[80px] overflow-hidden">
                                         <Image className="relative w-44 md:w-36 lg:w-52 text-center object-top transform rotate-180 opacity-30" src={getImageUrl(productData.data[0].productImage.url)} height={1000} width={1000} alt={productData.data[0].title} />
                                     </div>
-
-                                    <div className="  flex flex-col w-full  h-auto ">
-                                        <div className="text-center uppercase mt-10 text-gray-300">Size Available</div>
-                                        <div className="flex justify-center items-center   mt-5 space-x-1">
-                                            <div className="flex flex-col justify-center items-center">
-                                                <div className="w-12 md:w-8 lg:w-12 h-auto" ><Image src="/images/drum-icon.jpg" width={150} height={150} alt="" /></div>
-                                                <div className="text-center uppercase text-gray-300">1L</div>
-                                            </div>
-                                            <div className="flex flex-col justify-center items-center">
-                                                <div className="w-12 md:w-8 lg:w-12 h-auto" ><Image src="/images/drum-icon.jpg" width={150} height={150} alt="" /></div>
-                                                <div className="text-center uppercase text-gray-300">4L</div>
-                                            </div>
-
-                                            <div className="flex flex-col justify-center items-center">
-                                                <div className="w-12 md:w-8 lg:w-12 h-auto" ><Image src="/images/drum-icon.jpg" width={150} height={150} alt="" /></div>
-                                                <div className="text-center uppercase text-gray-300">5L</div>
-                                            </div>
-
-                                            <div className="flex flex-col justify-center items-center">
-                                                <div className="w-12 md:w-8 lg:w-12  h-auto" ><Image src="/images/drum-icon.jpg" width={150} height={150} alt="" /></div>
-                                                <div className="text-center uppercase text-gray-300">20L</div>
-                                            </div>
-
-                                            <div className="flex flex-col justify-center items-center">
-                                                <div className="w-12 md:w-8 lg:w-12 h-auto" ><Image src="/images/drum-icon.jpg" width={150} height={150} alt="" /></div>
-                                                <div className="text-center uppercase text-gray-300">200L</div>
-                                            </div>
-
-                                        </div>
-
-                                    </div>
+                                    */} 
+                                   
+                                    <ProductSize packingSize={productData.data[0].packing} />
+                                   
                                 </div>
                             </div>
 

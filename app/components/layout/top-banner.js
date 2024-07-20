@@ -40,7 +40,7 @@ const TopBanner = ({ banner="" , home=false }) => {
         <div className={`text-white uppercase  font-bold tracking-wider   leading-none  ${home ?  " mt-6  text-6xl xl:mt-7  xl:text-6xl" : " mt-2 xl:mt-3 text-4xl xl:text-5xl" }`}> <div dangerouslySetInnerHTML={{ __html: banner.subTitle }} /></div>
       </div>
 
-        <Image   src={getImageUrl(banner.webBanner.url)} width={1440}  height={home ? 810 : 600}
+        <Image priority  src={getImageUrl(banner.webBanner.url)} width={1440}  height={home ? 810 : 600}
         className=" absolute w-full object-cover object-center"   alt={banner.alternativeText} />  
     </div>
 
@@ -48,7 +48,7 @@ const TopBanner = ({ banner="" , home=false }) => {
      {/* show md to  sm */}
     
         <section className="lg:hidden relative z-20 w-full h-auto mt-[-85px] " >
-                  <Image  src={getImageUrl(banner.mobileBanner.url)} width={1440} height={569}
+                  <Image priority  src={getImageUrl(banner.mobileBanner.url)} width={1440} height={569}
                  className="w-full object-cover object-center"   alt={banner.alternativeText}/>
                  <PaddingContainer>
                     <div className={`flex flex-col   ml-10 pb-16   ${home ?  "-mt-16 " : " -mt-28 md:-mt-60" } `}> 

@@ -83,8 +83,8 @@ const currentPage = Number(searchParams.page) || 1;
   const totalPage = productData.meta.pagination.total;
 
      console.log("-----------------------products --------------------------------------------------");
-  //  console.dir(productData, { depth:null}); 
-  // console.log("---------------------------End--------p category---------------end-----------------------");
+    console.dir(productData, { depth:null}); 
+    console.log("---------------------------End--------p category---------------end-----------------------");
   //  console.log(productData.data);
   // if(productData.data.length === 0)  return  <NotFound />
 
