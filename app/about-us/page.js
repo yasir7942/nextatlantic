@@ -16,9 +16,9 @@ export async function generateMetadata({ params }) {
   const pageData = await cachedGetAboutPage(); 
     
   const metadataParams = {
-    pageTitle:   pageData.slug,
+    pageTitle:   "About Us",
     pageSlug: "about-us",
-    pageDescription: "",
+    pageDescription: pageData.seo?.seoDescription,
     seoTitle: pageData.seo?.seoTitle,
     seoDescription: pageData.seo?.seoDescription,
     rebotStatus: pageData.seo?.preventIndexing,
@@ -38,9 +38,9 @@ const AboutUsPage = async () => {
 
     const pageData = await cachedGetAboutPage();
 
-   // console.log("-----------------------about   page--------------------------------------------------");
-   // console.dir(pageData, { depth: null });
-   // console.log("---------------------------End-----about ------------------end-----------------------");
+     console.log("-----------------------about   page--------------------------------------------------");
+     console.dir(pageData, { depth: null });
+    console.log("---------------------------End-----about ------------------end-----------------------");
 
 
 
@@ -84,7 +84,7 @@ const AboutUsPage = async () => {
             <div className="w-full h-auto py-10 bg-blue-950 mt-10 text-white ">
                 <PaddingContainer  >
                     <div className="flex flex-col lg:flex-row justify-center items-center space-x-7 " >
-                        <Image className="w-96 h-auto" src={getImageUrl(pageData.founder.image.url)} width={800} height={500} alt={pageData.founder.image.alternativeText} />
+                        <Image className="w-96 h-auto" src={getImageUrl(pageData?.founder?.image.url)} width={800} height={500} alt={pageData?.founder?.image.alternativeText} />
                         <div className="flex flex-col space-y-3">
                             <h2 className="text-3xl font-light mt-7 lg:mt-0 headline uppercase">{pageData.founder.title}</h2>
                             <div className="text-white font-light   mt-5   pr-5 md:pr-2 rich-text max-w-4xl summary " >

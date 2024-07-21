@@ -3,9 +3,13 @@ import {  NextResponse } from 'next/server'
 
 export async function GET(request)
 {
-    const token = request.netUrl.searchParams.get("slug");
-    if(!token || token !== process.env.ADMIN_TOKEN)
-        return NextResponse.json({ error: "Not Authorized"}, { status:404 });
+
+    const url = new URL(request.url);
+    const token = url.searchParams.get("token");
+
+    if (!token || token !== process.env.ADMIN_TOKEN) {
+        return NextResponse.json({ error: "Not Authorized" }, { status: 404 });
+    }
 
     revalidatePath('/', 'layout');
 
