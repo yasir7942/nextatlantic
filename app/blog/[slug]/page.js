@@ -35,20 +35,16 @@ export async function generateMetadata({ params }) {
   return await generatePageMetadata({ type: "post", path: "/post/", params: metadataParams });
 }
 
-
-
-
-
 const SingleBlogPage = async ({ params }) => {
 
 
   const postData = await cachedGeSinglePost(params.slug);
   //const postData = await geSinglePost(params.slug);
 
- {/* console.log("-----------------------single post page--------------------------------------------------");
+   console.log("-----------------------single post page--------------------------------------------------");
   console.dir(postData, { depth: null });
   console.log("---------------------------End-----single post------------------end-----------------------");
-*/}
+ 
 const firstDescriptionText = getFirstDescriptionText(postData.data[0].description);
 const seoDescription = postData.data[0]?.seo?.seoDescription?.trim() ? postData.data[0]?.seo?.seoDescription?.trim() : firstDescriptionText;
 
