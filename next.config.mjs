@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 
-/** 
+ 
 import fetchRedirects from './libs/fetch-redirects.mjs';
  
 const getRedirects = async () => {
@@ -8,15 +8,14 @@ const getRedirects = async () => {
     return redirectsData;
 };
 
-*/
-/*
+ 
 const unOptimized = true;
 if(process.env.MODE === "pro")
     {
         unOptimized =false;
     }
 
-    */
+   
 
 const nextConfig = {
       
@@ -24,8 +23,12 @@ const nextConfig = {
 
 
     images: {
-       /* unoptimized: unOptimized,   false in in live server make webp images*/
+         unoptimized: unOptimized,   //false in in live server make webp images 
         remotePatterns: [
+            {
+                hostname: "front.atlanticlubes.com",
+                protocol: "https", 
+            },
             {
                 hostname: "atlanticlubes.com",
                 protocol: "https", 
@@ -41,11 +44,11 @@ const nextConfig = {
         ],
     },
 
-  /*  async redirects() {
+     async redirects() {
         return await getRedirects();
     },
 
-    */
+     
     
 
 };
