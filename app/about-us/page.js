@@ -38,9 +38,9 @@ const AboutUsPage = async () => {
 
     const pageData = await cachedGetAboutPage();
 
-     console.log("-----------------------about   page--------------------------------------------------");
-     console.dir(pageData, { depth: null });
-    console.log("---------------------------End-----about ------------------end-----------------------");
+    //// console.log("-----------------------about   page--------------------------------------------------");
+   //  console.dir(pageData, { depth: null });
+   // console.log("---------------------------End-----about ------------------end-----------------------");
 
 
 

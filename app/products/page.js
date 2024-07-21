@@ -59,9 +59,9 @@ const Products = async () => {
   const pageData = await cachedGetGrideCategoryPage();
   const categoryData = await geProductCategoryLeftMenu();
   
-     console.log("-----------------------product category  Grid--------------------------------------------------");
-    console.dir(categoryData, { depth:null});
-  console.log("---------------------------End-----------------------end-----------------------");
+    // console.log("-----------------------product category  Grid--------------------------------------------------");
+  //  console.dir(categoryData, { depth:null});
+  //console.log("---------------------------End-----------------------end-----------------------");
 
 
   return (
