@@ -49,7 +49,7 @@ const SingleBlogPage = async ({ params }) => {
   console.log("---------------------------End-----single post------------------end-----------------------");
 */}
 const firstDescriptionText = getFirstDescriptionText(postData.data[0].description);
-const seoDescription = postData.data[0].seo?.seoDescription?.trim() ? postData.data[0].seo?.seoDescription.trim() : firstDescriptionText;
+const seoDescription = postData.data[0].seo?.seoDescription?.trim() ? postData.data[0].seo?.seoDescription?.trim() : firstDescriptionText;
 
 const jsonLd =
 {
