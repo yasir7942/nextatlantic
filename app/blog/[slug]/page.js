@@ -22,8 +22,7 @@ export async function generateMetadata({ params }) {
     pageSlug: postData.data[0].slug,
     pageDescription: getFirstDescriptionText(postData.data[0].description),
     seoTitle: postData.data[0].seo?.seoTitle,
-    //seoDesctiption: postData.data[0]?.seo?.seoDesctiption ?? "",
-    seoDesctiption:  "static in code 1",
+     seoDesctiption: postData.data[0]?.seo?.seoDesctiption ?? "",
     rebotStatus: postData.data[0].seo?.preventIndexing,
     canonicalLinks: postData.data[0].seo?.canonicalLinks,
     dataPublishedTime: postData.data[0].publishedAt,
@@ -49,8 +48,8 @@ const SingleBlogPage = async ({ params }) => {
   //  console.log("---------------------------End-----single post------------------end-----------------------");
  
 const firstDescriptionText = getFirstDescriptionText(postData.data[0].description);
-//const seoDesctiption = postData.data[0]?.seo?.seoDesctiption?.trim() ? postData.data[0]?.seo?.seoDesctiption?.trim() : firstDescriptionText;
-const seoDesctiption = "static in code 2";
+ const seoDesctiption = postData.data[0]?.seo?.seoDesctiption?.trim() ? postData.data[0]?.seo?.seoDesctiption?.trim() : firstDescriptionText;
+ 
 const jsonLd =
 {
   "@context": "https://schema.org",
