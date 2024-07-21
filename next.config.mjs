@@ -19,7 +19,7 @@ if(process.env.MODE === "pro")
 
 const nextConfig = {
       
-
+    output: "export",
 
 
     images: {
