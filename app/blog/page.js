@@ -24,7 +24,7 @@ export async function generateMetadata({ params }) {
     pageSlug: "blog",
     pageDescription: "",
     seoTitle: pageData.seo?.seoTitle,
-    seoDescription: pageData.seo?.seoDescription,
+     seoDescription: pageData.seo?.seoDescription,
     rebotStatus: pageData.seo?.preventIndexing,
     canonicalLinks: pageData.seo?.canonicalLinks?? "blog",
     dataPublishedTime: pageData.publishedAt,

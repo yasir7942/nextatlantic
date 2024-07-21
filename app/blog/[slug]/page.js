@@ -22,7 +22,8 @@ export async function generateMetadata({ params }) {
     pageSlug: postData.data[0].slug,
     pageDescription: getFirstDescriptionText(postData.data[0].description),
     seoTitle: postData.data[0].seo?.seoTitle,
-    seoDesctiption: postData.data[0]?.seo?.seoDesctiption ?? "",
+    //seoDesctiption: postData.data[0]?.seo?.seoDesctiption ?? "",
+    seoDesctiption:  "static in code 1",
     rebotStatus: postData.data[0].seo?.preventIndexing,
     canonicalLinks: postData.data[0].seo?.canonicalLinks,
     dataPublishedTime: postData.data[0].publishedAt,
@@ -33,9 +34,6 @@ export async function generateMetadata({ params }) {
   };
 
 
-  console.log("-----------------------single post page-----------------log---------------------------------");
-    console.log(metadataParams);
-    console.log("---------------------------End-----single post------------------end-----------log------------");
  
 
   return await generatePageMetadata({ type: "post", path: "/post/", params: metadataParams });
@@ -46,13 +44,13 @@ const SingleBlogPage = async ({ params }) => {
   const postData = await cachedGeSinglePost(params.slug);
    
 
-   console.log("-----------------------single post page--------------------------------------------------");
-    console.dir(postData, { depth: null });
-    console.log("---------------------------End-----single post------------------end-----------------------");
+  // console.log("-----------------------single post page--------------------------------------------------");
+  //  console.dir(postData, { depth: null });
+  //  console.log("---------------------------End-----single post------------------end-----------------------");
  
 const firstDescriptionText = getFirstDescriptionText(postData.data[0].description);
-const seoDesctiption = postData.data[0]?.seo?.seoDesctiption?.trim() ? postData.data[0]?.seo?.seoDesctiption?.trim() : firstDescriptionText;
-
+//const seoDesctiption = postData.data[0]?.seo?.seoDesctiption?.trim() ? postData.data[0]?.seo?.seoDesctiption?.trim() : firstDescriptionText;
+const seoDesctiption = "static in code 2";
 const jsonLd =
 {
   "@context": "https://schema.org",
