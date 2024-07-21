@@ -1,18 +1,6 @@
 
 const siteConfig = {
     
-      socialMedia: {
-          facebook: "https://www.facebook.com/atlanticlubes.ae",
-          twitter: "https://twitter.com/atlanticlubes",
-          linkedin:"https://www.linkedin.com/company/atlantic-grease-and-lubricants-uae/",
-          instagram:"https://www.instagram.com/atlanticlube/",
-          youtube:"https://www.youtube.com/channel/UCn7DjM-iqD999s8rFESRw5w/videos",
-          vimeo:"https://vimeo.com/atlanticlubes",
-          tiktok:"https://www.tiktok.com/@atlanticlubes",
-          pinterest:"https://www.pinterest.com/atlanticlubes/",
-          snapchat:"https://www.snapchat.com/add/atlanticlubes",
-      },
-
   organizatioName: "Atlantic Grease and Lubricants",
   description:"",
   baseUrl:process.env.NEXT_PUBLIC_BASE_URL,
@@ -31,6 +19,20 @@ const siteConfig = {
   telephone:"+97165264688",
   vatId:"100312114000003",
   iso6523Code:"",
+  postAuthor: "Dr. Jawad Haroon",
+
+
+  socialMedia: {
+    facebook: "https://www.facebook.com/atlanticlubes.ae",
+    twitter: "https://twitter.com/atlanticlubes",
+    linkedin:"https://www.linkedin.com/company/atlantic-grease-and-lubricants-uae/",
+    instagram:"https://www.instagram.com/atlanticlube/",
+    youtube:"https://www.youtube.com/channel/UCn7DjM-iqD999s8rFESRw5w/videos",
+    vimeo:"https://vimeo.com/atlanticlubes",
+    tiktok:"https://www.tiktok.com/@atlanticlubes",
+    pinterest:"https://www.pinterest.com/atlanticlubes/",
+    snapchat:"https://www.snapchat.com/add/atlanticlubes",
+},
 
   imageObject:
   {
@@ -40,8 +42,6 @@ const siteConfig = {
     creatorName: "Atlantic Group of Companies",   //organization
     copyrightNoticeProduct: "All images of Atlantic Grease and Lubricant products are the exclusive property of Atlantic Grease and Lubricant. These images were created by our company, featuring our uniquely designed products. Any unauthorized use, reproduction, distribution, or modification of these images is strictly prohibited without the express written consent of Atlantic Grease and Lubricant.For inquiries regarding the use of these images, please contact us.",
     copyrightNoticeBanner: "The banners displayed on this website have been created by modifying and enhancing images sourced from the internet. While we have significantly altered these images, the original copyrights may belong to the original creators. Any unauthorized use, reproduction, distribution, or modification of these banners without the express written consent of Atlantic Grease and Lubricant is prohibited. For inquiries regarding the use of these banners, please contact us."
-    
-
   }
 
   }

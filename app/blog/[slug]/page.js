@@ -3,6 +3,7 @@ import SEOSchema from "@/app/components/elements/seo-schema";
 import BlogContainer from "@/app/components/layout/blog-container";
 import PaddingContainer from "@/app/components/layout/padding-container";
 import { geSinglePost } from "@/app/data/loader";
+import siteConfig from "@/config/site";
 import { getFirstDescriptionText, getImageUrl, validateCanonicalSlug } from "@/libs/helper";
 import { generateMetadata as generatePageMetadata } from "@/libs/metadata";
 import Image from "next/image";
@@ -15,13 +16,13 @@ const cachedGeSinglePost = cache(geSinglePost);
 
 export async function generateMetadata({ params }) {
   const postData = await cachedGeSinglePost(params.slug);
-
+    
   const metadataParams = {
     pageTitle: postData.data[0].title,
     pageSlug: postData.data[0].slug,
     pageDescription: getFirstDescriptionText(postData.data[0].description),
     seoTitle: postData.data[0].seo?.seoTitle,
-    seoDescription: postData.data[0].seo?.seoDescription,
+    seoDescription: postData.data[0]?.seo?.seoDescription ?? "",
     rebotStatus: postData.data[0].seo?.preventIndexing,
     canonicalLinks: postData.data[0].seo?.canonicalLinks,
     dataPublishedTime: postData.data[0].publishedAt,
@@ -49,7 +50,7 @@ const SingleBlogPage = async ({ params }) => {
   console.log("---------------------------End-----single post------------------end-----------------------");
 */}
 const firstDescriptionText = getFirstDescriptionText(postData.data[0].description);
-const seoDescription = postData.data[0].seo?.seoDescription?.trim() ? postData.data[0].seo?.seoDescription?.trim() : firstDescriptionText;
+const seoDescription = postData.data[0]?.seo?.seoDescription?.trim() ? postData.data[0]?.seo?.seoDescription?.trim() : firstDescriptionText;
 
 const jsonLd =
 {
@@ -65,7 +66,7 @@ const jsonLd =
   "dateModified": postData.data[0].updatedAt,
   "author": [{
       "@type": "Organization",
-      "name": "Jawad Haroon",
+      "name": siteConfig.postAuthor,
     }]
 };
 
