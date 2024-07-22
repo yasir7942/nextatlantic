@@ -140,7 +140,7 @@ const jsonLdSearchBox ={
     <html lang="en" className="dark">
 
 
-      {/*  Google tag (gtag.js) */}
+      {/*  Google tag (gtag.js) 
       <Script strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=AW-11316755137"></Script>
       <Script id="google-analytics">
         {`window.dataLayer = window.dataLayer || [];
@@ -149,6 +149,8 @@ const jsonLdSearchBox ={
 
         gtag('config', 'AW-11316755137');`}
       </Script>
+      */}
+
       
       <body className={oswald.className} >
 

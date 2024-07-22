@@ -10,6 +10,7 @@ import CertificateText from "./components/layout/certification-text";
 import { generateMetadata as generatePageMetadata } from "@/libs/metadata";
 import { cache } from 'react';
 import SEOSchema from "./components/elements/seo-schema";
+import Link from "next/link";
 
 
 const cachedGetHomePage = cache(getHomePage);
@@ -71,7 +72,7 @@ export default async function Home() {
             <h2 className="uppercase text-md font-bold text-darkYellow mt-2">Avaition</h2>
           </a>
           <a href="#" className="flex flex-col text-center items-center">
-            <Image className="w-24 md:w-25" src="/images/Steering.svg" width={250} height={250} alt="" />
+            <Image className="w-24 md:w-25" src="/images/steering.svg" width={250} height={250} alt="" />
             <h2 className="uppercase text-md font-bold text-darkYellow mt-2">Steering</h2>
           </a>
           <a href="#" className="flex flex-col text-center items-center">
@@ -100,13 +101,14 @@ export default async function Home() {
 
 
         {/* <!-- media section--> */}
-        <section className="w-full h-auto flex flex-col md:flex-row mt-20 p-12 pb-0 justify-between  space-x-0 space-y-20 md:space-y-0 md:space-x-20">
+        <section className="w-full h-auto flex flex-col md:flex-row mt-20 p-12 pb-0 justify-evenly space-x-0 space-y-20 md:space-y-0 md:space-x-24">
 
-          <div className="flex items-center md:-mt-10">
-            <Image className="" src="/images/video-image.jpg" width={600} height={600} alt="" />
+          <div className="flex  items-center md:-mt-10  ">
+          <Link className="" href="https://www.youtube.com/watch?v=Ofmc3uhbwyk&t=67s"  rel="noopener noreferrer" target="_blank"> 
+             <Image   src="/images/video-image.jpg" width={600} height={600} alt="Atlantic Grease and Lubricants Video" /> </Link>
           </div>
-          <div>
-            <Image className="" src="/images/atlantic-products.png" width={600} height={600} alt="" />
+          <div >
+            <Image   src="/images/atlantic-products.png" width={600} height={500} alt="Atlantic Product Range" />
           </div>
 
         </section>

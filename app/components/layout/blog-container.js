@@ -26,7 +26,7 @@ const BlogContainer = async () => {
   return (
     <div>
       
-       <PaddingContainer>
+     
 
 
        {/* <!--Latest News --> */}
@@ -34,7 +34,7 @@ const BlogContainer = async () => {
 
             {/* <!--heading--> */}
            <div className="flex flex-col">
-                  <div className="font-semibold text-6xl md:text-8xl  tracking-widest uppercase text-gray-700 opacity-40 z-10" >Latest News</div>
+                  <div className="font-semibold text-6xl md:text-8xl  tracking-widest uppercase text-[#4F5256] opacity-80 z-10" >Latest News</div>
                   <h3 className="font-extrabold text-4xl uppercase text-darkYellow  tracking-wider -mt-7 ml-5 z-20" >Latest News</h3>
            </div>
            {/* <!--news blocks--> */}
@@ -64,8 +64,6 @@ const BlogContainer = async () => {
       {/* <!--End Latest News --> */}
 
 
-
-       </PaddingContainer>
 
     </div>
   )

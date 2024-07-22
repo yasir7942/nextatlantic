@@ -129,7 +129,7 @@ const SingleProductPage = async ({ params }) => {
             "price": "119.99",
             "lowPrice": "1",
             "highPrice": "2",
-            "priceValidUntil": addMonths(new Date(), 6),    // add 6 form current date
+            //"priceValidUntil": addMonths(new Date(), 6),    // add 6 month form current date
             "itemCondition": "https://schema.org/NewCondition",
             "availability": "http://schema.org/InStock",
             "seller": {

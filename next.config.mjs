@@ -15,15 +15,15 @@ if(process.env.MODE === "pro")
         unOptimized =false;
     }
 
-   
+  
 
 const nextConfig = {
       
-    output: "export",
+   
 
 
     images: {
-         unoptimized: unOptimized,   //false in in live server make webp images 
+      unoptimized: unOptimized,   //false in in live server make webp images 
         remotePatterns: [
             {
                 hostname: "front.atlanticlubes.com",
