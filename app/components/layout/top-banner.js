@@ -41,15 +41,15 @@ const TopBanner = ({ banner="" , home=false }) => {
       </div>
 
         <Image priority  src={getImageUrl(banner.webBanner.url)} width={1440}  height={home ? 810 : 600}
-        className=" absolute w-full object-cover object-center"   alt={banner.alternativeText ?? "Atlantic Grease and Lubricants"} />  
+        className=" absolute w-full object-cover object-center"   alt={banner.alternativeText ?? "Atlantic Grease and Lubricants"} loading="lazy" />  
     </div>
 
 
      {/* show md to  sm */}
     
         <section className="lg:hidden relative z-20 w-full h-auto mt-[-85px] " >
-                  <Image priority  src={getImageUrl(banner.mobileBanner.url)} width={1440} height={569}
-                 className="w-full object-cover object-center"   alt={banner.alternativeText ?? "Atlantic Grease and Lubricants"} />
+                  <Image priority  src={getImageUrl(banner.mobileBanner.url)} width={800} height={569} 
+                 className="w-full object-cover object-center"   alt={banner.alternativeText ?? "Atlantic Grease and Lubricants"} loading="lazy" />
                  <PaddingContainer>
                     <div className={`flex flex-col   ml-10 pb-16   ${home ?  "-mt-16 " : " -mt-28 md:-mt-60" } `}> 
                       <div className={`text-darkYellow uppercase font-semibold font  ${home ?  "text-8xl" : "text-6xl md:text-7xl" } `} >{banner.title}</div>

@@ -31,11 +31,38 @@ import { AiFillTikTok } from "react-icons/ai";
         }
     };
 
+    const getName = (plateform)=>{
+     switch(plateform)
+     {
+         case "facebook":
+             return   "Facebook"
+         case "twitter":
+              return "Twitter"
+         case "linkedin":
+              return "Linkedin"
+         case "instagram":
+               return "Instagram"
+         case "youtube":
+               return "Youtube"
+         case "vimeo":
+               return "Vimeo" 
+         case "tiktok":
+               return "Tiktok"
+         case "pinterest":
+               return "Pinterest"
+         case "snapchat":
+               return "Snapchat"
+        
+     }
+ };
+
 
     if (dark) {
         return (
              
-                <Link href={link} target="_blank" className="text-black "  > 
+                <Link href={link} target="_blank" className="text-black " 
+                aria-label={`Follow us on ${getName(plateform)}`}  
+                  > 
                 <div className=' flex  justify-center items-center bg-white w-8 h-8  hover:bg-gray-200  rounded-full ' >
                    { getIcon(plateform) } 
                    </div>
@@ -45,7 +72,7 @@ import { AiFillTikTok } from "react-icons/ai";
         
               
       } else {
-        return  <Link href={link} target="_blank" className="text-white hover:text-gray-200" >   { getIcon(plateform) } </Link>
+        return  <Link href={link} target="_blank" aria-label={`Follow us on ${getName(plateform)}`}  className="text-white hover:text-gray-200" >   { getIcon(plateform) } </Link>
         
       }
 

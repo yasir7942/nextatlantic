@@ -11,6 +11,7 @@ import { generateMetadata as generatePageMetadata } from "@/libs/metadata";
 import { cache } from 'react';
 import SEOSchema from "./components/elements/seo-schema";
 import Link from "next/link";
+import siteConfig from "@/config/site";
 
 
 const cachedGetHomePage = cache(getHomePage);
@@ -20,9 +21,9 @@ export async function generateMetadata({ params }) {
   const pageData = await cachedGetHomePage(); 
     
   const metadataParams = {
-    pageTitle:   pageData.slug,
+    pageTitle:  siteConfig.organizatioName,
     pageSlug: "/",
-    pageDescription: "",
+    pageDescription: siteConfig.description,
     seoTitle: pageData.seo?.seoTitle,
     seoDescription: pageData.seo?.seoDescription,
     rebotStatus: pageData.seo?.preventIndexing,
@@ -105,10 +106,10 @@ export default async function Home() {
 
           <div className="flex  items-center md:-mt-10  ">
           <Link className="" href="https://www.youtube.com/watch?v=Ofmc3uhbwyk&t=67s"  rel="noopener noreferrer" target="_blank"> 
-             <Image   src="/images/video-image.jpg" width={600} height={600} alt="Atlantic Grease and Lubricants Video" /> </Link>
+             <Image   src="/images/video-image.jpg" width={600} height={500} alt="Atlantic Grease and Lubricants Video" loading="lazy" /> </Link>
           </div>
           <div >
-            <Image   src="/images/atlantic-products.png" width={600} height={500} alt="Atlantic Product Range" />
+            <Image   src="/images/atlantic-products.png" width={600} height={500} alt="Atlantic Product Range" loading="lazy" />
           </div>
 
         </section>

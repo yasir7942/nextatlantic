@@ -2,7 +2,7 @@
 const siteConfig = {
     
   organizatioName: "Atlantic Grease and Lubricants",
-  description:"",
+  description:"Previous slide Next slide Pioneers of Lubricants and Grease Manufacturing Atlantic Grease &amp; Lubricants is one of the leading manufacturers in the automotive industry providing high-performance products certified by renowned European and American automobileindustries.AGL incorporates cutting-edge expertise with certified lubricants and greases for customersglobally. Our consistent dedication to innovation, excellence, and customer satisfaction.",
   baseUrl:process.env.NEXT_PUBLIC_BASE_URL,
   ogImage: process.env.NEXT_PUBLIC_BASE_URL + "/opengraph-image.jpg",
   logoImage: process.env.NEXT_PUBLIC_BASE_URL+ "/images/logo-486x124.png",

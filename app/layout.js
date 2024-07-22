@@ -140,16 +140,25 @@ const jsonLdSearchBox ={
     <html lang="en" className="dark">
 
 
-      {/*  Google tag (gtag.js) 
-      <Script strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=AW-11316755137"></Script>
-      <Script id="google-analytics">
-        {`window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'AW-11316755137');`}
-      </Script>
-      */}
+      {/*  Google tag (gtag.js)    */}
+       <Script 
+      strategy="afterInteractive" 
+      src="https://www.googletagmanager.com/gtag/js?id=AW-11316755137" 
+      async 
+       />
+      <Script 
+      id="google-analytics" 
+      strategy="afterInteractive" 
+      dangerouslySetInnerHTML={{
+        __html: `
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'AW-11316755137');
+        `
+      }} 
+    />
+    
 
       
       <body className={oswald.className} >
