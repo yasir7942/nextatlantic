@@ -4,7 +4,7 @@ import {  NextResponse } from 'next/server'
 export async function GET(request)
 {
 
-    const url = new URL(request.url);
+     const url = new URL(request.url);
     const token = url.searchParams.get("token");
 
     if (!token || token !== process.env.ADMIN_TOKEN) {
@@ -17,5 +17,5 @@ export async function GET(request)
         revalidated: true,
         now: Date.now(),
         message: 'Revalidated All Data',
-      })
+      })     
 }

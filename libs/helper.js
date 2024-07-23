@@ -43,7 +43,7 @@ export const validateCanonicalSlug = (link) => {
 }
 
 
-
+/*
 
 export const  addMonths=(date, months) => {
   const newDate = new Date(date);
@@ -51,7 +51,7 @@ export const  addMonths=(date, months) => {
   console.log(newDate);
   return newDate.toISOString().split('T')[0];
 }
-
+*/
 
 export const  fetchRedirects=() => {
   return [

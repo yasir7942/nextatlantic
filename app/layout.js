@@ -141,7 +141,7 @@ const jsonLdSearchBox ={
 
 
       {/*  Google tag (gtag.js)    */}
-       <Script 
+     {/*   <Script 
       strategy="afterInteractive" 
       src="https://www.googletagmanager.com/gtag/js?id=AW-11316755137" 
       async 
@@ -159,7 +159,7 @@ const jsonLdSearchBox ={
       }} 
     />
     
-
+*/}
       
       <body className={oswald.className} >
 

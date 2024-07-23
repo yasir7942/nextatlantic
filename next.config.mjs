@@ -10,16 +10,21 @@ const getRedirects = async () => {
 
  
 const unOptimized = true;
+const  fileRoutes = true;
 if(process.env.MODE === "pro")
     {
         unOptimized =false;
+        fileRoutes = false;
+
     }
 
   
 
 const nextConfig = {
-      
+    
    
+    useFileSystemPublicRoutes: fileRoutes,
+ 
 
 
     images: {

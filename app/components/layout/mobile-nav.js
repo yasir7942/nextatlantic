@@ -27,7 +27,7 @@ const MobileNavigation = () => {
   return (
     <div>
       <Sheet open={openSheet} onOpenChange={setOpenSheet}>
-            <SheetTrigger asChild><a href="#"><IoMdMenu size={32} /> </a></SheetTrigger>
+            <SheetTrigger asChild><a href="#"><IoMdMenu aria-label={`Mobile Menu`}  size={32} /> </a></SheetTrigger>
             <SheetContent className="w-72">
               <SheetHeader>
 
