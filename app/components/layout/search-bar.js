@@ -1,4 +1,5 @@
 "use client";
+
 import { geProductsBySearch } from "@/app/data/loader";
 import Image from "next/image";
 import Link from "next/link";

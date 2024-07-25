@@ -1,4 +1,4 @@
-import Link from 'next/link'
+
 import { FaFacebook, FaInstagramSquare, FaLinkedin, FaPinterestSquare, FaSnapchatSquare, FaTwitterSquare, FaVimeoSquare, FaYoutube, FaYoutubeSquare } from "react-icons/fa";
 import { AiFillTikTok } from "react-icons/ai";
 
@@ -60,19 +60,21 @@ import { AiFillTikTok } from "react-icons/ai";
     if (dark) {
         return (
              
-                <Link href={link} target="_blank" className="text-black " 
-                aria-label={`Follow us on ${getName(plateform)}`}  
-                  > 
-                <div className=' flex  justify-center items-center bg-white w-8 h-8  hover:bg-gray-200  rounded-full ' >
+                <a href={link} target="_blank" className="text-black " 
+                aria-label={`Follow us on ${getName(plateform)}`}   > 
+                    <div className=' flex  justify-center items-center bg-white w-8 h-8  hover:bg-gray-200  rounded-full ' >
                    { getIcon(plateform) } 
                    </div>
-               </Link>
+               </a>
              
         )
         
               
       } else {
-        return  <Link href={link} target="_blank" aria-label={`Follow us on ${getName(plateform)}`}  className="text-white hover:text-gray-200" >   { getIcon(plateform) } </Link>
+        return  <a href={link} target="_blank" aria-label={`Follow us on ${getName(plateform)}`} 
+         className="text-white hover:text-gray-200" >
+             { getIcon(plateform) }
+           </a>
         
       }
 

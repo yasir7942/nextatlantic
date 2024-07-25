@@ -4,7 +4,7 @@ import Navigation from "./components/layout/navigation";
 import { Oswald } from "next/font/google"
 import Footer from "./components/layout/footer";
 import siteConfig from "@/config/site";
-import Script from "next/script";
+ 
  
 
 //const inter = Inter({ subsets: ["latin"] });
@@ -17,8 +17,8 @@ const oswald = Oswald({
  
 
 export const metadata = {
-  title: "Atlantic Grease and Lubricants FZC (AGL) - A Leading Manufacturer Company",
-  description: "Pioneers of Lubricants and Grease Manufacturing Atlantic Grease & Lubricants is one of the leading manufacturers in the automotive industry providing high-performance products certified by renowned European and American automobileindustries.AGL incorporates cutting-edge expertise with certified lubricants and greases for customersglobally. Our consistent dedication to innovation, excellence, and customer satisfaction",
+  title: siteConfig.homeTitle,
+  description: siteConfig.description,
   metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL),
   alternates: {
     canonical:  process.env.NEXT_PUBLIC_BASE_URL,

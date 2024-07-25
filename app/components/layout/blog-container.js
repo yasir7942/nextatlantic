@@ -45,13 +45,13 @@ const BlogContainer = async () => {
                 postData.data.map(post => (
                 
                 <div key={post.id} className="w-full flex flex-col text-white  md:text-left  ">
-                       <Link href={`/blog/${post.slug}`} > 
+                       <a href={`/blog/${post.slug}`} > 
                         <Image className="w-full " src={getImageUrl(post.featureImage.formats.thumbnail.url)} width={500} height={350} alt={post.title} />
                         <h2 className="text-darkYellow font-semibold  leading-6 text-lg md:text-base pt-3  text-justify headline">
                             {post.title}
                        </h2>
                        <p className="text-lx md:text-sm text-justify summary">{post.seo.seoDesctiption}</p>
-                       </Link>
+                       </a>
                       
                 </div>
                  

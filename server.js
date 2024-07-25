@@ -1,41 +1,49 @@
-const { createServer } = require('http')
-const { parse } = require('url')
-const next = require('next')
+const { createServer } = require('http');
+const { parse } = require('url');
+const next = require('next');
+const fs = require('fs');
+const path = require('path');
 
-//const dev = process.env.NODE_ENV !== 'production'
-const dev = process.env.NEXT_PUBLIC_MODE !== 'pro'
-const hostname = process.env.NEXT_PUBLIC_SITE
-const port = 3000
-// when using middleware `hostname` and `port` must be provided below
-const app = next({ dev, hostname, port })
-const handle = app.getRequestHandler()
- 
+const dev = false;
+const hostname = 'localhost';
+const port = process.env.port || 3003;
+
+const app = next({ dev, hostname, port });
+const handle = app.getRequestHandler();
+
+const logFile = path.join(__dirname, 'error.log');
+const logStream = fs.createWriteStream(logFile, { flags: 'a' });
+
+logStream.write(`[${new Date().toISOString()}] Log stream initialized.\n`);
+
 app.prepare().then(() => {
-  createServer(async (req, res) => {
-    try {
-      // Be sure to pass `true` as the second argument to `url.parse`.
-      // This tells it to parse the query portion of the URL.
-      const parsedUrl = parse(req.url, true)
-      const { pathname, query } = parsedUrl
- 
-      if (pathname === '/a') {
-        await app.render(req, res, '/a', query)
-      } else if (pathname === '/b') {
-        await app.render(req, res, '/b', query)
-      } else {
-        await handle(req, res, parsedUrl)
-      }
-    } catch (err) {
-      console.error('Error occurred handling', req.url, err)
-      res.statusCode = 500
-      res.end('internal server error')
-    }
-  })
+    createServer(async (req, res) => {
+        try {
+            const parsedUrl = parse(req.url, true);
+            const { pathname, query } = parsedUrl;
+
+            if (pathname === '/a') {
+                await app.render(req, res, '/a', query);
+            } else if (pathname === '/b') {
+                await app.render(req, res, '/b', query);
+            } else {
+                await handle(req, res, parsedUrl);
+            }
+        } catch (err) {
+            const errorMessage = `[${new Date().toISOString()}] Error handling ${req.url}: ${err.stack}\n`;
+            console.error(errorMessage);
+            logStream.write(errorMessage);
+            res.statusCode = 500;
+            res.end('Internal Server Error');
+        }
+    })
     .once('error', (err) => {
-      console.error(err)
-      process.exit(1)
+        const serverErrorMessage = `[${new Date().toISOString()}] Server error: ${err.stack}\n`;
+        console.error(serverErrorMessage);
+        logStream.write(serverErrorMessage);
+        process.exit(1);
     })
     .listen(port, () => {
-      console.log(`> Ready on http://${hostname}:${port}`)
-    })
-})
+        console.log(`> Ready on http://${hostname}:${port}`);
+    });
+});

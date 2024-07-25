@@ -3,7 +3,7 @@ import ProductCategoryMenu from "@/app/components/layout/product-category-menu";
  
 import Image from "next/image";
 import {   geProductsBySearchAdvance, getSearchPage } from "@/app/data/loader"
-import Link from 'next/link';
+ 
  
 import { generateMetadata as generatePageMetadata } from "@/libs/metadata";
 import {   getImageUrl } from "@/libs/helper";
@@ -92,17 +92,17 @@ const searchPage =  async ({ searchParams }) => {
                 <div key={product.id} className=" pt-0 mt-10 relative text-center flex flex-col  justify-center">
 
                   <div className="w-full      flex justify-center  ">
-                    <Link href={`/product/${product.slug}`} > <Image className="relative w-16 text-center" src={getImageUrl(product?.productImage.url)} height={400} width={400} alt={product.name} /> </Link>
+                    <a href={`/product/${product.slug}`} > <Image className="relative w-16 text-center" src={getImageUrl(product?.productImage.url)} height={400} width={400} alt={product.name} /> </a>
                   </div>
                   <div className="flex flex-col w-full h-full " >
-                    <h2 className="uppercase text-base text-burnYellow mt-3 leading-1"><Link href={`/product/${product.slug}`}  >{product.name}</Link> </h2>
+                    <h2 className="uppercase text-base text-burnYellow mt-3 leading-1"> <a href={`/product/${product.slug}`}  >{product.name}</a> </h2>
                     <p className="text-gray-200    text-base font-light  leading-5 uppercase">{product.grade}</p>
 
                     <p className="text-gray-200 xl:text-base text-base font-light  leading-5 uppercase">{product.api}</p>
                     <p className="text-gray-200 xl:text-base  text-base font-light  leading-5 uppercase">{product.acea}</p>
                   </div>
 
-                  <Link href={`/product/${product.slug}`} className="uppercase w-full  text-center p-x-5 bg-burnYellow text-black mt-2"> View </Link>
+                  <a href={`/product/${product.slug}`} className="uppercase w-full  text-center p-x-5 bg-burnYellow text-black mt-2"> View </a>
                 </div>
 
               ))}

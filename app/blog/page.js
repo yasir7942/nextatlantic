@@ -5,7 +5,6 @@ import { PaginationComponent } from "@/app/components/elements/pagination";
 import PaddingContainer from '../components/layout/padding-container';
 import Image from 'next/image';
 import { getImageUrl } from '@/libs/helper';
-import Link from 'next/link';
 import { Suspense } from 'react'
 import SearchBarForPost from '../components/layout/search-bar-post';
 import { cache } from 'react';
@@ -101,14 +100,14 @@ const Blog = async ({searchParams }) => {
                         {postsData.data.map((post) => ( 
 
                             <div key={post.id} className="w-full flex flex-col text-white  md:text-left pb-14   ">
-                                <Link href={`/blog/${post.slug}`}> 
+                                <a href={`/blog/${post.slug}`}> 
                                   <Image className="w-full " src={getImageUrl(post?.featureImage.url)} 
                                   width={800} height={600} alt={post?.featureImage.alternativeText ?? post.title} />
                                     <h2 className="text-darkYellow font-semibold  leading-6 text-lg md:text-base pt-3  text-justify">
                                         {post.title}
                                     </h2>
                                     <p className="text-lx md:text-sm text-justify">{post.seo?.seoDesctiption || ""}</p>
-                                </Link>
+                                </a>
 
                             </div>
 

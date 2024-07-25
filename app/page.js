@@ -48,10 +48,6 @@ export default async function Home() {
   //  console.dir(homeData, { depth:null});
   //  console.log("---------------------------End-----------------------end-----------------------");
 
-  
-
-
-
 
   return (
     <div className="bg-backgroundColor">
@@ -105,8 +101,8 @@ export default async function Home() {
         <section className="w-full h-auto flex flex-col md:flex-row mt-20 p-12 pb-0 justify-evenly space-x-0 space-y-20 md:space-y-0 md:space-x-24">
 
           <div className="flex  items-center md:-mt-10  ">
-          <Link className="" href="https://www.youtube.com/watch?v=Ofmc3uhbwyk&t=67s"  rel="noopener noreferrer" target="_blank"> 
-             <Image   src="/images/video-image.jpg" width={600} height={500} alt="Atlantic Grease and Lubricants Video" loading="lazy" /> </Link>
+          <a className="" href="https://www.youtube.com/watch?v=Ofmc3uhbwyk&t=67s"  rel="noopener noreferrer" target="_blank"> 
+             <Image   src="/images/video-image.jpg" width={600} height={500} alt="Atlantic Grease and Lubricants Video" loading="lazy" /> </a>
           </div>
           <div >
             <Image   src="/images/atlantic-products.png" width={600} height={500} alt="Atlantic Product Range" loading="lazy" />
@@ -121,8 +117,6 @@ export default async function Home() {
       </PaddingContainer>
 
       <BlogContainer />
-
-
 
       <br />
 

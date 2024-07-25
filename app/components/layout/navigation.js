@@ -1,23 +1,14 @@
  
+
 import Image from "next/image"
 import PaddingContainer from "./padding-container"
 import SocialIcons from "../elements/social-icons"
 import siteConfig from "../../../config/site";
-import Link from "next/link";
 import MobileNavigation from "./mobile-nav";
+import MenuList from "./menu-list";
 
  
-
- 
-
-
-
 const Navigation = () => {
-
-
-  
-
-
 
   return (
 
@@ -35,13 +26,7 @@ const Navigation = () => {
             alt="Atlantic Grease and Lubricants logo" />
         </a>
 
-        <ul className="hidden md:flex text-gray-200 md:space-x-3 lg:space-x-6  text-lg md:font-light  lg:font-normal capitalize tracking-wider ">
-                      <li><Link href={`/`} > Home</Link></li>
-                      <li><Link href={`/about-us`} > About Us</Link></li>
-                      <li> <Link href={`/products`} > Product </Link></li>
-                      <li><Link href={`/blog`}  > Blog </Link></li>
-                      <li><Link href={`/contact`}   >Contact Us</Link></li>
-        </ul>
+        <MenuList />
 
         <ul className="hidden md:flex text-white  md:space-x-2 lg:space-x-5">
           <li><SocialIcons plateform="facebook" link={siteConfig.socialMedia.facebook} /></li>

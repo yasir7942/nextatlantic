@@ -23,8 +23,9 @@ if (process.env.MODE === "pro") {
 
 const nextConfig = {
     
+    reactStrictMode: true,
    
-    useFileSystemPublicRoutes: fileRoutes,
+    // useFileSystemPublicRoutes: fileRoutes,
  
 
 
