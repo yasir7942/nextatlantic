@@ -3,7 +3,7 @@ import ProductCategoryMenu from "@/app/components/layout/product-category-menu";
 import SearchBar from "@/app/components/layout/search-bar";
 import TopBanner from "@/app/components/layout/top-banner"
 import Image from "next/image";
-import { geAllProductsSlug, geProductsByCategory, getProductCategory } from "@/app/data/loader"
+import {  geAllProductCategorySlug, geProductsByCategory, getProductCategory } from "@/app/data/loader"
 
 import { PaginationComponent } from "@/app/components/elements/pagination";
 import { generateMetadata as generatePageMetadata } from "@/libs/metadata";
@@ -42,27 +42,23 @@ export async function generateMetadata({ params }) {
   }
 
 
+
+  export const generateStaticParams = async () => {
+    try {
+      const pcategorySlugs = await geAllProductCategorySlug();
   
-
-export const generateStaticParams = async () => {
-
-  try {
-    const productSlugs = await geAllProductsSlug();
-
-    const paramsSlugs = productSlugs?.data?.map((product) => {
-      return {
-        slug: product.slug
-      };
-    })
-
-    return paramsSlugs || [];
-  } catch (error) {
-        console.log(error);
-        throw new Error("Error Fetching generateStaticParams");
+      const paramsSlugs = pcategorySlugs?.data?.map((pCat) => {
+        return {
+          slug: pCat.slug
+        };
+      });
+  
+      return paramsSlugs || [];
+    } catch (error) {
+      console.log(error);
+      throw new Error("Error Fetching generateStaticParams");
+    }
   }
-
-}
-
 
 
 
@@ -95,7 +91,7 @@ const currentPage = Number(searchParams.page) || 1;
 
      <SEOSchema schemaList={productData.data[0]?.seo?.schema}  />
 
-      <TopBanner banner={productData?.data[0]?.product_categories.data[0].banner} />
+      <TopBanner banner={productData?.data[0]?.product_categories.data[0]?.banner} />
 
 
       <PaddingContainer>

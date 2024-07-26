@@ -95,7 +95,7 @@ const SearchBarForPost = () => {
                       alt={post?.featureImage.alternativeText ?? post.title}
                     />
                   </Link>
-                  <Link href={`/product/${post.slug}`} className="flex flex-col items-start space-y-2">
+                  <Link href={`/blog/${post.slug}`} className="flex flex-col items-start space-y-2">
                     <div className="  text-base font-normal    text-darkYellow">
                        {post.title}
                     </div>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { geAllPostSlug, gePosts, getBlogPage } from '../data/loader';
+import {  gePosts, getBlogPage } from '../data/loader';
 import TopBanner from '../components/layout/top-banner';
 import { PaginationComponent } from "@/app/components/elements/pagination";
 import PaddingContainer from '../components/layout/padding-container';
@@ -37,24 +37,6 @@ export async function generateMetadata({ params }) {
 }
 
  
-export const generateStaticParams = async () => {
-
-    try {
-      const postSlugs = await geAllPostSlug();
-      const paramsSlugs = postSlugs?.data?.map((post) => {
-       // console.log("*******Post slug: "+ post.slug);
-        return {
-          slug: post.slug
-        };
-      })
-      return paramsSlugs || [];
-    } catch (error) {
-          console.log(error);
-          throw new Error("Error Fetching generateStaticParams");
-    }
-  }
- 
-
 const numbers = Array.from({ length: 12 }, (_, index) => index + 1);
 
 const pageSize = 9;

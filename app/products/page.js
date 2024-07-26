@@ -33,26 +33,6 @@ export async function generateMetadata({ params }) {
 }
 
 
-export const generateStaticParams = async () => {
-
-  try {
-    const pcategorySlugs = await geAllProductCategorySlug();
-
-    const paramsSlugs = pcategorySlugs?.data?.map((pCat) => {
-      //console.log("*****Product category slug: "+ pCat.slug);
-      return {
-        slug: pCat.slug
-      };
-    })
-
-    return paramsSlugs || [];
-  } catch (error) {
-        console.log(error);
-        throw new Error("Error Fetching generateStaticParams");
-  }
-
-}
-
 
 const Products = async () => {
 

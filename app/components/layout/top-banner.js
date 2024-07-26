@@ -7,6 +7,9 @@ import siteConfig from "@/config/site";
 const TopBanner = ({ banner="" , home=false }) => {
 
 
+ 
+  if(!banner || banner == null || banner.length == 0) return <div className=" mt-32"></div>
+
   // image schema for seo
   const jsonLd =
   {
@@ -25,7 +28,7 @@ const TopBanner = ({ banner="" , home=false }) => {
 
 
   
-   if(!banner || banner.length == 0) return <div className=" mt-32"></div>
+   
   
   return (
   // <!--Top Banner-->

@@ -1,3 +1,5 @@
+ 
+
 import { geAllPostSlug, geAllProductsSlug, geProductCategoryLeftMenu } from "./data/loader";
 
 export default async function sitemap()  {

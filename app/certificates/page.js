@@ -48,7 +48,7 @@ const CertificatePage = async () => {
   
   const pageData = await cachedGetApprovalPage();
    const CertificatesData = await getCertifcateCategories(); 
-   console.log(pageData.title);
+  // console.log(pageData.title);
       //  console.log("-----------------------Certificate page--------------------------------------------------");
      //    console.dir(Certificates, { depth:null});
       //   console.log("---------------------------End-----------------------end-----------------------");

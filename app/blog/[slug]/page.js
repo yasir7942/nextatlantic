@@ -2,7 +2,7 @@ import BodyDataParse from "@/app/components/elements/data-parse-content";
 import SEOSchema from "@/app/components/elements/seo-schema";
 import BlogContainer from "@/app/components/layout/blog-container";
 import PaddingContainer from "@/app/components/layout/padding-container";
-import { geSinglePost } from "@/app/data/loader";
+import { geAllPostSlug, geSinglePost } from "@/app/data/loader";
 import siteConfig from "@/config/site";
 import { getFirstDescriptionText, getImageUrl, validateCanonicalSlug } from "@/libs/helper";
 import { generateMetadata as generatePageMetadata } from "@/libs/metadata";
@@ -38,6 +38,27 @@ export async function generateMetadata({ params }) {
   return await generatePageMetadata({ type: "post", path: "/post/", params: metadataParams });
 }
 
+
+
+export const generateStaticParams = async () => {
+
+  try {
+    const postSlugs = await geAllPostSlug();
+    const paramsSlugs = postSlugs?.data?.map((post) => {
+     // console.log("*******Post slug: "+ post.slug);
+      return {
+        slug: post.slug
+      };
+    })
+    return paramsSlugs || [];
+  } catch (error) {
+        console.log(error);
+        throw new Error("Error Fetching generateStaticParams");
+  }
+}
+
+
+
 const SingleBlogPage = async ({ params }) => {
 
   const postData = await cachedGeSinglePost(params.slug);
@@ -48,7 +69,7 @@ const SingleBlogPage = async ({ params }) => {
   //  console.log("---------------------------End-----single post------------------end-----------------------");
  
 const firstDescriptionText = getFirstDescriptionText(postData.data[0].description);
- const seoDesctiption = postData.data[0]?.seo?.seoDesctiption?.trim() ? postData.data[0]?.seo?.seoDesctiption?.trim() : firstDescriptionText;
+const seoDesctiption = postData.data[0]?.seo?.seoDesctiption?.trim() ? postData.data[0]?.seo?.seoDesctiption?.trim() : firstDescriptionText;
  
 const jsonLd =
 {

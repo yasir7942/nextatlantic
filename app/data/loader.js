@@ -27,7 +27,8 @@ export async function fetchData(path, filter) {
   const url = new URL(path, baseUrl);
   url.search = filter;
 
-  console.log(url.href);
+  // show API links
+//  console.log(url.href);
 
   try {
 
@@ -354,12 +355,12 @@ export async function getContactUsPage() {
 
 export async function geAllProductsSlug() {
 
-  const blogBlockQuery = qs.stringify({
+  const productBlockQuery = qs.stringify({
 
     fields: ['slug','updatedAt']
 
   });
-  return await fetchData("products", blogBlockQuery);
+  return await fetchData("products", productBlockQuery);
 
 }
 
