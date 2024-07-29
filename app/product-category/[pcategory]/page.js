@@ -12,7 +12,7 @@ import { Suspense  } from "react";
 import SEOSchema from "@/app/components/elements/seo-schema";
 
 
- 
+
 
 const pageSize = 5;
 
@@ -41,26 +41,30 @@ export async function generateMetadata({ params }) {
     return await generatePageMetadata({ type: "category", path: "/product-category/", params: metadataParams });
   }
 
-
-
-  export const generateStaticParams = async () => {
-    try {
-      const pcategorySlugs = await geAllProductCategorySlug();
   
-      const paramsSlugs = pcategorySlugs?.data?.map((pCat) => {
-        return {
-          slug: pCat.slug
-        };
-      });
   
-      return paramsSlugs || [];
-    } catch (error) {
-      console.log(error);
-      throw new Error("Error Fetching generateStaticParams");
-    }
+/*
+ 
+export const generateStaticParams = async () => {
+  try {
+    const pcategorySlugs = await geAllProductCategorySlug();
+
+    const paramsSlugs = pcategorySlugs?.data?.map((pCat) => {
+     
+      return {
+       // slug: pCat.slug
+       slug: "product categry"
+      };
+    });
+
+    return paramsSlugs || [];
+  } catch (error) {
+    console.log(error);
+    throw new Error("Error Fetching generateStaticParams");
   }
+}
 
-
+*/
 
 const numbers = Array.from({ length: 12 }, (_, index) => index + 1);
 
