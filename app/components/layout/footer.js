@@ -85,8 +85,8 @@ const Footer = async () => {
 
               { categoryData.data.map(cat => (
                 
-                    <li>
-                      <a href={`/product-category/${cat.slug}`} key={cat.id}  >{cat.title}</a>
+                    <li key={cat.id}>
+                      <a href={`/product-category/${cat.slug}`}   >{cat.title}</a>
                     </li>
                 ))}
 
