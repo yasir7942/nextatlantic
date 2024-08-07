@@ -68,7 +68,7 @@ const SingleProductPage = async ({ params }) => {
   const content = productData.data[0].description;
   const productGroup = productData.data[0].related_products;
   const firstDescriptionText = getFirstDescriptionText(productData.data[0].description);
-  const seoDescription = productData.data[0].seo?.seoDescription ? productData.data[0].seo.seoDescription : firstDescriptionText;
+  const seoDescription = productData.data[0].seo?.seoDescription ? productData.data[0].seo?.seoDescription : firstDescriptionText;
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   const category = productData.data[0].product_categories?.data[0].title ? productData.data[0].product_categories.data[0].title : "product Category";
   const categorySlug = productData.data[0].product_categories?.data[0].slug ? productData.data[0].product_categories.data[0].slug : "#";

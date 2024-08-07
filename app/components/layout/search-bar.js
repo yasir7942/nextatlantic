@@ -6,11 +6,19 @@ import Link from "next/link";
 import { useDebouncedCallback } from "use-debounce";
 import { useState, useRef, useEffect } from 'react';
 import { getImageUrl } from "@/libs/helper";
+import { LineWave } from 'react-loader-spinner';
+
+
+
+
+
+
 
 const SearchBar = ({ dataType }) => {
   const [productData, setProductData] = useState([]);
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const searchContainerRef = useRef(null);
   const inputRef = useRef(null);
 
@@ -18,6 +26,7 @@ const SearchBar = ({ dataType }) => {
     const encodedString = encodeURIComponent(query);
     setSearchQuery(encodedString);
     if (query.length > 2) {
+      setIsLoading(true); // Set loading to true
       try {
 
 
@@ -28,9 +37,12 @@ const SearchBar = ({ dataType }) => {
 
       } catch (error) {
         console.error('Error fetching search results:', error);
+      } finally {
+        setIsLoading(false); // Set loading to false after data fetching completes
       }
     } else {
       setProductData([]);
+      setIsLoading(false); // Ensure loading is false if query length is not enough
     }
   };
 
@@ -74,10 +86,33 @@ const SearchBar = ({ dataType }) => {
           onClick={handleInputClick}
           className="w-full px-5 py-2 text-white text-base bg-transparent outline-none border border-gray-300 border-solid"
         />
+
+        {/* isLoading */}
+        { isLoading ? (
+          <div className=" right-24 md:right-32 -top-4 absolute p-0 m-0">
+         
+           <LineWave 
+            visible={true}
+            height="100"
+            width="90"
+            color="#0A6FB1"
+            ariaLabel="loading...."
+            wrapperStyle={{ }}
+            wrapperClass=""
+           /* firstLineColor="#D11F24"
+            middleLineColor="#939293"
+            lastLineColor="#0A6FB1"  */
+            />
+            
+          </div>
+        ):(<span></span>)}
         <button onClick={clearSearch} className="px-5 py-2 whitespace-nowrap bg-white border border-gray-300 border-solid">
           Clear
         </button>
+        
       </form>
+
+      
 
       <div className={`${productData.length <= 0 || !isSearchVisible ? 'hidden' : ''} w-[89%] text-left h-auto absolute top-[67px] z-40 left-5 bg-gray-500 backdrop-blur-md bg-opacity-50 border border-1 border-gray-700 mt-1 p-5`}>
         <div className="flex flex-col space-y-2 " >

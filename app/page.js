@@ -12,6 +12,7 @@ import { cache } from 'react';
 import SEOSchema from "./components/elements/seo-schema";
 import Link from "next/link";
 import siteConfig from "@/config/site";
+import HomeProductCategory from "./components/layout/home-product-category";
 
 
 const cachedGetHomePage = cache(getHomePage);
@@ -56,44 +57,11 @@ export default async function Home() {
       <SEOSchema schemaList={homeData.seo?.schema}  />
       <TopBanner banner={homeData.banner} home />
 
-
+       
       {/* <!--Product Catrgories Icons--> */}
       <PaddingContainer >
-        <section className="  w-full h-auto grid grid-cols-3 gap-5 md:gap-4 md:flex md:flex-row  justify-between  md:-mt-33    relative z-50  ">
-          <a href="#" className="flex flex-col text-center items-center ">
-            <Image className="w-24 md:w-25 text-center" src="/images/engine-oil.svg" width={250} height={250} alt="" />
-            <h2 className="uppercase text-md font-bold text-darkYellow mt-2">Engine Oil</h2>
-          </a>
-          <a href="#" className="flex flex-col text-center items-center ">
-            <Image className="w-24 md:w-25" src="/images/aviation.svg" width={250} height={250} alt="" />
-            <h2 className="uppercase text-md font-bold text-darkYellow mt-2">Avaition</h2>
-          </a>
-          <a href="#" className="flex flex-col text-center items-center">
-            <Image className="w-24 md:w-25" src="/images/steering.svg" width={250} height={250} alt="" />
-            <h2 className="uppercase text-md font-bold text-darkYellow mt-2">Steering</h2>
-          </a>
-          <a href="#" className="flex flex-col text-center items-center">
-            <Image className="w-24 md:w-25 " src="/images/transmission.svg" width={250} height={250} alt="" />
-            <h2 className="uppercase text-md font-bold text-darkYellow mt-2">Transmission</h2>
-          </a>
-
-
-          <a href="#" className="flex flex-col text-center items-center">
-            <Image className="w-24 md:w-25" src="/images/brake-fluid.svg" width={250} height={250} alt="" />
-            <h2 className="uppercase text-md font-bold text-darkYellow mt-2">Brake Fliud</h2>
-          </a>
-
-          <a href="#" className="flex flex-col text-center items-center">
-            <Image className="w-24 md:w-25" src="/images/marine.svg" width={250} height={250} alt="" />
-            <h2 className="uppercase text-md font-bold text-darkYellow mt-2">Marine Oil</h2>
-          </a>
-
-          <a href="#" className="flex flex-col text-center items-center">
-            <Image className="w-24 md:w-25" src="/images/grease.svg" width={250} height={250} alt="" />
-            <h2 className="uppercase text-md font-bold text-darkYellow mt-2">Grease</h2>
-          </a>
-        </section>
-        {/* <!--End Product Catrgories Icons--> */}
+        
+        <HomeProductCategory />
 
 
 

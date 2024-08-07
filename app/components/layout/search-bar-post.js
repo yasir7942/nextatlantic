@@ -6,6 +6,9 @@ import Link from "next/link";
 import { useDebouncedCallback } from "use-debounce";
 import { useState, useRef, useEffect } from 'react';
 import { getImageUrl } from "@/libs/helper";
+import { LineWave } from 'react-loader-spinner';
+
+
 
 const SearchBarForPost = () => {
   const [postData, setPostData] = useState([]);
@@ -13,12 +16,14 @@ const SearchBarForPost = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const searchContainerRef = useRef(null);
   const inputRef = useRef(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSearchQuery = async (query) => {
     console.log(`Searching... ${query}`);
     const encodedString = encodeURIComponent(query);
     setSearchQuery(encodedString);
     if (query.length > 2) {
+      setIsLoading(true); // Set loading to true
       try {
 
 
@@ -30,8 +35,12 @@ const SearchBarForPost = () => {
       } catch (error) {
         console.error('Error fetching search results:', error);
       }
+        finally {
+          setIsLoading(false); // Set loading to false after data fetching completes
+        }
     } else {
       setPostData([]);
+      setIsLoading(false); // Ensure loading is false if query length is not enough
     }
   };
 
@@ -75,6 +84,28 @@ const SearchBarForPost = () => {
           onClick={handleInputClick}
           className="w-full px-5 py-2 text-white text-base bg-transparent outline-none border border-gray-300 border-solid"
         />
+
+        {/* isLoading */}
+        { isLoading ? (
+          <div className=" right-24 md:right-32 -top-4 absolute p-0 m-0">
+         
+           <LineWave 
+            visible={true}
+            height="100"
+            width="90"
+            color="#0A6FB1"
+            ariaLabel="loading...."
+            wrapperStyle={{ }}
+            wrapperClass=""
+           /* firstLineColor="#D11F24"
+            middleLineColor="#939293"
+            lastLineColor="#0A6FB1"  */
+            />
+            
+          </div>
+        ):(<span></span>)}
+
+        
         <button onClick={clearSearch} className="px-5 py-2 whitespace-nowrap bg-white border border-gray-300 border-solid">
           Clear
         </button>

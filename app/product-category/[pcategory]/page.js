@@ -43,17 +43,19 @@ export async function generateMetadata({ params }) {
 
   
   
-/*
  
+ /*
 export const generateStaticParams = async () => {
   try {
+
+   // try with pagination 
     const pcategorySlugs = await geAllProductCategorySlug();
 
     const paramsSlugs = pcategorySlugs?.data?.map((pCat) => {
      
       return {
-       // slug: pCat.slug
-       slug: "product categry"
+        slug: pCat.slug
+      // slug: "product categry"
       };
     });
 
@@ -63,8 +65,8 @@ export const generateStaticParams = async () => {
     throw new Error("Error Fetching generateStaticParams");
   }
 }
-
 */
+ 
 
 const numbers = Array.from({ length: 12 }, (_, index) => index + 1);
 
@@ -123,7 +125,8 @@ const currentPage = Number(searchParams.page) || 1;
                     <a href={`/product/${product.slug}`} > <Image className="relative w-28 text-center" src={getImageUrl(product?.productImage.url)} height={400} width={400} alt={product.name} /> </a>
                   </div>
                   <div className="flex flex-col w-full h-full " >
-                    <h2 className="uppercase text-lg text-burnYellow mt-3 leading-1"> <a href={`/product/${product.slug}`}  >{product.name}</a> </h2>
+                    <h2 className="uppercase text-lg text-burnYellow mt-3 leading-1"> <a href={`/product/${product.slug}`} > 
+                       {product.name}</a> </h2>
                     <p className="text-gray-200 xl:text-xl  text-base font-light  leading-5 uppercase">{product.grade}</p>
 
                     <p className="text-gray-200 xl:text-xl text-base font-light  leading-5 uppercase">{product.api}</p>
@@ -137,7 +140,7 @@ const currentPage = Number(searchParams.page) || 1;
 
             </div>
             <Suspense fallback={<div>Loading...</div>}>
-            <PaginationComponent pageCount={PageCount} totalPage={totalPage} pageSize={pageSize} />
+                 <PaginationComponent pageCount={PageCount} totalPage={totalPage} pageSize={pageSize} />
             </Suspense>
           </div>
 

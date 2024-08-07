@@ -4,7 +4,7 @@ import {getPostLimitedData} from "@/app/data/loader"
 import {getImageUrl} from "@/libs/helper"
 import Link from "next/link";
 
-var  baseUrl =process.env.LOCAL_BASE_IMAGE_URL;
+ 
 
 
 const BlogContainer = async () => {

@@ -404,6 +404,25 @@ export async function getProductCategory(slug) {
 }
 
 
+export async function getProductCategoryForHome() {
+
+  const blogBlockQuery = qs.stringify({
+    
+    fields: ['title', 'slug'],
+    filters: {
+
+      featured: {
+        $eq: true,
+      },
+    },
+    populate: ['icon'],
+    sort: ['index'],
+
+  });
+  return await fetchData("product-categories", blogBlockQuery);
+}
+
+
 export async function gePostBySearch(query) {
    
   const searchPostQuery = qs.stringify({

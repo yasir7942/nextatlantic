@@ -1,11 +1,16 @@
 import Image from "next/image";
 import PaddingContainer from "./padding-container";
+import { getProductCategoryForHome } from "@/app/data/loader";
 //import siteConfig from "@/config/site";
 //import SocialIcons from "../elements/social-icons";
 //import MenuFooterList from "./menu-footer-list";
 //import MenuFooterPcategory from "./menu-footer-product-category";
 
-const Footer = () => {
+const Footer = async () => {
+
+  const categoryData = await getProductCategoryForHome();
+
+
   return (
     
       <footer className="w-full mt-10 pt-5 pb-8 bg-[#040404]">
@@ -35,6 +40,8 @@ const Footer = () => {
                   />
                 ))}
             */}
+
+            
                  </div>
 
               
@@ -58,12 +65,33 @@ const Footer = () => {
             <div className="flex flex-col space-y-3">
               <div className="uppercase text-white font-medium py-4 text-xl">Quick Links</div>
              {/* <MenuFooterList /> */} 
+               
+              <ul className="text-gray-300 space-y-1  font-light">
+                <li> <a href={`/certificates`} > Certifications & Approvals </a>  </li>
+                <li>  <a href={`/`} > Privacy Policy </a>   </li>
+                <li> <a href={`/`} > Interested Parties </a>   </li>
+                <li>    <a href={`/`} > IMS Policy </a>  </li>
+                <li>   <a href={`/`} > HSE</a>   </li>
+              </ul>
+
             </div>
 
             {/* Categories */}
             <div className="flex flex-col space-y-3">
               <div className="uppercase text-white font-medium py-4 text-xl">Product Categories</div>
             {/*  <MenuFooterPcategory /> */}   
+
+              <ul className="text-gray-300  space-y-1 font-light">
+
+              { categoryData.data.map(cat => (
+                
+                    <li>
+                      <a href={`/product-category/${cat.slug}`} key={cat.id}  >{cat.title}</a>
+                    </li>
+                ))}
+
+                
+              </ul>
             </div>
 
             {/* Get in Touch */}
