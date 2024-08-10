@@ -112,7 +112,7 @@ const jsonLd =
             <Image className="w-full h-auto " src={getImageUrl(postData.data[0].featureImage.url)} height={1200} width={1200} alt={postData.data[0].title} />
           </div>
           <h1 className="text-white text-2xl md:text-3xl" >{postData.data[0].title}</h1>
-          <div className="text-white font-light text-base mt-5 max-w-xl  pr-5 md:pr-2 rich-text" >
+          <div className="text-white font-light text-base mt-5   pr-5 md:pr-2 rich-text" >
 
             <BodyDataParse content={postData.data[0].description} />
 
