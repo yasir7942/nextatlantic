@@ -8,9 +8,9 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 export async function POST(request) {
 
         // Check for API key in headers
-        const apiKey = request.headers.get('Authorization');
+        const apiKey = request.headers.get('Authorization') + '7JtBCBL777KkUJp';
 
-        if (apiKey !== `Bearer ${process.env.NEXT_PUBLIC_CONTACT_API_KEY}`) {
+        if (apiKey !== `Bearer ${process.env.CONTACT_API_KEY}`) {
             return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
           }
 
