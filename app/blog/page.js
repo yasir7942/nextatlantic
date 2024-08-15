@@ -83,7 +83,7 @@ const Blog = async ({searchParams }) => {
 
                             <div key={post.id} className="w-full flex flex-col text-white  md:text-left pb-14   ">
                                 <a href={`/blog/${post.slug}`}> 
-                                  <Image className="w-full " src={getImageUrl(post?.featureImage.url)} 
+                                  <Image className="w-full " src={getImageUrl(post?.featureImage.url)}  placeholder="blur"
                                   width={800} height={600} alt={post?.featureImage.alternativeText ?? post.title} />
                                     <h2 className="text-darkYellow font-semibold  leading-6 text-lg md:text-base pt-3  text-justify">
                                         {post.title}

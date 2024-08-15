@@ -70,10 +70,10 @@ export default async function Home() {
 
           <div className="flex  items-center md:-mt-10  ">
           <a className="" href="https://www.youtube.com/watch?v=Ofmc3uhbwyk&t=67s"  rel="noopener noreferrer" target="_blank"> 
-             <Image   src="/images/video-image.jpg" width={600} height={500} alt="Atlantic Grease and Lubricants Video" loading="lazy" /> </a>
+             <Image   src="/images/video-image.jpg" width={600} height={500} alt="Atlantic Grease and Lubricants Video"   /> </a>
           </div>
           <div >
-            <Image   src="/images/atlantic-products.png" width={600} height={500} alt="Atlantic Product Range" loading="lazy" />
+            <Image   src="/images/atlantic-products.png" width={600} height={500} alt="Atlantic Product Range"   />
           </div>
 
         </section>
