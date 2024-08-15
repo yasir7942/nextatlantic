@@ -113,7 +113,7 @@ const jsonLd =
           </div>
           <h1 className="text-white text-2xl md:text-3xl" >{postData.data[0].title}</h1>
           <div className="text-white font-light text-base mt-5   pr-5 md:pr-2 rich-text" >
-
+ 
             <BodyDataParse content={postData.data[0].description} />
 
           </div>
