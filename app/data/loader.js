@@ -28,7 +28,7 @@ export async function fetchData(path, filter) {
   url.search = filter;
 
   // show API links
-//  console.log(url.href);
+  console.log(url.href);
 
   try {
 
@@ -167,7 +167,9 @@ export async function geSingleProduct(slug) {
       },
 
     },
-    populate: ['productImage', 'seo', 'seo.schema', 'productSchema', 'productSchema.reviews', 'related_products.productImage', 'product_categories', 'product_categories.banner.webBanner', 'product_categories.banner.mobileBanner'],
+    populate: ['productImage', 'seo', 'seo.schema', 'productSchema', 'productSchema.reviews', 
+      'related_products.productImage', 'product_categories', 'product_categories.banner.webBanner', 
+      'product_categories.banner.mobileBanner','TDSFile.url' ,'MSDSFile.url'],
   });
 
 

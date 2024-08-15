@@ -1,8 +1,8 @@
 import Image from "next/image";
 import PaddingContainer from "./padding-container";
 import { getProductCategoryForHome } from "@/app/data/loader";
-//import siteConfig from "@/config/site";
-//import SocialIcons from "../elements/social-icons";
+import siteConfig from "@/config/site";
+import SocialIcons from "../elements/social-icons";
 //import MenuFooterList from "./menu-footer-list";
 //import MenuFooterPcategory from "./menu-footer-product-category";
 
@@ -46,7 +46,7 @@ const Footer = async () => {
 
               
 
-                {/**  <ul className="flex flex-wrap space-x-2 line pr-3">
+                 {  <ul className="flex flex-wrap  md:w-60  lg:w-72  gap-2 line pr-3">
                     <li><SocialIcons plateform="facebook" dark link={siteConfig.socialMedia.facebook} /></li>
                     <li><SocialIcons plateform="instagram" dark link={siteConfig.socialMedia.instagram} /></li>
                     <li><SocialIcons plateform="twitter" dark link={siteConfig.socialMedia.twitter} /></li>
@@ -57,7 +57,7 @@ const Footer = async () => {
                     <li><SocialIcons plateform="pinterest" dark link={siteConfig.socialMedia.pinterest} /></li>
                     <li><SocialIcons plateform="snapchat" dark link={siteConfig.socialMedia.snapchat} /></li>
                  </ul>
-                  */}
+                  }
              
             </div>
 
@@ -68,10 +68,10 @@ const Footer = async () => {
                
               <ul className="text-gray-300 space-y-1  font-light">
                 <li> <a href={`/certificates`} > Certifications & Approvals </a>  </li>
-                <li>  <a href={`/`} > Privacy Policy </a>   </li>
-                <li> <a href={`/`} > Interested Parties </a>   </li>
-                <li>    <a href={`/`} > IMS Policy </a>  </li>
-                <li>   <a href={`/`} > HSE</a>   </li>
+                <li>  <a href={`/privacy-policy`} > Privacy Policy </a>   </li>
+                <li> <a href={`/interested-parties`} > Interested Parties </a>   </li>
+                <li>    <a href={`/ims-policy`} > IMS Policy </a>  </li>
+                <li>   <a href={`/hse`} > HSE</a>   </li>
               </ul>
 
             </div>

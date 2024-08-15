@@ -5,6 +5,7 @@ import { getContactUsPage } from "../data/loader";
 import { cache } from 'react';
 import { generateMetadata as generatePageMetadata } from "@/libs/metadata";
 import SEOSchema from "../components/elements/seo-schema";
+import ContactForm from "../components/elements/contact-form";
 
 const cachedGetContactUsPage = cache(getContactUsPage);
 export async function generateMetadata({ params }) {
@@ -22,7 +23,7 @@ export async function generateMetadata({ params }) {
     canonicalLinks: pageData.seo?.canonicalLinks?? "contact",
     dataPublishedTime: pageData.publishedAt,
     category: "",
-    image: pageData.banner?.mobileBanner?.url,
+    image: process.env.NEXT_PUBLIC_ADMIN_BASE_URL +  pageData.banner?.mobileBanner?.url,
     imageAlternativeText:  pageData.banner?.mobileBanner?.alternativeText ?? pageData.title,
     imageExt:  pageData.banner?.mobileBanner?.mime,
   };
@@ -55,72 +56,8 @@ const ContactUs = async () => {
                     {/* contact form */}
                     <div className=" w-full text-white">
 
-
-                        <form action="#" method="POST">
-                            <div className="flex mb-4">
-                                <div className="w-1/2 mr-2">
-                                    <label className="block text-white text-sm font-semibold mb-2  " htmlFor="name">Name</label>
-                                    <input
-                                        className="shadow appearance-none border  rounded w-full py-2 px-3  tracking-wide text-white bg-transparent font-light leading-tight focus:outline-none focus:shadow-outline"
-                                        id="name"
-                                        type="text"
-                                        placeholder="Your name"
-                                        required
-                                    />
-                                </div>
-                                <div className="w-1/2 ml-2">
-                                    <label className="block text-white text-sm font-semibold mb-2" htmlFor="phone">Phone</label>
-                                    <input
-                                        className="shadow appearance-none border rounded w-full py-2 px-3  tracking-wide text-white bg-transparent font-light font-lightleading-tight focus:outline-none focus:shadow-outline"
-                                        id="phone"
-                                        type="tel"
-                                        placeholder="Your phone number"
-                                        required
-                                    />
-                                </div>
-                            </div>
-                            <div className="flex mb-4">
-                                <div className="w-1/2 mr-2">
-                                    <label className="block text-white text-sm font-semibold mb-2" htmlFor="email">Email</label>
-                                    <input
-                                        className="shadow appearance-none border rounded w-full py-2 px-3 tracking-wide text-white bg-transparent font-light leading-tight focus:outline-none focus:shadow-outline"
-                                        id="email"
-                                        type="email"
-                                        placeholder="Your email"
-                                        required
-                                    />
-                                </div>
-                                <div className="w-1/2 ml-2">
-                                    <label className="block text-white text-sm font-semibold mb-2" htmlFor="country">Country</label>
-                                    <input
-                                        className="shadow appearance-none border rounded w-full py-2 px-3  tracking-wide text-white bg-transparent font-light leading-tight focus:outline-none focus:shadow-outline"
-                                        id="country"
-                                        type="text"
-                                        placeholder="Your country"
-                                        required
-                                    />
-                                </div>
-                            </div>
-                            <div className="mb-4">
-                                <label className="block text-white text-sm font-semibold mb-2" htmlFor="message">Message</label>
-                                <textarea
-                                    className="shadow appearance-none border rounded w-full py-2 px-3  tracking-wide text-white bg-transparent font-light leading-tight focus:outline-none focus:shadow-outline"
-                                    id="message"
-                                    rows="4"
-                                    placeholder="Your message"
-                                    required
-                                ></textarea>
-                            </div>
-                            <div className="flex items-center justify-between">
-                                <button
-                                    className="font-semibold text-lg bg-transparent border border-spacing-1 border-white hover:bg-gray-50 transition duration-150 text-white hover:text-gray-800  py-2 px-12 rounded focus:outline-none focus:shadow-outline"
-                                    type="submit"
-                                >
-                                    Send
-                                </button>
-                            </div>
-                        </form>
-
+                      <ContactForm />
+                        
 
                     </div>
 

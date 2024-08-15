@@ -30,7 +30,7 @@ export async function generateMetadata({ params }) {
       canonicalLinks: categoryData.data[0].seo?.canonicalLinks,
       dataPublishedTime: categoryData.data[0].publishedAt,
       category: "",
-      image: categoryData.data[0].banner?.mobileBanner?.url,
+      image: process.env.NEXT_PUBLIC_ADMIN_BASE_URL +  categoryData.data[0].banner?.mobileBanner?.url,
       imageAlternativeText:  categoryData.data[0].banner?.mobileBanner?.alternativeText ,
       imageExt:  categoryData.data[0].banner?.mobileBanner?.mime,
     };

@@ -31,7 +31,7 @@ export const metadata = {
     },
   },
   openGraph: {
-    images: '/opengraph-image.jpg',
+    images: process.env.NEXT_PUBLIC_ADMIN_BASE_URL +  '/opengraph-image.jpg',
     locale: 'en_US',
     type: 'website',
   },

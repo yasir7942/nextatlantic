@@ -27,7 +27,7 @@ export async function generateMetadata({ params }) {
     canonicalLinks: postData.data[0].seo?.canonicalLinks,
     dataPublishedTime: postData.data[0].publishedAt,
     category: postData.data[0].post_categories?.data[0].title,
-    image: postData.data[0].featureImage.url,
+    image: process.env.NEXT_PUBLIC_ADMIN_BASE_URL +  postData.data[0].featureImage.url,
     imageAlternativeText:  postData.data[0].featureImage?.alternativeText,
     imageExt:  postData.data[0].featureImage?.mime,
   };

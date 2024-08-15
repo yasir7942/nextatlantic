@@ -24,7 +24,7 @@ export async function generateMetadata({ params }) {
     canonicalLinks: pageData.seo?.canonicalLinks?? "product",
     dataPublishedTime: pageData.publishedAt,
     category: "",
-    image: pageData.banner?.mobileBanner?.url,
+    image: process.env.NEXT_PUBLIC_ADMIN_BASE_URL + pageData.banner?.mobileBanner?.url,
     imageAlternativeText:  pageData.banner?.mobileBanner?.alternativeText ?? pageData.title,
     imageExt:  pageData.banner?.mobileBanner?.mime,
   };
