@@ -14,7 +14,7 @@ import SEOSchema from "@/app/components/elements/seo-schema";
 
 
 
-const pageSize = 5;
+const pageSize = 12;
 
 export async function generateMetadata({ params }) {
    
