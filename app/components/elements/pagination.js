@@ -30,7 +30,7 @@ const PaginationArrow = ({ direction, page, isDisabled }) => {
   );
 };
 
-export function PaginationComponent({ pageCount, totalPage, pageSize=5 }) {
+export function PaginationComponent({ pageCount, totalPage, pageSize=12 }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const currentPage = Number(searchParams.get("page")) || 1;

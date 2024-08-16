@@ -35,7 +35,7 @@ const ContactForm= () => {
         setStatus(`Failed to send email: ${ 'System Error Email Us'}`);
       }
     } catch (error) {
-        console.log("email error 2 ");
+        console.log("contact form error 2 ");
         console.log(error);
       setStatus(`Failed to send email: System Error Email Us`);
     } finally {
@@ -61,14 +61,15 @@ const ContactForm= () => {
                                     />
                                 </div>
                                 <div className="w-1/2 ml-2">
-                                    <label className="block text-white text-sm font-semibold mb-2" htmlFor="phone">Phone</label>
+                                    <label className="block text-white text-sm font-semibold mb-2" htmlFor="phoneNumber">Phone</label>
                                     <input
                                         className="shadow appearance-none border rounded w-full py-2 px-3  tracking-wide text-white bg-transparent font-light font-lightleading-tight focus:outline-none focus:shadow-outline"
-                                        id="phone"
+                                        id="phoneNumber"
                                         type="tel"
                                         value={phoneNumber}
                                         onChange={(e) => setPhoneNumber(e.target.value)}
-                                        placeholder="Your phone number"
+                                        placeholder="Valid phone number"
+                                       
                                         required
                                     />
                                 </div>
@@ -80,6 +81,7 @@ const ContactForm= () => {
                                         className="shadow appearance-none border rounded w-full py-2 px-3 tracking-wide text-white bg-transparent font-light leading-tight focus:outline-none focus:shadow-outline"
                                         id="email"
                                         type="email"
+                                       
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
                                         placeholder="Your email"
@@ -92,6 +94,7 @@ const ContactForm= () => {
                                         className="shadow appearance-none border rounded w-full py-2 px-3  tracking-wide text-white bg-transparent font-light leading-tight focus:outline-none focus:shadow-outline"
                                         id="country"
                                         type="text"
+                                         
                                         value={country}
                                         onChange={(e) => setCountry(e.target.value)}
                                         placeholder="Your country"
@@ -106,10 +109,12 @@ const ContactForm= () => {
                                     id="message"
                                     rows="4"
                                     placeholder="Your message"
+                                    
                                     value={message}
                                     onChange={(e) => setMessage(e.target.value)}
                                     required
                                 ></textarea>
+                                <small className="error text-gray-300 font-light">Please avoid including hyperlinks or URLs in your message.</small>
                             </div>
                             <div className="flex items-center justify-between">
                                 <button disabled={isSubmitting}

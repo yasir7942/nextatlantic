@@ -1,24 +1,23 @@
-
 export const EmailTemplate = ({
-    fullName,
-    phoneNumber,
-    email,
-    country,
-    message
-}) => (
-  <div>
-   
-    <div class="content">
-      <h2 class="text-xl font-semibold">Contact Details</h2>
-      <p><strong>Full Name:</strong> {{fullName}}</p>
-      <p><strong>Phone Number:</strong> {{phoneNumber}}</p>
-      <p><strong>Email:</strong> {{email}}</p>
-      <p><strong>Country:</strong> {{country}}</p>
-      <p><strong>Message:</strong></p>
-      <p>{{message}}</p>
+    name,
+    phone,
+    mail,
+    contry,
+    msg
+  }) => (
+    <div>
+      <div className="content">
+        <h2 className="text-xl font-semibold">Contact Details</h2>
+        <p><strong>Full Name:</strong> {name}</p>
+        <p><strong>Phone Number:</strong> {phone}</p>
+        <p><strong>Email:</strong> {mail}</p>
+        <p><strong>Country:</strong> {contry}</p>
+        <p><strong>Message:</strong></p>
+        <p>{msg}</p>
+      </div>
+      <div className="footer">
+        <p className="text-sm">This email is sent from AtlanticLubes contact form.</p>
+      </div>
     </div>
-    <div class="footer">
-      <p class="text-sm">This email is sent from AtlanticLubes contact form.</p>
-    </div>
-  </div>
-);
+  );
+  
