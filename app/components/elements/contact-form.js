@@ -144,6 +144,7 @@ const ContactForm = () => {
             ref={recaptchaRef}
             sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
             onChange={onReCAPTCHAChange}
+             theme="dark"
           />
         </div>
         <div className="flex items-center justify-between">
