@@ -8,12 +8,13 @@ const ProductSize = ({ packingSize }) => {
   const getProductImage = (size) => {
     switch (size) {
       case 0.7:
-      case 1:
+      case 1: 
       case 2:
       case 3:
       case 4:
       case 5:
       case 20:
+      case 25:
       case 200:
       case 208:
         return "drum-icon.jpg";

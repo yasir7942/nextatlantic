@@ -262,9 +262,6 @@ const SingleProductPage = async ({ params }) => {
                     </div>
 
 
-
-
-
               </div>
               {/* image section */}
               <div className="w-full md:w-2/6 items-center">

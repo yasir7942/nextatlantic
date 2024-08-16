@@ -1,5 +1,5 @@
 import { EmailTemplate } from '@/app/components/elements/email-template';
-
+import fetch from "node-fetch";
 
 import { Resend } from 'resend';
 
@@ -15,13 +15,15 @@ export async function POST(request) {
     }
 
 
-    const { fullName, phoneNumber, email, country, message } = await request.json();
-    console.log("fullname=" + fullName + "-phone:" + phoneNumber + "-email:" + email + "-country:" + country + "-msg:" + message);
+    const { fullName, phoneNumber, email, country, message, isCaptchaCode } = await request.json();
+   
+  
+
     // Validate input data
-    if (!fullName || !phoneNumber || !email || !country || !message) {
+    if (!fullName || !phoneNumber || !email || !country || !message || !isCaptchaCode) {
         return new Response(JSON.stringify({ error: 'Invalid input or Missing Values' }), { status: 400 });
     }
-
+       
     
       
        // Regular expression to detect URLs
@@ -31,7 +33,7 @@ export async function POST(request) {
        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
           // Function to validate email addresses
-        const isValidEmail = email => emailPattern.test(email);
+         const isValidEmail = email => emailPattern.test(email);
  
 
        // Function to check for URLs
@@ -45,7 +47,7 @@ export async function POST(request) {
    
        if (!isValidEmail(email)) {  // Check if the email is valid
          return new Response(JSON.stringify({ error: 'Invalid email address.' }), { status: 400 });
-      }
+      }    
 
        if (containsUrl(message)) {  // Check if the message contains a URL
         console.log("Message contains a URL, which is not allowed");
@@ -60,25 +62,49 @@ export async function POST(request) {
    
 
     try {
-        const { data, error } = await resend.emails.send({
-            from: 'AGL Site <website@atlanticlubes.com>',
-            to: ['it@atlanticlubes.com'],
-            subject: 'AGL Contact Form - ' + fullName,
-            react: EmailTemplate({
-                name: fullName,
-                phone: phoneNumber,
-                mail: email,
-                contry: country,
-                msg: message
-            })
-        });
 
-        if (error) {
-            console.log("api error 1");
-            return Response.json({ error }, { status: 500 });
-        }
+           //Captcha validation
+        const response = await fetch(
+            `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${isCaptchaCode}`,
+            {
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
+              },
+              method: "POST",
+            }
+          );
+           const captchaValidation = await response.json();
+            
+          
 
-        return new Response(JSON.stringify({ message: 'Email sent successfully!' }), { status: 200 });
+            if (captchaValidation.success && process.env.NEXT_PUBLIC_SITE == captchaValidation.hostname ) {
+          
+                const { data, error } = await resend.emails.send({
+                    from: 'AGL Site <website@atlanticlubes.com>',
+                    to: ['it@atlanticlubes.com'],
+                    subject: 'AGL Contact Form - ' + fullName,
+                    react: EmailTemplate({
+                        name: fullName,
+                        phone: phoneNumber,
+                        mail: email,
+                        contry: country,
+                        msg: message
+                    })
+                });
+
+                if (error) {
+                    console.log("Send API Error");
+                    return Response.json({ error }, { status: 500 });
+                }
+
+                return new Response(JSON.stringify({ message: 'Email sent successfully!' }), { status: 200 });
+            }
+
+
+           return new Response(JSON.stringify({ message: 'Error In Google Captcha!' }), { status: 500 });
+        
+
+         
     } catch (error) {
         console.log("api error 2");
         console.log(error);
