@@ -77,7 +77,7 @@ const Products = async () => {
 
           <div className="relative  w-full h-[855px] justify-center items-center ">
               <Image className="absolute inset-0 w-full h-full object-cover" src="/images/product-banner2.png" width={1600} height={800} alt="" />
-                <a href="/" className="absolute w-16 h-16  inset-0 left-32 md:left-40 top-[160px] md:top-[480px] z-50">
+                <a href="https://www.youtube.com/@AtlanticGreaseLubricant" target="_blank" className="absolute w-16 h-16  inset-0 left-32 md:left-40 top-[160px] md:top-[480px] z-50">
               <Image className="w-16 h-16  " src="/images/white-play-button.png" width={1600} height={500} alt="" />
             </a>
           </div>

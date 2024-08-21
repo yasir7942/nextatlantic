@@ -21,9 +21,9 @@ export function SearchComponenet() {
   //  params.set("page", "1");
 
     if (term) {
-      params.set("q", term);
+      params.set("s", term);
     } else {
-      params.delete("q");
+      params.delete("s");
     }
 
     replace(`${pathname}?${params.toString()}`);
@@ -34,7 +34,7 @@ export function SearchComponenet() {
     e.preventDefault();
    //console.log("calllllllllllllllllllllll");
      const params = new URLSearchParams(searchParams);
-     params.delete("q");
+     params.delete("s");
      if (inputRef.current) {
         inputRef.current.value = ""; // Clear the input field using the ref
       }
@@ -56,7 +56,7 @@ export function SearchComponenet() {
           name="searchbar"
           ref={inputRef}
           onChange={(e) => handleSearch(e.target.value)}
-          defaultValue={searchParams.get("q")?.toString()}
+          defaultValue={searchParams.get("s")?.toString()}
           className="w-full px-5 py-2 text-white text-base bg-transparent outline-none border border-gray-300 border-solid"
         />
         <button onClick={clearSearch}   className="px-5 py-2 whitespace-nowrap bg-white border border-gray-300 border-solid">

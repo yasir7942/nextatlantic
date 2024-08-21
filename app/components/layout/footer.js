@@ -28,7 +28,7 @@ const Footer = async () => {
                 />
               </a>
               <p className="text-base text-gray-300 font-light max-w-sm md:max-w-60 lg:max-w-80">
-                Atlantic Lubes is a premier quality lubricant product manufacturer and supplier all over the world with certified ISO 9001-2015, ISO 17025-2015, & ISO 14001-2015 17025-BN14013
+                Atlantic Lubes is a premier quality lubricant product manufacturer and supplier all over the world with certified  ISO 9001, ISO 14001 & ISO 45001. ISO 17025 Accredited Testing Lab
               </p>
               <div className="flex flex-wrap space-x-2 line pr-3">
              {/**    {Object.keys(siteConfig.socialMedia).map((platform) => (
@@ -104,7 +104,7 @@ const Footer = async () => {
               <div className="uppercase text-white font-medium py-4 text-xl">Head Office</div>
               <p className="text-base text-gray-300 font-light max-w-60">
                 <a href="https://maps.app.goo.gl/4SRwewpqge5hYiH9A" target="_blank" rel="noopener noreferrer">
-                  Atlantic Grease and Lubricants, Hamriyah Freezone P.O.BOX 41583, Sharjah, United Arab Emirates
+                  Atlantic Grease and Lubricants, <br/>Hamriyah Freezone P.O.BOX 41583, Sharjah,<br/>United Arab Emirates
                 </a>
               </p>
               <p className="text-base text-gray-300 font-light max-w-60">

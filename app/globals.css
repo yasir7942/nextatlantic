@@ -74,6 +74,17 @@
        @apply text-lg font-normal mb-3;
 
       }
+       
+
+      .rich-text  ul  {
+        @apply list-disc pl-5 space-y-0 ;
+      }
+
+      .rich-text  ol  {
+        @apply list-decimal pl-5 space-y-0 ;
+      }
+
+     
 
       .rich-text p{
         @apply text-lg font-light  ;

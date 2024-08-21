@@ -6,11 +6,11 @@ import ReCAPTCHA from "react-google-recaptcha";
 
 const ContactForm = () => {
 
-  const [fullName, setFullName] = useState('YASIR');
-  const [phoneNumber, setPhoneNumber] = useState('654654654');
-  const [email, setEmail] = useState('SADASD@ASDASD.COM');
-  const [country, setCountry] = useState('pAKISTAN');
-  const [message, setMessage] = useState('SOME MESSAGES TEST');
+  const [fullName, setFullName] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [email, setEmail] = useState('');
+  const [country, setCountry] = useState('');
+  const [message, setMessage] = useState('');
   const [status, setStatus] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isCaptchaCode, setIsCaptchaCode] = useState('');

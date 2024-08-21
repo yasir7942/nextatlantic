@@ -47,7 +47,7 @@ const searchPage =  async ({ searchParams }) => {
     
   const pageData = await cachedGetSearchPage();
 
- const query = searchParams?.q ?? "";
+ const query = searchParams?.s ?? "";
 
   // product show by category
  
