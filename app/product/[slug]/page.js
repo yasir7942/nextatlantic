@@ -128,9 +128,10 @@ const SingleProductPage = async ({ params }) => {
     "offers": {
       "@type": "Offer",
       "priceCurrency": "AED",
-      "price": "119.99",
+      "price": "25",
       "lowPrice": "1",
-      "highPrice": "2",
+      "highPrice": "500",
+      "priceValidUntil": "10-10-2023",
       "itemCondition": "https://schema.org/NewCondition",
       "availability": "http://schema.org/InStock",
       "seller": {
