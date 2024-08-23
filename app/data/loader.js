@@ -406,6 +406,21 @@ export async function getProductCategory(slug) {
 }
 
 
+export async function getProductCategoryList() {
+
+  const blogBlockQuery = qs.stringify({
+    filters: { 
+
+       
+       
+    },
+     populate: ['products', 'products.productImage', 'products.TDSFile',  'products.MSDSFile'],
+
+  });
+  return await fetchData("product-categories", blogBlockQuery);
+}
+
+
 export async function getProductCategoryForHome() {
 
   const blogBlockQuery = qs.stringify({

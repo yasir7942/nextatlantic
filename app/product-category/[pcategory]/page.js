@@ -105,13 +105,13 @@ const currentPage = Number(searchParams.page) || 1;
 
         <div className="w-full h-auto flex flex-col md:flex-row  ">
           {/*  Left Menu Column  */}
-          <div className="w-full md:w-3/12 lg:w-1/6  p-6 md:pl-0  overflow-hidden">
+          <div className="w-full md:w-3/12 lg:w-1/6  p-6 md:pl-0  overflow-hidden ">
             {/* <!-- Menu content goes here   */}
             <ProductCategoryMenu />
           </div>
 
           {/*  Content Area   */}
-          <div className=" w-full md:w-9/12 lg:w-5/6  flex flex-col bg-[#2a3c46] p-3 md:p-4 pb-3 ">
+          <div className=" w-full md:w-9/12 lg:w-5/6  flex flex-col bg-[#2a3c4659] p-3 md:p-4 pb-3 ">
             {/*   Content area content goes here  */}
             <SearchBar dataType="products" />
 

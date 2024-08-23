@@ -10,6 +10,7 @@ export async function GET(request)
     if (!token || token !== process.env.ADMIN_TOKEN) {
         return NextResponse.json({ error: "Not Authorized" }, { status: 404 });
     }
+    
 
     revalidatePath('/', 'layout');
 
