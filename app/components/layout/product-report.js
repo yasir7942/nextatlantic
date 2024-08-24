@@ -3,6 +3,7 @@ import { getProductCategoryList } from "@/app/data/loader";
 import { getImageUrl } from "@/libs/helper";
 import Image from "next/image";
 import React, { useState, useEffect } from 'react';
+import { MagnifyingGlass } from "react-loader-spinner";
 
 const ReadProductReport = () => {
     const [productCategory, setProductCategory] = useState([]);
@@ -25,11 +26,25 @@ const ReadProductReport = () => {
         fetchData();
     }, []);
 
-    if (loading) return <p>Loading...</p>;
+    if (loading) return <div className="flex flex-row  items-center justify-center mt-5 pb-16">
+                            <p className="font-normal text-xl text-[#BE1D21] text-center">Compiling data, please wait a moment.......</p>
+                                <div className="pt-2"> 
+                                    <MagnifyingGlass
+                                    visible={true}
+                                    height="80"
+                                    width="80"
+                                    ariaLabel="magnifying-glass-loading"
+                                    wrapperStyle={{}}
+                                    wrapperClass="magnifying-glass-wrapper"
+                                    glassColor="#FFFFFF"
+                                    color="#BE1D21"
+                                    /> </div>
+                        </div>;
     if (error) return <p>Error: {error.message}</p>;
 
     return (
         <div>
+
             {productCategory.data.map((category) => (
                 <div key={category.id}>
                     <div className="pb-2 pl-1">{category.title || "No Title"}</div>
@@ -96,9 +111,10 @@ const ReadProductReport = () => {
                                             <Image
                                                 className="w-6 hover:scale-[8] hover:cursor-pointer transition-transform duration-500"
                                                 src={getImageUrl(product.productImage.url)}
-                                                height={500}
-                                                width={500}
+                                                height={250}
+                                                width={250}
                                                 alt="product image"
+                                                priority
                                             />
                                         ) : (
                                             <div className="text-center text-red-500"> --- </div>
