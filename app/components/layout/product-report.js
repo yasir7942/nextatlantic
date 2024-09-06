@@ -54,9 +54,9 @@ const ReadProductReport = () => {
                                 <th className="border border-gray-200 text-sm">Id</th>
                                 <th className="border border-gray-200 text-sm">Title</th>
                                 <th className="border border-gray-200 text-sm">Name</th>
-                                <th className="border border-gray-200 text-sm">Grade</th>
-                                <th className="border border-gray-200 text-sm">API</th>
-                                <th className="border border-gray-200 text-sm">acea</th>
+                                <th className="border border-gray-200 text-sm">Grade/Line 1</th>
+                                <th className="border border-gray-200 text-sm">API/Line 2</th>
+                                <th className="border border-gray-200 text-sm">acea/Line 3</th>
                                 <th className="border border-gray-200 text-sm">Packing</th>
                                 <th className="border border-gray-200 text-sm">TDSFile</th>
                                 <th className="border border-gray-200 text-sm">MSDSFile</th>

@@ -2,7 +2,7 @@
 const siteConfig = {
   homeTitle:"Atlantic Grease and Lubricants FZC (AGL) - A Leading Manufacturer Company", 
   organizatioName: "Atlantic Grease and Lubricants",
-  description:"Previous slide Next slide Pioneers of Lubricants and Grease Manufacturing Atlantic Grease &amp; Lubricants is one of the leading manufacturers in the automotive industry providing high-performance products certified by renowned European and American automobileindustries.AGL incorporates cutting-edge expertise with certified lubricants and greases for customersglobally. Our consistent dedication to innovation, excellence, and customer satisfaction.",
+  description:"Atlantic Grease and Lubricants, we have secured approvals leading automobile manufacturers. Thus, we demonstrate our commitment to delivering the best possible outcomes to our customers. Recognizing the significance of quality to our valued customers, we uphold the utmost standards of excellence in all our endeavors.",
   baseUrl:process.env.NEXT_PUBLIC_BASE_URL,
   ogImage: process.env.NEXT_PUBLIC_BASE_URL + "/opengraph-image.jpg",
   logoImage: process.env.NEXT_PUBLIC_BASE_URL+ "/images/logo-486x124.png",

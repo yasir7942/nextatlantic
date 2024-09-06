@@ -22,7 +22,7 @@ export async function generateMetadata({ params }) {
   const pageData = await cachedGetHomePage(); 
     
   const metadataParams = {
-    pageTitle:  siteConfig.organizatioName,
+    pageTitle:  pageData.title,
     pageSlug: "/",
     pageDescription: siteConfig.description,
     seoTitle: pageData.seo?.seoTitle,
