@@ -1,4 +1,7 @@
+"use client";
+
 import { IoMdMenu } from "react-icons/io";
+import { useState, useEffect } from "react";
 import { geProductCategoryLeftMenu } from "@/app/data/loader";
 import {
   Sheet,
@@ -8,12 +11,36 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import Link from "next/link";
-
+/*
 const ProductCategoryMenu = async () => {
+  
   const menuData = await geProductCategoryLeftMenu();
   const filteredMenuData = menuData.data.filter(
     (menu) => menu.products.data.length > 0
   );
+
+  */
+
+  const ProductCategoryMenu = () => {
+    const [menuData, setMenuData] = useState([]);
+    const [openSheet, setOpenSheet] = useState(false);
+  
+  // Fetch data on client-side when component mounts
+  useEffect(() => {
+    const fetchMenuData = async () => {
+      try {
+        const response = await geProductCategoryLeftMenu();
+        const filteredData = response.data.filter(
+          (menu) => menu.products.data.length > 0
+        );
+        setMenuData(filteredData);
+      } catch (error) {
+        console.error("Error fetching product categories:", error);
+      }
+    };
+
+    fetchMenuData();
+  }, []);
 
   return (
     <div>
@@ -22,7 +49,7 @@ const ProductCategoryMenu = async () => {
           <a href="#">Products Categories</a>
           <div className="w-full h-[1px] bg-[#0f0f0f]"> </div>
         </div>
-        {filteredMenuData.map((menu) => (
+        {menuData.map((menu) => (
           <div key={menu.id} className="fex fex-col space-y-3 text-base md:font-light md:text-lg">
             <Link href={`/product-category/${menu.slug}`}>
               {menu.title} - <span className="text-base">({menu.products.data.length})</span>
@@ -33,7 +60,7 @@ const ProductCategoryMenu = async () => {
       </div>
 
       <div className="flex flex-row justify-start md:hidden text-white">
-        <Sheet className="bg-orange-500">
+        <Sheet  open={openSheet} onOpenChange={setOpenSheet} >
           <SheetTrigger className="flex justify-start items-end space-x-2">
             <IoMdMenu size={20} />
             <div className="font-light">Product Category</div>
@@ -46,9 +73,9 @@ const ProductCategoryMenu = async () => {
                     <div className="fex fex-col space-y-3 text-left mb-5 text-base font-normal">
                       <a href="#">Products Categories</a>
                     </div>
-                    {menuData.data.map((menu) => (
+                    {menuData.map((menu) => (
                       <div key={"mobile-" + menu.id} className="fex fex-col text-left pl-2 space-y-3 mt-2 text-base font-light">
-                        <Link href={`/product-category/${menu.slug}`}>{menu.title}</Link>
+                        <Link href={`/product-category/${menu.slug}`} onClick={() => setOpenSheet(false)} >{menu.title}</Link>
                         <div className="w-[70%] h-[1px] bg-[#0f0f0f]"> </div>
                       </div>
                     ))}

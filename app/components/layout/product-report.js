@@ -43,12 +43,12 @@ const ReadProductReport = () => {
     if (error) return <p>Error: {error.message}</p>;
 
     return (
-        <div>
+        <div className="overflow-x-auto">
 
             {productCategory.data.map((category) => (
                 <div key={category.id}>
                     <div className="pb-2 pl-1">{category.title || "No Title"}</div>
-                    <table className="table-auto w-full border-collapse border border-gray-200 text-gray-950">
+                    <table className="table-auto w-full border-collapse border  border-gray-200 text-gray-950">
                         <thead>
                             <tr>
                                 <th className="border border-gray-200 text-sm">Id</th>

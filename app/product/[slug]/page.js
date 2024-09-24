@@ -131,7 +131,7 @@ const SingleProductPage = async ({ params }) => {
       "price": "25",
       "lowPrice": "1",
       "highPrice": "500",
-      "priceValidUntil": "10-10-2023",
+      "priceValidUntil": "10-10-2040",
       "itemCondition": "https://schema.org/NewCondition",
       "availability": "http://schema.org/InStock",
       "seller": {
@@ -189,7 +189,7 @@ const SingleProductPage = async ({ params }) => {
   
   return (
     <div>
-        JSON-LD of Page 
+          
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd2) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd3) }} />   
