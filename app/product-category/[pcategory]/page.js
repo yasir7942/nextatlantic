@@ -12,9 +12,44 @@ import { Suspense  } from "react";
 import SEOSchema from "@/app/components/elements/seo-schema";
 
 
+const pageSize = 3;
+
+  
+export const generateStaticParams = async () => {
+  try {
 
 
-const pageSize = 12;
+    const pcategorySlugs = await geAllProductCategorySlug();
+    const slugCount = pcategorySlugs?.data?.length || 0;
+    let pages = Math.round(slugCount/ pageSize);
+    
+    if(slugCount <= pageSize)
+    {
+      pages = 0;
+    }
+    
+    const paramsSlugs = pcategorySlugs?.data?.flatMap((pCat) => {
+      const totalPages = pages;  
+
+      return Array.from({ length: totalPages + 1 }, (_, i) => ({  // +1 to include the category page
+        slug: pCat.slug + (i > 0 ?  "?page=" + i: ""),
+       // ...(i > 0 && { page: i })   Include page only if i > 0
+      }));
+    });
+    
+ 
+    // console.log(paramsSlugs);
+    return paramsSlugs || [];
+  } catch (error) {
+    console.log(error);
+    throw new Error("Error Fetching generateStaticParams");
+  }
+}
+ 
+
+
+
+
 
 export async function generateMetadata({ params }) {
    
@@ -44,28 +79,7 @@ export async function generateMetadata({ params }) {
   
   
  
- /*
-export const generateStaticParams = async () => {
-  try {
 
-   // try with pagination 
-    const pcategorySlugs = await geAllProductCategorySlug();
-
-    const paramsSlugs = pcategorySlugs?.data?.map((pCat) => {
-     
-      return {
-        slug: pCat.slug
-      // slug: "product categry"
-      };
-    });
-
-    return paramsSlugs || [];
-  } catch (error) {
-    console.log(error);
-    throw new Error("Error Fetching generateStaticParams");
-  }
-}
-*/
  
 
 const numbers = Array.from({ length: 12 }, (_, index) => index + 1);

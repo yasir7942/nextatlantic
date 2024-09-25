@@ -15,29 +15,8 @@ import ProductSize from "@/app/components/layout/product-size";
 
 // Cache the geSingleProduct function
 const cachedGeSingleProduct = cache(geSingleProduct);
- 
-export async function generateMetadata({ params }) {
-  const productData = await geSingleProduct(params.slug);
 
-  const metadataParams = {
-    pageTitle: productData.data[0].title,
-    pageSlug: productData.data[0].slug,
-    pageDescription: getFirstDescriptionText(productData.data[0].description),
-    seoTitle: productData.data[0].seo?.seoTitle,
-    seoDescription: productData.data[0].seo?.seoDescription,
-    rebotStatus: productData.data[0].seo?.preventIndexing,
-    canonicalLinks: productData.data[0].seo?.canonicalLinks,
-    dataPublishedTime: productData.data[0].publishedAt,
-    category: productData.data[0].product_categories?.data[0].title,
-    image: process.env.NEXT_PUBLIC_ADMIN_BASE_URL + productData.data[0].productImage.url,
-    imageAlternativeText: productData.data[0].productImage?.alternativeText,
-    imageExt: productData.data[0].productImage?.mime,
-  };
 
-  return await generatePageMetadata({ type: "product", path: "/product/", params: metadataParams });
-}
- 
- 
 export const generateStaticParams = async () => {
   try {
     const productSlugs = await geAllProductsSlug();
@@ -47,7 +26,7 @@ export const generateStaticParams = async () => {
         slug: product.slug
       };
     });
-
+       
     return paramsSlugs || [];
   } catch (error) {
     console.log(error);
@@ -56,22 +35,49 @@ export const generateStaticParams = async () => {
 }
  
 
+
+
+ 
+export async function generateMetadata({ params }) {
+  const productData = await geSingleProduct(params.slug);
+
+  const metadataParams = {
+    pageTitle: productData.data[0]?.title,
+    pageSlug: productData.data[0]?.slug,
+    pageDescription: getFirstDescriptionText(productData.data[0].description),
+    seoTitle: productData.data[0].seo?.seoTitle,
+    seoDescription: productData.data[0].seo?.seoDescription,
+    rebotStatus: productData.data[0].seo?.preventIndexing,
+    canonicalLinks: productData.data[0].seo?.canonicalLinks,
+    dataPublishedTime: productData.data[0].publishedAt,
+    category: productData.data[0].product_categories?.data[0]?.title,
+    image: process.env.NEXT_PUBLIC_ADMIN_BASE_URL + productData.data[0].productImage.url,
+    imageAlternativeText: productData.data[0].productImage?.alternativeText,
+    imageExt: productData.data[0].productImage?.mime,
+  };
+
+  return await generatePageMetadata({ type: "product", path: "/product/", params: metadataParams });
+}
+ 
+ 
+
+
 const SingleProductPage = async ({ params }) => {
   const productData = await cachedGeSingleProduct(params.slug);
 
 
  
-       console.log("-----------------single product data --------------");
-        console.dir(productData, { depth:null});
-     console.log("-----------------End------------");
+     //  console.log("-----------------single product data --------------");
+    //    console.dir(productData, { depth:null});
+   //  console.log("-----------------End------------");
 
   const content = productData.data[0].description;
   const productGroup = productData.data[0].related_products;
   const firstDescriptionText = getFirstDescriptionText(productData.data[0].description);
   const seoDescription = productData.data[0].seo?.seoDescription ? productData.data[0].seo?.seoDescription : firstDescriptionText;
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-  const category = productData.data[0].product_categories?.data[0].title ? productData.data[0].product_categories.data[0].title : "product Category";
-  const categorySlug = productData.data[0].product_categories?.data[0].slug ? productData.data[0].product_categories.data[0].slug : "#";
+  const category = productData.data[0].product_categories?.data[0]?.title ? productData.data[0].product_categories.data[0]?.title : "product Category";
+  const categorySlug = productData.data[0].product_categories?.data[0]?.slug ? productData.data[0].product_categories.data[0]?.slug : "#";
 
   let ratingCounter = 0;
    
@@ -79,7 +85,7 @@ const SingleProductPage = async ({ params }) => {
     ratingCounter += review.bestRating;
     return {
       "@type": "Review",
-      "name": review.title,
+      "name": review?.title,
       "reviewBody": review.reviewBody,
       "reviewRating": {
         "@type": "Rating",
@@ -104,7 +110,7 @@ const SingleProductPage = async ({ params }) => {
   const jsonLd = {
     "@context": "https://schema.org/",
     "@type": "Product",
-    "name": productData.data[0].title,
+    "name": productData.data[0]?.title,
     "image": getImageUrl(productData.data[0].productImage.url),
     "image": [
       getImageUrl(productData.data[0].productImage.url),  // large
@@ -167,7 +173,7 @@ const SingleProductPage = async ({ params }) => {
     }, {
       "@type": "ListItem",
       "position": 3,
-      "name": productData.data[0].title,
+      "name": productData.data[0]?.title,
     }]
   };
 
@@ -273,7 +279,7 @@ const SingleProductPage = async ({ params }) => {
                     src={getImageUrl(productData.data[0].productImage.url)}
                     height={1000}
                     width={1000}
-                    alt={productData.data[0].title}
+                    alt={productData.data[0]?.title}
                   />
                   <ProductSize packingSize={productData.data[0].packing} />
                 </div>
