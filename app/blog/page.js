@@ -1,4 +1,5 @@
 import React from 'react'
+import moment from 'moment';
 import {  gePosts, getBlogPage } from '../data/loader';
 import TopBanner from '../components/layout/top-banner';
 import { PaginationComponent } from "@/app/components/elements/pagination";
@@ -88,6 +89,7 @@ const Blog = async ({searchParams }) => {
                                     <h2 className="text-darkYellow font-semibold  leading-6 text-lg md:text-base pt-3  text-justify">
                                         {post.title}
                                     </h2>
+                                    <p className='text-sm text-gray-300 font-light'> {moment(post.PostDate).format('MMMM D, YYYY')}</p>
                                     <p className="text-lx md:text-sm text-justify">{post.seo?.seoDesctiption || ""}</p>
                                 </a>
 

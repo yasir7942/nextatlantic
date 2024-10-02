@@ -43,7 +43,7 @@ const ReadProductReport = () => {
     if (error) return <p>Error: {error.message}</p>;
 
     return (
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto font-serif">
 
             {productCategory.data.map((category) => (
                 <div key={category.id}>
@@ -71,7 +71,7 @@ const ReadProductReport = () => {
                                         {product.id || <div className="text-center text-red-500"> --- </div>}
                                     </td>
                                     <td className="border text-sm font-light border-gray-200">
-                                        {product.title || <div className="text-center text-red-500"> --- </div>}
+                                        { <a href={`/product/${product.slug}`} className="underline" target="_blank" > product.title </a> || <div className="text-center text-red-500"> --- </div>}
                                     </td>
                                     <td className="border text-sm font-light border-gray-200">
                                         {product.name || <div className="text-center text-red-500"> --- </div>}

@@ -12,9 +12,9 @@ import { Suspense  } from "react";
 import SEOSchema from "@/app/components/elements/seo-schema";
 
 
-const pageSize = 3;
+const pageSize = 12;
 
-  
+ /* 
 export const generateStaticParams = async () => {
   try {
 
@@ -45,7 +45,7 @@ export const generateStaticParams = async () => {
     throw new Error("Error Fetching generateStaticParams");
   }
 }
- 
+ */
 
 
 

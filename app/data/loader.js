@@ -92,7 +92,7 @@ export async function getSearchPage() {
 export async function getPostLimitedData() {
 
   const blogBlockQuery = qs.stringify({
-    sort: 'publishedAt',
+    sort: 'PostDate:desc',
     pagination: {
       page: 1,
       pageSize: 3
@@ -280,14 +280,10 @@ export async function getBlogPage() {
 export async function gePosts(currentPage, pageSize) {
 
   const PAGE_SIZE = pageSize;
-
-   
-
   const blogBlockQuery = qs.stringify({
 
-    filters: {
-
-    },
+    sort: 'PostDate:desc',
+    filters: { },
     populate: ['featureImage','seo.schema'],
 
 

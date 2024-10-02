@@ -40,7 +40,7 @@ const ProductReport = () => {
   
 
         <PaddingContainer>
-        <h1 className="text-2xl font-semibold text-center ">Product Report <span className="font-light block text-base">(Use Desktop Browser)</span></h1> 
+        <h1 className="text-2xl font-semibold text-center ">Product Report <span className="font-light block text-base font-serif">(Use Desktop Browser)</span></h1> 
         <h2 className="text-md font-light text-center pb-5">Product Data Analysis on one Page</h2> 
 
         <ReadProductReport />

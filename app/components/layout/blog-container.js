@@ -1,28 +1,22 @@
 import Image from "next/image"
-import PaddingContainer from "./padding-container"
 import {getPostLimitedData} from "@/app/data/loader"
 import {getImageUrl} from "@/libs/helper"
-import Link from "next/link";
-
+import moment from 'moment';
  
 
 
 const BlogContainer = async () => {
 
-
-
-   
   const postData = await getPostLimitedData();
     
-    //   console.log("------------------------------Post---Data-222222---------------------------------------");
-   
-     //  console.dir(postData, { depth:null});
- 
-    //  console.log("---------------------------End-----------------------end-----------------------");
+       console.log("------------------------------Post---Data-222222---------------------------------------");
+      // console.dir(postData, { depth:null});
+
+      /*postData.data.map(post => {
+        console.log(post.PostDate);
+      });*/
+      console.log("---------------------------End-----------------------end-----------------------");
   
-
-
-
   return (
     <div>
       
@@ -50,7 +44,8 @@ const BlogContainer = async () => {
                         <h2 className="text-darkYellow font-semibold  leading-6 text-lg md:text-base pt-3  text-justify headline">
                             {post.title}
                        </h2>
-                       <p className="text-lx md:text-sm text-justify summary">{post.seo.seoDesctiption}</p>
+                       <p className='text-sm text-gray-300 font-light'> {moment(post.PostDate).format('MMMM D, YYYY')}</p>
+                       <p className="text-lx md:text-sm text-justify summary">{post.seo?.seoDesctiption}</p>
                        </a>
                       
                 </div>
