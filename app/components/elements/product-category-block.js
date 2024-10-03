@@ -10,7 +10,7 @@ const ProductCategoryBlock = ({colorImage, grayImage, url, text}) => {
                 <a href={'/product-category/'+url} >
                     <Image className="absolute inset-0 w-full h-full object-cover transition duration-300 ease-in-out" src={getImageUrl(grayImage)} width={500} height={500} alt={text} />
                     <Image className="absolute inset-0 w-full h-full object-cover opacity-0 transition duration-300 ease-in-out group-hover:opacity-100" src={getImageUrl(colorImage)} width={500} height={500} alt={text} />
-                 <div className="text-darkYellow text-2xl   lg:text-3xl font-normal absolute bottom-4 right-3  uppercase drop-shadow-[0px_1px_18px_rgba(0,0,0,1)]" >{text}  </div>
+                 <div className="text-darkYellow text-2xl   lg:text-3xl font-normal absolute bottom-4 left-3  uppercase drop-shadow-[0px_1px_18px_rgba(0,0,0,1)]" >{text}  </div>
                 </a>
 
      </div>
