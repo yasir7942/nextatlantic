@@ -26,18 +26,18 @@ export const generateStaticParams = async () => {
         slug: product.slug
       };
     });
-       
+
     return paramsSlugs || [];
   } catch (error) {
     console.log(error);
     throw new Error("Error Fetching generateStaticParams");
   }
 }
- 
 
 
 
- 
+
+
 export async function generateMetadata({ params }) {
   const productData = await geSingleProduct(params.slug);
 
@@ -58,18 +58,18 @@ export async function generateMetadata({ params }) {
 
   return await generatePageMetadata({ type: "product", path: "/product/", params: metadataParams });
 }
- 
- 
+
+
 
 
 const SingleProductPage = async ({ params }) => {
   const productData = await cachedGeSingleProduct(params.slug);
 
 
- 
-     //  console.log("-----------------single product data --------------");
-    //    console.dir(productData, { depth:null});
-   //  console.log("-----------------End------------");
+
+  //  console.log("-----------------single product data --------------");
+  //    console.dir(productData, { depth:null});
+  //  console.log("-----------------End------------");
 
   const content = productData.data[0].description;
   const productGroup = productData.data[0].related_products;
@@ -80,7 +80,7 @@ const SingleProductPage = async ({ params }) => {
   const categorySlug = productData.data[0].product_categories?.data[0]?.slug ? productData.data[0].product_categories.data[0]?.slug : "#";
 
   let ratingCounter = 0;
-   
+
   const reviews = productData.data[0]?.productSchema?.reviews?.map(review => {
     ratingCounter += review.bestRating;
     return {
@@ -191,25 +191,25 @@ const SingleProductPage = async ({ params }) => {
     },
     "copyrightNotice": siteConfig.imageObject.copyrightNoticeProduct
   };
-   
-  
+
+
   return (
     <div>
-          
+
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd2) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd3) }} />   
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd3) }} />
 
-     <SEOSchema schemaList={productData.data[0].seo?.schema} /> 
+      <SEOSchema schemaList={productData.data[0].seo?.schema} />
 
-       <TopBanner banner={productData.data[0]?.product_categories.data[0]?.banner} />     
+      <TopBanner banner={productData.data[0]?.product_categories.data[0]?.banner} />
 
       <PaddingContainer>
-        <div className="w-full h-auto flex flex-col md:flex-row">
+        <div className="w-full h-auto flex flex-col md:flex-row topPadding">
           {/* Left Menu Column */}
           <div className="w-full md:w-3/12 lg:w-1/6 p-6 md:pl-0 overflow-hidden">
             {/* Menu content goes here  */}
-            <ProductCategoryMenu />  
+            <ProductCategoryMenu />
           </div>
 
           {/* Content Area */}
@@ -225,48 +225,48 @@ const SingleProductPage = async ({ params }) => {
                   {(productData.data[0].grade ? productData.data[0].grade : "") + (productData.data[0].api ? productData.data[0].api : "") + (productData.data[0].acea ? " " + productData.data[0].acea : "")}
                 </div>
                 <div className="text-white font-light text-base mt-5 max-w-xl pr-5 md:pr-2 rich-text">
-                   <BodyDataParse content={content} />   
+                  <BodyDataParse content={content} />
                 </div>
 
-             
-                       <div>
-                      {/* Check if either MSDSFile or TDSFile exists */}
-                      {(productData.data[0].MSDSFile?.url || productData.data[0].TDSFile?.url) && (
-                        <div className="mt-10 text-gray-300 text-lg"> Download </div>
-                      )}
-                      
-                      <div className="w-full h-auto flex mt-5 pr-0 md:pr-5 lg:pr-16">
-                        {/* Check if MSDSFile exists */}
-                        {productData.data[0].MSDSFile?.url && (
-                          <a 
-                            href={`${process.env.NEXT_PUBLIC_ADMIN_BASE_URL}${productData.data[0].MSDSFile.url}`} 
-                            target="_blank" 
-                            className="w-1/2"
-                            download
-                          >
-                            <div className="py-1 bg-gray-400 text-black flex justify-center items-center space-x-2 font-light text-center">
-                              <div>Material Safety Data Sheet</div>
-                              <FaDownload />
-                            </div>
-                          </a>
-                        )}
 
-                        {/* Check if TDSFile exists */}
-                        {productData.data[0].TDSFile?.url && (
-                          <a 
-                            href={`${process.env.NEXT_PUBLIC_ADMIN_BASE_URL}${productData.data[0].TDSFile.url}`} 
-                            target="_blank" 
-                            className="w-1/2"
-                            download
-                          >
-                            <div className="py-1 bg-white text-black flex justify-center items-center space-x-2 font-light text-center">
-                              <div>Technical Data Sheet</div>
-                              <FaDownload />
-                            </div>
-                          </a>
-                        )}
-                      </div>
-                    </div>
+                <div>
+                  {/* Check if either MSDSFile or TDSFile exists */}
+                  {(productData.data[0].MSDSFile?.url || productData.data[0].TDSFile?.url) && (
+                    <div className="mt-10 text-gray-300 text-lg"> Download </div>
+                  )}
+
+                  <div className="w-full h-auto flex mt-5 pr-0 md:pr-5 lg:pr-16">
+                    {/* Check if MSDSFile exists */}
+                    {productData.data[0].MSDSFile?.url && (
+                      <a
+                        href={`${process.env.NEXT_PUBLIC_ADMIN_BASE_URL}${productData.data[0].MSDSFile.url}`}
+                        target="_blank"
+                        className="w-1/2"
+                        download
+                      >
+                        <div className="py-1 bg-gray-400 text-black flex justify-center items-center space-x-2 font-light text-center">
+                          <div>Material Safety Data Sheet</div>
+                          <FaDownload />
+                        </div>
+                      </a>
+                    )}
+
+                    {/* Check if TDSFile exists */}
+                    {productData.data[0].TDSFile?.url && (
+                      <a
+                        href={`${process.env.NEXT_PUBLIC_ADMIN_BASE_URL}${productData.data[0].TDSFile.url}`}
+                        target="_blank"
+                        className="w-1/2"
+                        download
+                      >
+                        <div className="py-1 bg-white text-black flex justify-center items-center space-x-2 font-light text-center">
+                          <div>Technical Data Sheet</div>
+                          <FaDownload />
+                        </div>
+                      </a>
+                    )}
+                  </div>
+                </div>
 
 
               </div>
@@ -287,7 +287,7 @@ const SingleProductPage = async ({ params }) => {
             </div>
             {/* Related Product section */}
             <div className="w-full flex flex-col justify-center items-center text-gray-300 mt-5">
-              <GroupProducts productGroup={productGroup} />  
+              <GroupProducts productGroup={productGroup} />
             </div>
           </div>
         </div>

@@ -67,10 +67,10 @@ export default async function Home() {
 
 
         {/* <!-- media section--> */}
-        <section className="flex flex-col md:flex-row w-full h-auto mt-20 p-0 pb-0 justify-between items-center space-x-0 space-y-0">
+        <section className="flex flex-col md:flex-row w-full h-auto mt-20 p-0 pb-0 2xl:mt-52 justify-between items-center space-x-0 space-y-0">
           <div className="w-full h-auto md:w-1/2 lg:w-1/2 flex justify-center">
             <iframe
-              className="w-[100%] h-[350px] md:w-[100%] md:h-[350px] lg:w-[100%] lg:h-[400px]"
+              className="w-[100%] h-[350px] md:w-[100%] md:h-[350px] lg:w-[100%] lg:h-[400px] 2xl:h-[580px]"
               src="https://www.youtube.com/embed/9xmuqQjRMEg?autoplay=1&mute=1&modestbranding=0&showinfo=0&controls=0&rel=0"
               title="YouTube Video"
               frameBorder="0"
@@ -82,7 +82,7 @@ export default async function Home() {
           <div className="w-full md:w-1/2 lg:w-1/2 p-4 flex justify-center items-center">
             <Image
               src="/images/atlantic-products.png"
-              className="w-auto h-[350px] md:h-[300px] lg:h-[400px]"
+              className="w-auto h-[350px] md:h-[300px] lg:h-[400px] "
               width={600}
               height={500}
               alt="Atlantic Product Range"

@@ -11,26 +11,26 @@ import SpeakableSchema from "../components/elements/speakable-schema";
 
 const cachedGetAboutPage = cache(getAboutPage);
 export async function generateMetadata({ params }) {
- 
- 
-  const pageData = await cachedGetAboutPage(); 
-    
-  const metadataParams = {
-    pageTitle:   "About Us",
-    pageSlug: "about-us",
-    pageDescription: pageData.seo?.seoDescription,
-    seoTitle: pageData.seo?.seoTitle,
-    seoDescription: pageData.seo?.seoDescription,
-    rebotStatus: pageData.seo?.preventIndexing,
-    canonicalLinks: pageData.seo?.canonicalLinks?? "about-us",
-    dataPublishedTime: pageData.publishedAt,
-    category: "",
-    image: process.env.NEXT_PUBLIC_ADMIN_BASE_URL + pageData.banner?.mobileBanner?.url,
-    imageAlternativeText:  pageData.banner?.mobileBanner?.alternativeText ?? pageData.title,
-    imageExt:  pageData.banner?.mobileBanner?.mime,
-  };
 
-  return await generatePageMetadata({ type: "page", path: "", params: metadataParams });
+
+    const pageData = await cachedGetAboutPage();
+
+    const metadataParams = {
+        pageTitle: "About Us",
+        pageSlug: "about-us",
+        pageDescription: pageData.seo?.seoDescription,
+        seoTitle: pageData.seo?.seoTitle,
+        seoDescription: pageData.seo?.seoDescription,
+        rebotStatus: pageData.seo?.preventIndexing,
+        canonicalLinks: pageData.seo?.canonicalLinks ?? "about-us",
+        dataPublishedTime: pageData.publishedAt,
+        category: "",
+        image: process.env.NEXT_PUBLIC_ADMIN_BASE_URL + pageData.banner?.mobileBanner?.url,
+        imageAlternativeText: pageData.banner?.mobileBanner?.alternativeText ?? pageData.title,
+        imageExt: pageData.banner?.mobileBanner?.mime,
+    };
+
+    return await generatePageMetadata({ type: "page", path: "", params: metadataParams });
 }
 
 
@@ -39,15 +39,15 @@ const AboutUsPage = async () => {
     const pageData = await cachedGetAboutPage();
 
     //// console.log("-----------------------about   page--------------------------------------------------");
-   //  console.dir(pageData, { depth: null });
-   // console.log("---------------------------End-----about ------------------end-----------------------");
+    //  console.dir(pageData, { depth: null });
+    // console.log("---------------------------End-----about ------------------end-----------------------");
 
 
 
     return (
         <div>
-            <SpeakableSchema pageTitle={pageData.title} pageUrl={pageData.seo?.canonicalLinks?? "/about-us"}  />
-            <SEOSchema schemaList={pageData.seo?.schema}  />
+            <SpeakableSchema pageTitle={pageData.title} pageUrl={pageData.seo?.canonicalLinks ?? "/about-us"} />
+            <SEOSchema schemaList={pageData.seo?.schema} />
 
             <TopBanner banner={pageData.banner} />
 
@@ -56,7 +56,7 @@ const AboutUsPage = async () => {
 
 
 
-                <div className="flex flex-col md:flex-row justify-center items-center mt-5 ">
+                <div className="flex flex-col md:flex-row justify-center items-center mt-5 topPadding ">
                     <div className="w-full h-auto pr-10 ">
                         <Image className="w-lg block mx-auto " src={getImageUrl(pageData.aboutus.image.url)} width={800} height={500} alt={pageData.aboutus.image.alternativeText} />
                     </div>
@@ -97,7 +97,7 @@ const AboutUsPage = async () => {
 
 
             <PaddingContainer  >
-                
+
                 <div className="text-white mt-16 ">
                     <h3 className="text-3xl font-light uppercase">Our Values</h3>
 
@@ -135,8 +135,8 @@ const AboutUsPage = async () => {
                         <div className=" max-w-5xl summary"> <BodyDataParse content={pageData.overVisson.description} /> </div>
                     </div>
                 </div>
-            
-              <div className="w-full h-16"></div>
+
+                <div className="w-full h-16"></div>
 
 
             </PaddingContainer>
