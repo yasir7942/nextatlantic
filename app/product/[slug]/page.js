@@ -213,7 +213,7 @@ const SingleProductPage = async ({ params }) => {
           </div>
 
           {/* Content Area */}
-          <div className="w-full md:w-9/12 justify-between lg:w-5/6 flex flex-col bg-[#2a3c46] p-3 md:p-4 pb-3 ">
+          <div className="w-full md:w-9/12 justify-between lg:w-5/6 flex flex-col  bg-[#2a3c4659] p-3 md:p-4 pb-3 ">
             {/* Content area content goes here */}
             <div className="flex flex-col md:flex-row w-full h-auto p-0 lg:p-8 ">
               {/* text section */}
