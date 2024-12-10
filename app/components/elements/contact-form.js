@@ -1,5 +1,5 @@
 'use client';
-import {  useState } from 'react';
+import { useState } from 'react';
 
 import React from "react";
 import ReCAPTCHA from "react-google-recaptcha";
@@ -22,7 +22,7 @@ const ContactForm = () => {
     setIsSubmitting(true);
     setStatus('');
     //recaptchaRef.current.execute();
-   
+
     try {
       const response = await fetch('/api/send', {
         method: 'POST',
@@ -53,12 +53,12 @@ const ContactForm = () => {
   const onReCAPTCHAChange = (captchaCode) => {
     // If the reCAPTCHA code is null or undefined indicating that
     // the reCAPTCHA was expired then return early
-    if(!captchaCode) {
+    if (!captchaCode) {
       return;
     }
 
     setIsCaptchaCode(captchaCode);
-    
+
     // Else reCAPTCHA was executed successfully so proceed with the 
     // alert
     //  alert(`Hey `);
@@ -68,7 +68,7 @@ const ContactForm = () => {
   }
 
   return (
-    <div>
+    <div className='md:mt-10'>
       <form onSubmit={handleSubmit}>
         <div className="flex mb-4">
           <div className="w-1/2 mr-2">
@@ -140,11 +140,11 @@ const ContactForm = () => {
           <small className="error text-gray-300 font-light">Please avoid including hyperlinks or URLs in your message.</small>
         </div>
         <div className="mb-4">
-          <ReCAPTCHA 
+          <ReCAPTCHA
             ref={recaptchaRef}
             sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
             onChange={onReCAPTCHAChange}
-             theme="dark"
+            theme="dark"
           />
         </div>
         <div className="flex items-center justify-between">

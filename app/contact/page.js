@@ -54,7 +54,7 @@ const ContactUs = async () => {
 
         <div className="flex flex-col md:flex-row justify-center items-center md:space-x-10 mt-14">
           {/* contact form */}
-          <div className=" w-full text-white">
+          <div className=" w-full text-white ">
 
             <ContactForm />
 
