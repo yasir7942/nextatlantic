@@ -10,6 +10,11 @@ const ReadProductReport = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    const getFileExtension = (filePath) => {
+        const extension = filePath.split('.').pop();
+        return extension.toLowerCase();
+    };
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -27,19 +32,19 @@ const ReadProductReport = () => {
     }, []);
 
     if (loading) return <div className="flex flex-row  items-center justify-center mt-5 pb-16">
-                            <p className="font-normal text-xl text-[#BE1D21] text-center">Compiling data, please wait a moment.......</p>
-                                <div className="pt-2"> 
-                                    <MagnifyingGlass
-                                    visible={true}
-                                    height="80"
-                                    width="80"
-                                    ariaLabel="magnifying-glass-loading"
-                                    wrapperStyle={{}}
-                                    wrapperClass="magnifying-glass-wrapper"
-                                    glassColor="#FFFFFF"
-                                    color="#BE1D21"
-                                    /> </div>
-                        </div>;
+        <p className="font-normal text-xl text-[#BE1D21] text-center">Compiling data, please wait a moment.......</p>
+        <div className="pt-2">
+            <MagnifyingGlass
+                visible={true}
+                height="80"
+                width="80"
+                ariaLabel="magnifying-glass-loading"
+                wrapperStyle={{}}
+                wrapperClass="magnifying-glass-wrapper"
+                glassColor="#FFFFFF"
+                color="#BE1D21"
+            /> </div>
+    </div>;
     if (error) return <p>Error: {error.message}</p>;
 
     return (
@@ -51,7 +56,7 @@ const ReadProductReport = () => {
                     <table className="table-auto w-full border-collapse border  border-gray-200 text-gray-950">
                         <thead>
                             <tr>
-                                <th className="border border-gray-200 text-sm">Id</th>
+                                <th className="border border-gray-200 text-sm">P. Id</th>
                                 <th className="border border-gray-200 text-sm">Title</th>
                                 <th className="border border-gray-200 text-sm">Name</th>
                                 <th className="border border-gray-200 text-sm">Grade/Line 1</th>
@@ -67,11 +72,11 @@ const ReadProductReport = () => {
                         <tbody>
                             {category.products?.data?.map((product) => (
                                 <tr key={product.id}>
-                                    <td className="border text-sm font-light border-gray-200 text-center">
+                                    <td className="border text-sm   border-gray-200 text-center font-semibold">
                                         {product.id || <div className="text-center text-red-500"> --- </div>}
                                     </td>
                                     <td className="border text-sm font-light border-gray-200">
-                                        { <a href={`/product/${product.slug}`} className="underline" target="_blank" > {product.title} </a> || <div className="text-center text-red-500"> --- </div>}
+                                        {<a href={`/product/${product.slug}`} className="underline" target="_blank" > {product.title} </a> || <div className="text-center text-red-500"> --- </div>}
                                     </td>
                                     <td className="border text-sm font-light border-gray-200">
                                         {product.name || <div className="text-center text-red-500"> --- </div>}
@@ -90,8 +95,8 @@ const ReadProductReport = () => {
                                     </td>
                                     <td className="border text-sm font-light border-gray-200">
                                         {product.TDSFile?.url ? (
-                                            <a href={`${process.env.NEXT_PUBLIC_ADMIN_BASE_URL}${product.TDSFile.url}`} className="underline" target="_blank" rel="noopener noreferrer">
-                                                TDS PDF
+                                            <a href={`${process.env.NEXT_PUBLIC_ADMIN_BASE_URL}${product.TDSFile.url}`} className="underline uppercase" target="_blank" rel="noopener noreferrer">
+                                                TDS {product.TDSFile.url.split('.').pop()}
                                             </a>
                                         ) : (
                                             <div className="text-center text-red-500"> --- </div>
@@ -99,8 +104,8 @@ const ReadProductReport = () => {
                                     </td>
                                     <td className="border text-sm font-light border-gray-200">
                                         {product.MSDSFile?.url ? (
-                                            <a href={`${process.env.NEXT_PUBLIC_ADMIN_BASE_URL}${product.MSDSFile.url}`} className="underline" target="_blank" rel="noopener noreferrer">
-                                                MSDS PDF
+                                            <a href={`${process.env.NEXT_PUBLIC_ADMIN_BASE_URL}${product.MSDSFile.url}`} className="underline uppercase" target="_blank" rel="noopener noreferrer">
+                                                MSDS {product.MSDSFile.url.split('.').pop()}
                                             </a>
                                         ) : (
                                             <div className="text-center text-red-500"> --- </div>

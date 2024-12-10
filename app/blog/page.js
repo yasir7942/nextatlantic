@@ -90,7 +90,12 @@ const Blog = async ({ searchParams }) => {
                       {post.title}
                     </h2>
                     <p className='text-sm text-gray-300 font-light'> {moment(post.PostDate).format('MMMM D, YYYY')}</p>
-                    <p className="text-lx md:text-sm text-justify">{post.seo?.seoDesctiption || ""}</p>
+                    <p className="text-lx md:text-sm text-justify">
+                      {post.seo?.seoDesctiption ? post.seo.seoDesctiption.split(" ").length > 30
+                        ? post.seo.seoDesctiption.split(" ").slice(0, 30).join(" ") + "..."
+                        : post.seo.seoDesctiption
+                        : ""}
+                    </p>
                   </a>
 
                 </div>

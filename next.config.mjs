@@ -1,14 +1,14 @@
 /** @type {import('next').NextConfig} */
 
- 
+
 import fetchRedirects from './libs/fetch-redirects.mjs';
- 
+
 const getRedirects = async () => {
     const redirectsData = await fetchRedirects(); // Access the function via the imported module object
     return redirectsData;
 };
 
- 
+
 let unOptimized = true;
 let fileRoutes = true;
 
@@ -19,44 +19,44 @@ if (process.env.MODE === "pro") {
 
 
 
-  
+
 
 const nextConfig = {
-    
+
     reactStrictMode: true,
-   
+
     // useFileSystemPublicRoutes: fileRoutes,
- 
+    trailingSlash: true,
 
 
     images: {
-      unoptimized: unOptimized,   //false in in live server make webp images 
+        unoptimized: unOptimized,   //false in in live server make webp images 
         remotePatterns: [
             {
                 hostname: "front.atlanticlubes.com",
-                protocol: "https", 
+                protocol: "https",
             },
             {
                 hostname: "atlanticlubes.com",
-                protocol: "https", 
+                protocol: "https",
             },
             {
                 hostname: "admin.atlanticlubes.com",
-                protocol: "https", 
+                protocol: "https",
             },
             {
                 hostname: "localhost",
-                protocol: "http", 
+                protocol: "http",
             }
         ],
     },
 
-     async redirects() {
+    async redirects() {
         return await getRedirects();
     },
 
-     
-    
+
+
 
 };
 
