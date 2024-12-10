@@ -71,12 +71,12 @@ const ReadProductReport = () => {
                         </thead>
                         <tbody>
                             {category.products?.data?.map((product) => (
-                                <tr key={product.id}>
+                                <tr key={product.id} className={product.publishedAt === null ? ' bg-red-400 cursor-not-allowed text-sm' : ''}>
                                     <td className="border text-sm   border-gray-200 text-center font-semibold">
                                         {product.id || <div className="text-center text-red-500"> --- </div>}
                                     </td>
                                     <td className="border text-sm font-light border-gray-200">
-                                        {<a href={`/product/${product.slug}`} className="underline" target="_blank" > {product.title} </a> || <div className="text-center text-red-500"> --- </div>}
+                                        {product.publishedAt === null ? 'Deleted ' : ''}  {<a rel="nofollow" href={product.publishedAt === null ? '#' : `/product/${product.slug}`} className={product.publishedAt === null ? ' no-underline cursor-not-allowed   pointer-events-none ' : 'underline'} target="_blank" > {product.title} </a> || <div className="text-center text-red-500"> --- </div>}
                                     </td>
                                     <td className="border text-sm font-light border-gray-200">
                                         {product.name || <div className="text-center text-red-500"> --- </div>}
@@ -134,8 +134,9 @@ const ReadProductReport = () => {
                     </table>
                     <br /><br />
                 </div>
-            ))}
-        </div>
+            ))
+            }
+        </div >
     );
 };
 

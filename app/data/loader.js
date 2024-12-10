@@ -28,7 +28,7 @@ export async function fetchData(path, filter) {
   url.search = filter;
 
   // show API links
- // console.log(url.href);
+  console.log(url.href);
 
   try {
 
@@ -51,7 +51,7 @@ export async function getHomePage() {
 
   const blogBlockQuery = qs.stringify({
 
-    populate: ['banner.webBanner', 'banner.mobileBanner','seo.schema'],
+    populate: ['banner.webBanner', 'banner.mobileBanner', 'seo.schema'],
 
   });
 
@@ -65,7 +65,7 @@ export async function getPostPage() {
 
   const blogBlockQuery = qs.stringify({
 
-    populate: ['banner.webBanner', 'banner.mobileBanner','seo.schema'],
+    populate: ['banner.webBanner', 'banner.mobileBanner', 'seo.schema'],
 
   });
 
@@ -79,7 +79,7 @@ export async function getSearchPage() {
 
   const blogBlockQuery = qs.stringify({
 
-    populate: ['banner.webBanner', 'banner.mobileBanner','seo.schema'],
+    populate: ['banner.webBanner', 'banner.mobileBanner', 'seo.schema'],
 
   });
 
@@ -97,7 +97,7 @@ export async function getPostLimitedData() {
       page: 1,
       pageSize: 3
     },
-    populate: ['seo', 'featureImage','seo.schema'],
+    populate: ['seo', 'featureImage', 'seo.schema'],
   });
 
   return await fetchData("posts", blogBlockQuery);
@@ -110,7 +110,7 @@ export async function geProductCategoryLeftMenu() {
   const blogBlockQuery = qs.stringify({
 
     sort: ['index'],
-    populate: [ 'products','seo.schema' ,'image' ,'bImage'],  
+    populate: ['products', 'seo.schema', 'image', 'bImage'],
   });
   return await fetchData("product-categories", blogBlockQuery);
 
@@ -130,7 +130,7 @@ export async function geProductsByCategory(category, currentPage, pageSize) {
         },
       },
     },
-    populate: ['productImage', 'product_categories', 'product_categories.banner.webBanner', 'product_categories.banner.mobileBanner','seo.schema'],
+    populate: ['productImage', 'product_categories', 'product_categories.banner.webBanner', 'product_categories.banner.mobileBanner', 'seo.schema'],
 
 
     pagination: {
@@ -148,7 +148,7 @@ export async function geProductsByCategory(category, currentPage, pageSize) {
 export async function geGridCategoybyProduct() {
 
   const blogBlockQuery = qs.stringify({
-    populate: ['banner.webBanner', 'banner.mobileBanner','seo.schema'],
+    populate: ['banner.webBanner', 'banner.mobileBanner', 'seo.schema'],
   });
 
 
@@ -167,9 +167,9 @@ export async function geSingleProduct(slug) {
       },
 
     },
-    populate: ['productImage', 'seo', 'seo.schema', 'productSchema', 'productSchema.reviews', 
-      'related_products.productImage', 'product_categories', 'product_categories.banner.webBanner', 
-      'product_categories.banner.mobileBanner','TDSFile.url' ,'MSDSFile.url'],
+    populate: ['productImage', 'seo', 'seo.schema', 'productSchema', 'productSchema.reviews',
+      'related_products.productImage', 'product_categories', 'product_categories.banner.webBanner',
+      'product_categories.banner.mobileBanner', 'TDSFile.url', 'MSDSFile.url'],
   });
 
 
@@ -198,7 +198,7 @@ export async function geProductsByGroup(productSlug, groupSlug) {
 
 
     },
-    populate: ['productImage','seo.schema'],
+    populate: ['productImage', 'seo.schema'],
 
 
 
@@ -229,7 +229,7 @@ export async function geProductsBySearch(query) {
         { product_categories: { title: { $containsi: query } } }
       ],
     },
-    populate: ['productImage', 'product_categories','seo.schema'],
+    populate: ['productImage', 'product_categories', 'seo.schema'],
     pagination: {
       pageSize: 10,
       page: 1,
@@ -244,16 +244,16 @@ export async function geProductsBySearchAdvance(query) {
 
 
   const searchProductQuery = qs.stringify({
-    filters: {  
+    filters: {
       $or: [
         { title: { $containsi: query } }, // product_categories
-        { name: { $containsi: query } },      
+        { name: { $containsi: query } },
         { api: { $containsi: query } },
         { acea: { $containsi: query } },
         { product_categories: { title: { $containsi: query } } }
       ],
     },
-    populate: ['productImage', 'product_categories','seo.schema'],
+    populate: ['productImage', 'product_categories', 'seo.schema'],
     pagination: {
       pageSize: 18,
       page: 1,
@@ -267,7 +267,7 @@ export async function getBlogPage() {
 
   const blogBlockQuery = qs.stringify({
 
-    populate: ['banner.webBanner', 'banner.mobileBanner','seo.schema'],
+    populate: ['banner.webBanner', 'banner.mobileBanner', 'seo.schema'],
 
   });
 
@@ -283,8 +283,8 @@ export async function gePosts(currentPage, pageSize) {
   const blogBlockQuery = qs.stringify({
 
     sort: 'PostDate:desc',
-    filters: { },
-    populate: ['featureImage','seo.schema'],
+    filters: {},
+    populate: ['featureImage', 'seo.schema'],
 
 
     pagination: {
@@ -324,7 +324,7 @@ export async function getAboutPage() {
 
   const blogBlockQuery = qs.stringify({
 
-    populate: ['banner.webBanner', 'banner.mobileBanner', 'aboutus.image', 'founder.image', 'overValues', 'ourMission.image', 'overVisson.image', 'ourMission.image', 'overVisson.image','seo.schema'],
+    populate: ['banner.webBanner', 'banner.mobileBanner', 'aboutus.image', 'founder.image', 'overValues', 'ourMission.image', 'overVisson.image', 'ourMission.image', 'overVisson.image', 'seo.schema'],
 
   });
 
@@ -339,7 +339,7 @@ export async function getContactUsPage() {
 
   const blogBlockQuery = qs.stringify({
 
-    populate: ['banner.webBanner', 'banner.mobileBanner', 'seo','seo.schema'],
+    populate: ['banner.webBanner', 'banner.mobileBanner', 'seo', 'seo.schema'],
 
   });
 
@@ -355,7 +355,7 @@ export async function geAllProductsSlug() {
 
   const productBlockQuery = qs.stringify({
 
-    fields: ['slug','updatedAt']
+    fields: ['slug', 'updatedAt']
 
   });
   return await fetchData("products", productBlockQuery);
@@ -366,7 +366,7 @@ export async function geAllPostSlug() {
 
   const blogBlockQuery = qs.stringify({
 
-    fields: ['slug','updatedAt']
+    fields: ['slug', 'updatedAt']
 
   });
   return await fetchData("posts", blogBlockQuery);
@@ -405,12 +405,12 @@ export async function getProductCategory(slug) {
 export async function getProductCategoryList() {
 
   const blogBlockQuery = qs.stringify({
-    filters: { 
+    publicationState: "preview", // This includes draft entries
+    filters: {
 
-       
-       
     },
-     populate: ['products', 'products.productImage', 'products.TDSFile',  'products.MSDSFile'],
+
+    populate: ['products', 'products.productImage', 'products.TDSFile', 'products.MSDSFile'],
 
   });
   return await fetchData("product-categories", blogBlockQuery);
@@ -420,7 +420,7 @@ export async function getProductCategoryList() {
 export async function getProductCategoryForHome() {
 
   const blogBlockQuery = qs.stringify({
-    
+
     fields: ['title', 'slug'],
     filters: {
 
@@ -437,7 +437,7 @@ export async function getProductCategoryForHome() {
 
 
 export async function gePostBySearch(query) {
-   
+
   const searchPostQuery = qs.stringify({
     filters: {
       $or: [
@@ -446,7 +446,7 @@ export async function gePostBySearch(query) {
         { seo: { seoDesctiption: { $containsi: query } } }
       ],
     },
-    populate: [ 'seo', 'featureImage', 'post_categories','seo.schema'],
+    populate: ['seo', 'featureImage', 'post_categories', 'seo.schema'],
     pagination: {
       pageSize: 10,
       page: 1,
@@ -460,8 +460,8 @@ export async function gePostBySearch(query) {
 export async function getCertifcateCategories() {
 
   const certificateBlockQuery = qs.stringify({
-      
-    populate: [ 'logo', 'certificates','certificates.certificateImages' ,'certificates.certificatePdf','seo.schema'],
+
+    populate: ['logo', 'certificates', 'certificates.certificateImages', 'certificates.certificatePdf', 'seo.schema'],
     pagination: {
       pageSize: 1000,
       page: 1,
@@ -478,7 +478,7 @@ export async function getCertificateApprovalPage() {
 
   const blogBlockQuery = qs.stringify({
 
-    populate: ['banner.webBanner', 'banner.mobileBanner','seo','seo.schema'],
+    populate: ['banner.webBanner', 'banner.mobileBanner', 'seo', 'seo.schema'],
 
   });
 
@@ -493,7 +493,7 @@ export async function geAllRedirectionUrl() {
 
   const UrllockQuery = qs.stringify({
 
-    fields: ['soruce','destination']
+    fields: ['soruce', 'destination']
 
   });
   return await fetchData("redirection-url", UrllockQuery);
