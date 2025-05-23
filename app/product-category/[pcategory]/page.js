@@ -10,6 +10,9 @@ import { generateMetadata as generatePageMetadata } from "@/libs/metadata";
 import { getFirstDescriptionText, getImageUrl } from "@/libs/helper";
 import { Suspense } from "react";
 import SEOSchema from "@/app/components/elements/seo-schema";
+import { notFound } from "next/navigation";
+
+
 
 
 const pageSize = 12;
@@ -51,27 +54,30 @@ export const generateStaticParams = async () => {
 
 
 
-export async function generateMetadata({ params }) {
+export async function generateMetadata(props) {
+  const params = await props.params;
 
   const categoryData = await getProductCategory(params.pcategory);
+  if (!categoryData || !categoryData.data[0]) {
+    NotFound();
+  }
 
   const metadataParams = {
     pageTitle: categoryData.data[0].title,
     pageSlug: categoryData.data[0].slug,
-    pageDescription: getFirstDescriptionText(categoryData.data[0].description),
+    pageDescription: getFirstDescriptionText(categoryData.data[0].description),   // 0
     seoTitle: categoryData.data[0].seo?.seoTitle,
-    seoDescription: categoryData.data[0].seo?.seoDescription,
+    seoDescription: categoryData.data[0].seo?.seoDescription | "",
     rebotStatus: categoryData.data[0].seo?.preventIndexing,
-    canonicalLinks: categoryData.data[0].seo?.canonicalLinks,
+    canonicalLinks: categoryData.data[0].seo?.canonicalLinks,  // null
     dataPublishedTime: categoryData.data[0].publishedAt,
     category: "",
     image: process.env.NEXT_PUBLIC_ADMIN_BASE_URL + categoryData.data[0].banner?.mobileBanner?.url,
-    imageAlternativeText: categoryData.data[0].banner?.mobileBanner?.alternativeText,
+    imageAlternativeText: categoryData.data[0].banner?.mobileBanner?.alternativeText,   // null
     imageExt: categoryData.data[0].banner?.mobileBanner?.mime,
   };
 
-  // console.dir(categoryData, { depth:null}); 
-  //console.dir(metadataParams ); 
+
 
   return await generatePageMetadata({ type: "category", path: "/product-category/", params: metadataParams });
 }
@@ -82,22 +88,32 @@ export async function generateMetadata({ params }) {
 
 
 
-const numbers = Array.from({ length: 12 }, (_, index) => index + 1);
 
 
-const ProductCategory = async ({ params, searchParams }) => {
+
+const ProductCategory = async props => {
+  const searchParams = await props.searchParams;
+  const params = await props.params;
+
+
+  const categoryData = await getProductCategory(params.pcategory);  // use cache
+
+  if (!categoryData || !categoryData.data[0]) {
+    notFound();
+  }
 
   const currentPage = Number(searchParams.page) || 1;
 
   // product show by category
 
   const productData = await geProductsByCategory(params.pcategory, currentPage, pageSize);
-  //const productData = await cachedGetingleProductCategory(params.pcategory, currentPage, pageSize);
+
+
 
   const PageCount = productData.meta.pagination.pageCount;
   const totalPage = productData.meta.pagination.total;
 
-  //  console.log("-----------------------products --------------------------------------------------");
+  //  console.log("-----------------------products --------category page------------------------------------------");
   // console.dir(productData, { depth:null}); 
   // console.log("---------------------------End--------p category---------------end-----------------------");
   //  console.log(productData.data);

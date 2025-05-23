@@ -3,7 +3,7 @@ import { getFirstDescriptionText, validateCanonicalSlug, getImageUrl } from "@/l
 
 export async function generateMetadata({ type, path, params }) {
 
-  
+
   const {
     pageTitle,
     pageSlug,
@@ -20,7 +20,7 @@ export async function generateMetadata({ type, path, params }) {
   } = params;
 
   const finalSeoTitle = seoTitle?.trim() ? seoTitle : pageTitle;
-  const finalSeoDescription = seoDescription?.trim() ? seoDescription : pageDescription;
+  const finalSeoDescription = seoDescription ? seoDescription : pageDescription;
   const finalRebotStatus = rebotStatus ? "noindex" : "index";
   const autoCanonicalSlug = path + pageSlug + "/";
   const manualCanonicalSlug = validateCanonicalSlug(canonicalLinks?.trim());
@@ -52,7 +52,7 @@ export async function generateMetadata({ type, path, params }) {
         {
           "url": image,
           "alt": finalImageText,
-          "type": imageExt 
+          "type": imageExt
         }
       ],
       locale: 'en_US',

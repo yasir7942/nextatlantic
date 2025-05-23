@@ -1,7 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
   
   @layer base {
     :root {
@@ -71,10 +70,11 @@
   @layer utilities {
 
     .rich-text h2, .rich-text strong{
-       @apply text-lg font-normal mb-3;
+       @apply text-lg font-semibold  mt-6  mb-1;
 
       }
-       
+
+   
 
       .rich-text  ul  {
         @apply list-disc pl-5 space-y-0 ;

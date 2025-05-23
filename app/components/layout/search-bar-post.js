@@ -7,6 +7,7 @@ import { useDebouncedCallback } from "use-debounce";
 import { useState, useRef, useEffect } from 'react';
 import { getImageUrl } from "@/libs/helper";
 import { LineWave } from 'react-loader-spinner';
+import moment from "moment/moment";
 
 
 
@@ -29,15 +30,15 @@ const SearchBarForPost = () => {
 
         const result = await gePostBySearch(query);
         setPostData(result.data);
-           console.log("****************serech****result***data*****************");
-           console.dir(result, { depth: null });
+        console.log("****************serech****result***data*****************");
+        console.dir(result, { depth: null });
 
       } catch (error) {
         console.error('Error fetching search results:', error);
       }
-        finally {
-          setIsLoading(false); // Set loading to false after data fetching completes
-        }
+      finally {
+        setIsLoading(false); // Set loading to false after data fetching completes
+      }
     } else {
       setPostData([]);
       setIsLoading(false); // Ensure loading is false if query length is not enough
@@ -45,7 +46,7 @@ const SearchBarForPost = () => {
   };
 
   const handleSearch = useDebouncedCallback((term) => {
-    
+
     handleSearchQuery(term);
   }, 300);
 
@@ -77,7 +78,7 @@ const SearchBarForPost = () => {
     <div className="flex flex-col relative w-full p-6 text-white text-center justify-center" ref={searchContainerRef}>
       <form className="flex item bg-center w-full gap-2 font-light text-gray-900">
         <input
-          placeholder={'Search  Post' }
+          placeholder={'Search  Post'}
           name="searchbar"
           ref={inputRef}
           onChange={(e) => handleSearch(e.target.value)}
@@ -86,26 +87,26 @@ const SearchBarForPost = () => {
         />
 
         {/* isLoading */}
-        { isLoading ? (
+        {isLoading ? (
           <div className=" right-24 md:right-32 -top-4 absolute p-0 m-0">
-         
-           <LineWave 
-            visible={true}
-            height="100"
-            width="90"
-            color="#0A6FB1"
-            ariaLabel="loading...."
-            wrapperStyle={{ }}
-            wrapperClass=""
-           /* firstLineColor="#D11F24"
-            middleLineColor="#939293"
-            lastLineColor="#0A6FB1"  */
-            />
-            
-          </div>
-        ):(<span></span>)}
 
-        
+            <LineWave
+              visible={true}
+              height="100"
+              width="90"
+              color="#0A6FB1"
+              ariaLabel="loading...."
+              wrapperStyle={{}}
+              wrapperClass=""
+            /* firstLineColor="#D11F24"
+             middleLineColor="#939293"
+             lastLineColor="#0A6FB1"  */
+            />
+
+          </div>
+        ) : (<span></span>)}
+
+
         <button onClick={clearSearch} className="px-5 py-2 whitespace-nowrap bg-white border border-gray-300 border-solid">
           Clear
         </button>
@@ -128,7 +129,7 @@ const SearchBarForPost = () => {
                   </Link>
                   <Link href={`/blog/${post.slug}`} className="flex flex-col items-start space-y-2">
                     <div className="  text-base font-normal    text-darkYellow">
-                       {post.title}
+                      {post.title}  <span className="text-xs text-gray-50 ">- {moment(post.PostDate).format('MMMM D, YYYY')}</span>
                     </div>
                     <div className="flex text-gray-50  justify-center items-center text-left font-light text-base space-x-2">
                       <div>{post.seo?.seoDesctiption}</div>
@@ -138,9 +139,9 @@ const SearchBarForPost = () => {
                 {index !== postData.length - 1 && (
                   <div className="w-full h-[1px] border border-b border-gray-500"></div>
                 )}
-                
+
               </div>
-               
+
             ))
           ) : (
             ""

@@ -12,14 +12,15 @@ if (appMode == "dev") {
 export async function fetchData(path, filter) {
 
   const authToken = null;
-  const headers =
+  const header =
   {
     method: "GET",
-    header: {
-      "Content-Type": "application-json",
-      cache: cacheSystem,
+    headers: {
+      "Content-Type": "application/json",
+      "Strapi-Response-Format": "v4",
       Authorization: `Bearer ${authToken}`,
-    }
+    },
+    cache: cacheSystem,
 
   }
 
@@ -32,7 +33,7 @@ export async function fetchData(path, filter) {
 
   try {
 
-    const response = await fetch(url.href, authToken ? headers : {});
+    const response = await fetch(url.href, authToken ? header : {});
     const data = await response.json();
 
     const flattenedData = flattenAttributes(data);
@@ -405,35 +406,78 @@ export async function getProductCategory(slug) {
 export async function getProductCategoryList() {
 
   const blogBlockQuery = qs.stringify({
-    publicationState: "preview", // This includes draft entries
+    // publicationState: "preview", // This includes draft entries
     filters: {
 
     },
 
-    populate: ['products', 'products.productImage', 'products.TDSFile', 'products.MSDSFile'],
+    populate: ['products', 'products.productImage', 'products.TDSFile', 'products.MSDSFile', 'child', 'child.products'],
+    pagination: {
+      pageSize: 100,
+      page: 1,
+    },
 
   });
   return await fetchData("product-categories", blogBlockQuery);
 }
 
 
-export async function getProductCategoryForHome() {
+export async function getParentProductCategoryList() {
+
+  const blogBlockQuery = qs.stringify({
+    // publicationState: "preview", // This includes draft entries
+    filters: {
+
+      parent: {
+        $null: true, // This checks that 'parent' is null
+      },
+    },
+    sort: ['index'],
+    populate: ['products', 'products.productImage', 'products.TDSFile', 'products.MSDSFile', 'child', 'child.products'],
+    pagination: {
+      pageSize: 100,
+      page: 1,
+    },
+
+  });
+  return await fetchData("product-categories", blogBlockQuery);
+}
+
+export async function getChildProductCategory(slug) {
 
   const blogBlockQuery = qs.stringify({
 
+    filters: {
+      slug: {
+        $eq: slug,
+      },
+    },
+    populate: ['products', 'products.productImage', 'products.TDSFile', 'products.MSDSFile'],
+  });
+  return await fetchData("product-categories", blogBlockQuery);
+}
+
+
+
+
+export async function getProductCategoryForHome() {
+  const blogBlockQuery = qs.stringify({
     fields: ['title', 'slug'],
     filters: {
-
       featured: {
         $eq: true,
+      },
+      parent: {
+        $null: true, // This checks that 'parent' is null
       },
     },
     populate: ['icon'],
     sort: ['index'],
-
   });
+
   return await fetchData("product-categories", blogBlockQuery);
 }
+
 
 
 export async function gePostBySearch(query) {
@@ -446,6 +490,8 @@ export async function gePostBySearch(query) {
         { seo: { seoDesctiption: { $containsi: query } } }
       ],
     },
+    sort: 'PostDate:desc',
+
     populate: ['seo', 'featureImage', 'post_categories', 'seo.schema'],
     pagination: {
       pageSize: 10,

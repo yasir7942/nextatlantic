@@ -8,7 +8,8 @@ import SEOSchema from "../components/elements/seo-schema";
 import ContactForm from "../components/elements/contact-form";
 
 const cachedGetContactUsPage = cache(getContactUsPage);
-export async function generateMetadata({ params }) {
+export async function generateMetadata(props) {
+  const params = await props.params;
 
 
   const pageData = await cachedGetContactUsPage();

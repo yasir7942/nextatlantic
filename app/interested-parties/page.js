@@ -4,25 +4,26 @@ import { generateMetadata as generatePageMetadata } from "@/libs/metadata";
 import siteConfig from "@/config/site";
 
 
-export async function generateMetadata({ params }) {
+export async function generateMetadata(props) {
+  const params = await props.params;
 
 
-    const metadataParams = {
-        pageTitle: "Interested Parties",
-        pageSlug: "iinterested-parties",
-        pageDescription: "Interested Parties INTERESTED PARTIES NEEDS &amp; EXPECTATIONS – IMS COMMITMENT   Interested party Their needs and expectations Our commitments to them IMS Processes Customers Quality Price Delivery of products and services Orders accurately taken Products arrive on time All products specifications met Sales and customer service process Inspection process Suppliers Increase scope and volume of purchase",
-        seoTitle: "Atlantic Interested Parties",
-        seoDescription: "Interested Parties INTERESTED PARTIES NEEDS &amp; EXPECTATIONS – IMS COMMITMENT   Interested party Their needs and expectations Our commitments to them IMS Processes Customers Quality Price Delivery of products and services Orders accurately taken Products arrive on time All products specifications met Sales and customer service process Inspection process Suppliers Increase scope and volume of purchase",
-        rebotStatus: false,
-        canonicalLinks: "iinterested-parties",
-        dataPublishedTime: "15-8-2024",
-        category: "",
-        image: siteConfig.logoImage,
-        imageAlternativeText: "Atlantic logo",
-        imageExt: ".png",
-    };
+  const metadataParams = {
+      pageTitle: "Interested Parties",
+      pageSlug: "iinterested-parties",
+      pageDescription: "Interested Parties INTERESTED PARTIES NEEDS &amp; EXPECTATIONS – IMS COMMITMENT   Interested party Their needs and expectations Our commitments to them IMS Processes Customers Quality Price Delivery of products and services Orders accurately taken Products arrive on time All products specifications met Sales and customer service process Inspection process Suppliers Increase scope and volume of purchase",
+      seoTitle: "Atlantic Interested Parties",
+      seoDescription: "Interested Parties INTERESTED PARTIES NEEDS &amp; EXPECTATIONS – IMS COMMITMENT   Interested party Their needs and expectations Our commitments to them IMS Processes Customers Quality Price Delivery of products and services Orders accurately taken Products arrive on time All products specifications met Sales and customer service process Inspection process Suppliers Increase scope and volume of purchase",
+      rebotStatus: false,
+      canonicalLinks: "iinterested-parties",
+      dataPublishedTime: "15-8-2024",
+      category: "",
+      image: siteConfig.logoImage,
+      imageAlternativeText: "Atlantic logo",
+      imageExt: ".png",
+  };
 
-    return await generatePageMetadata({ type: "page", path: "", params: metadataParams });
+  return await generatePageMetadata({ type: "page", path: "", params: metadataParams });
 }
 
 

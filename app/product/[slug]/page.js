@@ -12,6 +12,7 @@ import { cache } from 'react';
 import siteConfig from "@/config/site";
 import SEOSchema from "@/app/components/elements/seo-schema";
 import ProductSize from "@/app/components/layout/product-size";
+import { notFound } from "next/navigation";
 
 // Cache the geSingleProduct function
 const cachedGeSingleProduct = cache(geSingleProduct);
@@ -38,8 +39,13 @@ export const generateStaticParams = async () => {
 
 
 
-export async function generateMetadata({ params }) {
+export async function generateMetadata(props) {
+  const params = await props.params;
   const productData = await geSingleProduct(params.slug);
+
+  if (!productData || !productData.data[0]) {
+    notFound();
+  }
 
   const metadataParams = {
     pageTitle: productData.data[0]?.title,
@@ -62,14 +68,21 @@ export async function generateMetadata({ params }) {
 
 
 
-const SingleProductPage = async ({ params }) => {
+const SingleProductPage = async props => {
+  const params = await props.params;
   const productData = await cachedGeSingleProduct(params.slug);
+  console.log(productData)
 
+  /*
+    console.log("-----------------single product data --------------");
+    console.dir(productData, { depth: null });
+    console.log("-----------------End------------"); */
 
+  if (!productData || !productData.data[0]) {
+    notFound();
+  }
 
-  //  console.log("-----------------single product data --------------");
-  //    console.dir(productData, { depth:null});
-  //  console.log("-----------------End------------");
+  console.log("move ahaed .....................")
 
   const content = productData.data[0].description;
   const productGroup = productData.data[0].related_products;
@@ -127,7 +140,7 @@ const SingleProductPage = async ({ params }) => {
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": averageRating,   // average rating value
-      "reviewCount": productData.data[0].productSchema?.offerCount,     // total reviews
+      "reviewCount": productData.data[0].productSchema?.reviews?.length || 1,   // total reviews  set 1 if null, undefine or 0 
       "bestRating": "5",
       "worstRating": "2",
     },
@@ -229,6 +242,7 @@ const SingleProductPage = async ({ params }) => {
                 </div>
 
 
+
                 <div>
                   {/* Check if either MSDSFile or TDSFile exists */}
                   {(productData.data[0].MSDSFile?.url || productData.data[0].TDSFile?.url) && (
@@ -241,6 +255,7 @@ const SingleProductPage = async ({ params }) => {
                       <a
                         href={`${process.env.NEXT_PUBLIC_ADMIN_BASE_URL}${productData.data[0].MSDSFile.url}`}
                         target="_blank"
+                        rel="nofollow"
                         className="w-1/2"
                         download
                       >
@@ -256,6 +271,7 @@ const SingleProductPage = async ({ params }) => {
                       <a
                         href={`${process.env.NEXT_PUBLIC_ADMIN_BASE_URL}${productData.data[0].TDSFile.url}`}
                         target="_blank"
+                        rel="nofollow"
                         className="w-1/2"
                         download
                       >

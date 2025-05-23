@@ -3,6 +3,7 @@ import PaddingContainer from "./padding-container";
 import { getProductCategoryForHome } from "@/app/data/loader";
 import siteConfig from "@/config/site";
 import SocialIcons from "../elements/social-icons";
+import Link from "next/link";
 //import MenuFooterList from "./menu-footer-list";
 //import MenuFooterPcategory from "./menu-footer-product-category";
 
@@ -19,14 +20,14 @@ const Footer = async () => {
           {/* About Company */}
           <div className="flex flex-col space-y-3">
             <div className="uppercase text-white font-medium py-4 text-xl">About Company</div>
-            <a href="/" className="w-64">
+            <Link href="/" className="w-64">
               <Image
                 src="/images/logo-486x124.png"
                 width={500}
                 height={300}
                 alt="Atlantic Grease and Lubricants Logo"
               />
-            </a>
+            </Link>
             <p className="text-base text-gray-300 font-light max-w-sm md:max-w-60 lg:max-w-80">
               Atlantic Lubes is a premier quality lubricant product manufacturer and supplier all over the world with certified  ISO 9001, ISO 14001 & ISO 45001. ISO 17025 Accredited Testing Lab
             </p>
@@ -64,11 +65,11 @@ const Footer = async () => {
             {/* <MenuFooterList /> */}
 
             <ul className="text-gray-300 space-y-1  font-light">
-              <li> <a href={`/certificates`} > Certifications & Approvals </a>  </li>
-              <li>  <a href={`/privacy-policy`} > Privacy Policy </a>   </li>
-              <li> <a href={`/interested-parties`} > Interested Parties </a>   </li>
-              <li>    <a href={`/ims-policy`} > IMS Policy </a>  </li>
-              <li>   <a href={`/hse`} > HSE</a>   </li>
+              <li> <Link href={`/certificates`} > Certifications & Approvals </Link>  </li>
+              <li>  <Link href={`/privacy-policy`} > Privacy Policy </Link>   </li>
+              <li> <Link href={`/interested-parties`} > Interested Parties </Link>   </li>
+              <li>    <Link href={`/ims-policy`} > IMS Policy </Link>  </li>
+              <li>   <Link href={`/hse`} > HSE</Link>   </li>
             </ul>
 
           </div>
@@ -83,7 +84,7 @@ const Footer = async () => {
               {categoryData.data.map(cat => (
 
                 <li key={cat.id}>
-                  <a href={`/product-category/${cat.slug}`}   >{cat.title}</a>
+                  <Link href={`/product-category/${cat.slug}`}   >{cat.title}</Link>
                 </li>
               ))}
 
@@ -96,18 +97,18 @@ const Footer = async () => {
             <div className="uppercase text-white font-medium py-4 text-xl">Get in Touch</div>
             <p className="text-base text-gray-300 font-light max-w-60">Phone: +971-(06)-5264688</p>
             <p className="text-base text-gray-300 font-light max-w-60">
-              Email: <a href="mailto:info@atlanticlubes.com">info@atlanticlubes.com</a>
+              Email: <Link href="mailto:info@atlanticlubes.com">info@atlanticlubes.com</Link>
             </p>
             <div className="uppercase text-white font-medium py-4 text-xl">Head Office</div>
             <p className="text-base text-gray-300 font-light max-w-60">
-              <a href="https://maps.app.goo.gl/4SRwewpqge5hYiH9A" target="_blank" rel="noopener noreferrer">
+              <Link href="https://maps.app.goo.gl/4SRwewpqge5hYiH9A" target="_blank" rel="noopener noreferrer">
                 Atlantic Grease and Lubricants, <br />Hamriyah Freezone P.O.BOX 41583, Sharjah,<br />United Arab Emirates
-              </a>
+              </Link>
             </p>
             <p className="text-base text-gray-300 font-light max-w-60">
-              <a href="https://maps.app.goo.gl/4SRwewpqge5hYiH9A" target="_blank" rel="noopener noreferrer">
+              <Link href="https://maps.app.goo.gl/4SRwewpqge5hYiH9A" target="_blank" rel="noopener noreferrer">
                 Open in Google Maps
-              </a>
+              </Link>
             </p>
           </div>
         </div>

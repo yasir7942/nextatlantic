@@ -3,26 +3,20 @@ import { Replace } from "lucide-react";
 import Image from "next/image";
 
 
-export const  getImageUrl = (path)=> {
-  const dummyImage = "/images/dummy-image.jpg";
-   
- if( process.env.NEXT_PUBLIC_MODE == "dev" ){
-  if (path.trim().length === 0)
-    return dummyImage;
-   return process.env.NEXT_PUBLIC_LOCAL_BASE_IMAGE_URL + path;
- }
-   else{
+export const getImageUrl = (path) => {
 
-    if (path.trim().length === 0)
-      return dummyImage;
-
-    
-      return process.env.NEXT_PUBLIC_ADMIN_BASE_URL +path;
-   }
+  if (process.env.NEXT_PUBLIC_MODE == "dev") {
+    if (path)
+      return process.env.NEXT_PUBLIC_LOCAL_BASE_IMAGE_URL + path;
+  }
+  else {
+    if (path)
+      return process.env.NEXT_PUBLIC_ADMIN_BASE_URL + path;
+  }
 }
 
 
-export const  getFirstDescriptionText=(descriptionArray) => {
+export const getFirstDescriptionText = (descriptionArray) => {
   if (!Array.isArray(descriptionArray) || descriptionArray.length === 0) return "";
   return (descriptionArray[0].children.map(child => child.text).join('')).slice(0, 160);
 }
@@ -53,7 +47,7 @@ export const  addMonths=(date, months) => {
 }
 */
 
-export const  fetchRedirects=() => {
+export const fetchRedirects = () => {
   return [
     {
       source: '/contact-us', // automatically becomes /docs/with-basePath
@@ -67,7 +61,6 @@ export const  fetchRedirects=() => {
       permanent: true,
     },
   ]
-  
+
 }
- 
-   
+

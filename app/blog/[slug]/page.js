@@ -7,6 +7,7 @@ import siteConfig from "@/config/site";
 import { getFirstDescriptionText, getImageUrl, validateCanonicalSlug } from "@/libs/helper";
 import { generateMetadata as generatePageMetadata } from "@/libs/metadata";
 import Image from "next/image";
+import { notFound } from "next/navigation";
 import { cache } from 'react';
 
 
@@ -14,8 +15,16 @@ import { cache } from 'react';
 // Cache the geSinglePost function
 const cachedGeSinglePost = cache(geSinglePost);
 
-export async function generateMetadata({ params }) {
+export async function generateMetadata(props) {
+  const params = await props.params;
   const postData = await cachedGeSinglePost(params.slug);
+
+
+
+  if (!postData || !postData.data[0]) {
+    notFound();
+  }
+
 
   const metadataParams = {
     pageTitle: postData.data[0].title,
@@ -59,9 +68,15 @@ export const generateStaticParams = async () => {
 
 
 
-const SingleBlogPage = async ({ params }) => {
+const SingleBlogPage = async props => {
+  const params = await props.params;
 
   const postData = await cachedGeSinglePost(params.slug);
+
+  if (!postData || !postData.data[0]) {
+    notFound();
+  }
+
 
 
   // console.log("-----------------------single post page--------------------------------------------------");
@@ -109,10 +124,10 @@ const SingleBlogPage = async ({ params }) => {
         <div className=" w-full  flex flex-col mt-20   p-10 pt-0 space-y-7   ">
 
           <div className="W-full h-auto  " >
-            <Image className="w-full h-auto " src={getImageUrl(postData.data[0].featureImage.url)} height={1200} width={1200} alt={postData.data[0].title} />
+            <Image className="w-full h-auto " quality={100} src={getImageUrl(postData.data[0].featureImage.url)} height={1200} width={1200} alt={postData.data[0].title} />
           </div>
           <h1 className="text-white text-2xl md:text-3xl" >{postData.data[0].title}</h1>
-          <div className="text-white font-light text-base mt-5   pr-5 md:pr-2 rich-text" >
+          <div className="text-white font-light text-base mt-5   pr-5 md:pr-2 rich-text " >
 
             <BodyDataParse content={postData.data[0].description} />
 

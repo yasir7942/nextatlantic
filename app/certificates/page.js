@@ -12,7 +12,8 @@ import SEOSchema from "../components/elements/seo-schema";
 const cachedGetApprovalPage = cache(getCertificateApprovalPage);
 
 
-export async function generateMetadata({ params }) {
+export async function generateMetadata(props) {
+  const params = await props.params;
 
 
   const pageData = await cachedGetApprovalPage();

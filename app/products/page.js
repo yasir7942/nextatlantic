@@ -9,7 +9,8 @@ import SEOSchema from "../components/elements/seo-schema"
 
 
 const cachedGetGrideCategoryPage = cache(geGridCategoybyProduct);
-export async function generateMetadata({ params }) {
+export async function generateMetadata(props) {
+  const params = await props.params;
 
 
   const pageData = await cachedGetGrideCategoryPage();

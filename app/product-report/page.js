@@ -10,7 +10,8 @@ import ReadProductReport from "../components/layout/product-report";
 
 
 
-export async function generateMetadata({ params }) {
+export async function generateMetadata(props) {
+  const params = await props.params;
 
   const metadataParams = {
     pageTitle: "Product Report",

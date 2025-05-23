@@ -1,0 +1,13 @@
+1- Redirection not working 
+2- On build time  console show log of post data remove interactive
+3- Server side Pagination https://www.youtube.com/watch?v=cxxumABmLYA  
+4- Strapi migration 4 to 5 offical video and documentation avaliable 
+5- HomePage show more icons for  2XL screen and hidden for XL
+
+
+
+
+info
+
+formate html text 
+https://webformatter.com/html

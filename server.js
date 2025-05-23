@@ -37,13 +37,13 @@ app.prepare().then(() => {
             res.end('Internal Server Error');
         }
     })
-    .once('error', (err) => {
-        const serverErrorMessage = `[${new Date().toISOString()}] Server error: ${err.stack}\n`;
-        console.error(serverErrorMessage);
-        logStream.write(serverErrorMessage);
-        process.exit(1);
-    })
-    .listen(port, () => {
-        console.log(`> Ready on http://${hostname}:${port}`);
-    });
+        .once('error', (err) => {
+            const serverErrorMessage = `[${new Date().toISOString()}] Server error: ${err.stack}\n`;
+            console.error(serverErrorMessage);
+            logStream.write(serverErrorMessage);
+            process.exit(1);
+        })
+        .listen(port, () => {
+            console.log(`> Ready on http://${hostname}:${port}`);
+        });
 });
