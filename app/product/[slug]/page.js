@@ -146,8 +146,8 @@ const SingleProductPage = async props => {
     "name": productData?.data[0]?.title,
     "image": getImageUrl(productData?.data[0].productImage.url),
     "image": [
-      getImageUrl(productData?.data[0].productImage.url),  // large
-      getImageUrl(productData?.data[0].productImage.formats.thumbnail.url),  // medium
+      getImageUrl(productData?.data[0]?.productImage?.url),  // large
+      getImageUrl(productData?.data[0]?.productImage?.formats?.thumbnail?.url),  // medium
     ],
     "description": seoDescription,
     "brand": {
@@ -314,15 +314,17 @@ const SingleProductPage = async props => {
               {/* image section */}
               <div className="w-full md:w-2/6 items-center">
                 <div className="w-full flex flex-col justify-center pt-20 md:pt-13 lg:pt-10 items-center text-center">
-                  <Image
-                    priority
-                    className="relative w-44 md:w-36 lg:w-52 text-center"
-                    src={getImageUrl(productData?.data[0].productImage.url)}
-                    height={1000}
-                    width={1000}
-                    alt={productData?.data[0]?.title}
-                  />
-                  <ProductSize packingSize={productData?.data[0].packing} />
+                  {productData?.data?.[0]?.productImage?.url ? (
+                    <Image
+                      priority
+                      className="relative w-44 md:w-36 lg:w-52 text-center"
+                      src={getImageUrl(productData.data[0].productImage.url)}
+                      height={1000}
+                      width={1000}
+                      alt={productData?.data?.[0]?.title || "Product image"}
+                    />
+                  ) : null}
+                  <ProductSize packingSize={productData?.data[0]?.packing} />
                 </div>
               </div>
             </div>

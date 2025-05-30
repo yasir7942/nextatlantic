@@ -97,7 +97,7 @@ const ProductReportTable = ({ Type, ProductCategory = "", ChildSlug = "" }) => {
             </thead>
             <tbody className={` ${Type === "child" ? "text-green-800" : ""}`}>
                 {childProducts.products?.data?.map((product) => (
-                    <tr key={product.id} className={product.publishedAt === null ? ' bg-red-400 cursor-not-allowed text-sm' : ''}>
+                    <tr key={product.id} className={product.publishedAt === null ? ' hidden' : ''}>
                         <td className="border text-sm   border-gray-300 text-center font-semibold">
                             {product.id || <div className="text-center text-red-500"> --- </div>}
                         </td>

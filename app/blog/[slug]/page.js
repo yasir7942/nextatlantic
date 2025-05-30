@@ -94,7 +94,7 @@ const SingleBlogPage = async props => {
     "headline": postData.data[0].title,
     "description": seoDesctiption,
     "image": [
-      getImageUrl(postData.data[0].featureImage?.formats.thumbnail.url),
+      getImageUrl(postData.data[0].featureImage?.formats?.thumbnail?.url),
       getImageUrl(postData.data[0].featureImage?.url)
     ],
     "datePublished": postData.data[0].publishedAt,

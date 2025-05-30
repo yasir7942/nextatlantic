@@ -1,5 +1,5 @@
 "use client";
-import { getParentProductCategoryList } from "@/app/data/loader";
+import { getReportParentProductCategoryList } from "@/app/data/loader";
 
 import React, { useState, useEffect } from 'react';
 import { MagnifyingGlass } from "react-loader-spinner";
@@ -24,7 +24,7 @@ const ReadProductReport = () => {
 
         const fetchData = async () => {
             try {
-                const productCategoryData = await getParentProductCategoryList();
+                const productCategoryData = await getReportParentProductCategoryList();
                 setProductCategory(productCategoryData);
             } catch (e) {
                 setError(e);

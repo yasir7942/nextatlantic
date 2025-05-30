@@ -118,15 +118,17 @@ const SearchBarForPost = () => {
             postData.map((post, index) => (
               <div key={post.id} className="flex flex-col space-y-3 ">
                 <div className="flex justify-start space-x-5 items-center pl-1">
-                  <Link href={`/post/${post.slug}`}>
-                    <Image
-                      src={getImageUrl(post?.featureImage.formats.thumbnail.url)}
-                      className="items-center w-16"
-                      width={200}
-                      height={200}
-                      alt={post?.featureImage.alternativeText ?? post.title}
-                    />
-                  </Link>
+                  {post?.featureImage?.formats?.thumbnail?.url && (
+                    <Link href={`/post/${post.slug}`}>
+                      <Image
+                        src={getImageUrl(post.featureImage.formats.thumbnail.url)}
+                        className="items-center w-16"
+                        width={200}
+                        height={200}
+                        alt={post?.featureImage?.alternativeText ?? post.title}
+                      />
+                    </Link>
+                  )}
                   <Link href={`/blog/${post.slug}`} className="flex flex-col items-start space-y-2">
                     <div className="  text-base font-normal    text-darkYellow">
                       {post.title}  <span className="text-xs text-gray-50 ">- {moment(post.PostDate).format('MMMM D, YYYY')}</span>

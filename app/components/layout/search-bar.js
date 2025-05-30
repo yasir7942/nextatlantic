@@ -88,31 +88,31 @@ const SearchBar = ({ dataType }) => {
         />
 
         {/* isLoading */}
-        { isLoading ? (
+        {isLoading ? (
           <div className=" right-24 md:right-32 -top-4 absolute p-0 m-0">
-         
-           <LineWave 
-            visible={true}
-            height="100"
-            width="90"
-            color="#0A6FB1"
-            ariaLabel="loading...."
-            wrapperStyle={{ }}
-            wrapperClass=""
-           /* firstLineColor="#D11F24"
-            middleLineColor="#939293"
-            lastLineColor="#0A6FB1"  */
+
+            <LineWave
+              visible={true}
+              height="100"
+              width="90"
+              color="#0A6FB1"
+              ariaLabel="loading...."
+              wrapperStyle={{}}
+              wrapperClass=""
+            /* firstLineColor="#D11F24"
+             middleLineColor="#939293"
+             lastLineColor="#0A6FB1"  */
             />
-            
+
           </div>
-        ):(<span></span>)}
+        ) : (<span></span>)}
         <button onClick={clearSearch} className="px-5 py-2 whitespace-nowrap bg-white border border-gray-300 border-solid">
           Clear
         </button>
-        
+
       </form>
 
-      
+
 
       <div className={`${productData.length <= 0 || !isSearchVisible ? 'hidden' : ''} w-[89%] text-left h-auto absolute top-[67px] z-40 left-5 bg-gray-500 backdrop-blur-md bg-opacity-50 border border-1 border-gray-700 mt-1 p-5`}>
         <div className="flex flex-col space-y-2 " >
@@ -121,13 +121,15 @@ const SearchBar = ({ dataType }) => {
               <div key={product.id} className="flex flex-col space-y-3 ">
                 <div className="flex justify-start space-x-5 items-center pl-1">
                   <Link href={`/product/${product.slug}`}>
-                    <Image
-                      src={getImageUrl(product?.productImage.formats.thumbnail.url)}
-                      className="items-center w-9"
-                      width={100}
-                      height={100}
-                      alt={product?.productImage.alternativeText ?? product.title}
-                    />
+                    {product?.productImage?.formats?.thumbnail?.url ? (
+                      <Image
+                        src={getImageUrl(product.productImage.formats.thumbnail.url)}
+                        className="items-center w-9"
+                        width={100}
+                        height={100}
+                        alt={product?.productImage?.alternativeText ?? product?.title ?? "Product"}
+                      />
+                    ) : null}
                   </Link>
                   <Link href={`/product/${product.slug}`} className="flex flex-col items-start space-y-2">
                     <div className="font-light text-sm text-gray-50 tracking-widest">
@@ -143,16 +145,16 @@ const SearchBar = ({ dataType }) => {
                 {index !== productData.length - 1 && (
                   <div className="w-full h-[1px] border border-b border-gray-500"></div>
                 )}
-                
+
               </div>
-               
+
             ))
           ) : (
             ""
           )}
         </div>
 
-        <Link  href={`/search?s=${(searchQuery)}`} className="w-full block h-auto mt-5 py-1 text-base bg-slate-500 font-light tracking-wider text-center  first-letter:uppercase">View More Search Results</Link>
+        <Link href={`/search?s=${(searchQuery)}`} className="w-full block h-auto mt-5 py-1 text-base bg-slate-500 font-light tracking-wider text-center  first-letter:uppercase">View More Search Results</Link>
       </div>
     </div>
   );

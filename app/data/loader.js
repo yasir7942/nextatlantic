@@ -591,6 +591,32 @@ export async function getParentProductCategoryList() {
   return await fetchData("product-categories", blogBlockQuery);
 }
 
+
+export async function getReportParentProductCategoryList() {
+
+  const blogBlockQuery = qs.stringify({
+    publicationState: "preview", // This includes draft entries
+    filters: {
+
+      parent: {
+        $null: true, // This checks that 'parent' is null
+      },
+    },
+    sort: ['index'],
+    populate: ['products', 'products.productImage', 'products.TDSFile', 'products.MSDSFile', 'child', 'child.products'],
+    pagination: {
+      pageSize: 100,
+      page: 1,
+    },
+
+  });
+
+
+
+
+  return await fetchData("product-categories", blogBlockQuery);
+}
+
 export async function getChildProductCategory(slug) {
 
   const blogBlockQuery = qs.stringify({
