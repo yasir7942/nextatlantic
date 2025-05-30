@@ -107,14 +107,33 @@ export async function getPostLimitedData() {
 
 
 export async function geProductCategoryLeftMenu() {
+  const pageSize = 100;
+  let page = 1;
+  let allCategories = [];
+  let hasMore = true;
 
-  const blogBlockQuery = qs.stringify({
+  while (hasMore) {
+    const query = qs.stringify({
+      sort: ['index'],
+      populate: ['products', 'seo.schema', 'image', 'bImage'],
+      pagination: {
+        page,
+        pageSize,
+      },
+    });
 
-    sort: ['index'],
-    populate: ['products', 'seo.schema', 'image', 'bImage'],
-  });
-  return await fetchData("product-categories", blogBlockQuery);
+    const response = await fetchData('product-categories', query);
 
+    if (!response?.data?.length) break;
+
+    allCategories.push(...response.data);
+
+    const totalPages = response.meta?.pagination?.pageCount || 1;
+    hasMore = page < totalPages;
+    page++;
+  }
+
+  return allCategories;
 }
 
 
@@ -404,6 +423,50 @@ export async function geAllProductsSlug() {
 
   return allProducts;
 }
+
+
+
+export async function getRedirectLinks() {
+
+  let allRecords = [];
+  let page = 1;
+  const pageSize = 25;
+  let hasMore = true;
+
+  while (hasMore) {
+    const blogBlockQuery = qs.stringify({
+      filters: {},
+      populate: [],
+      pagination: {
+        pageSize,
+        page,
+      },
+    });
+
+    const response = await fetchData("redirection-urls", blogBlockQuery);
+
+    // Log response for debugging (remove when confirmed working)
+    //console.log(`Page ${page} response:`, response);
+
+    const records = response.data || [];
+    allRecords = allRecords.concat(records);
+
+    // Option 1: Using API metadata (if available)
+    if (response.meta && response.meta.pagination) {
+      const { pageCount, page: currentPage } = response.meta.pagination;
+      hasMore = currentPage < pageCount;
+    } else {
+      // Option 2: Fallback - if the returned records count is less than the pageSize,
+      // assume it's the last page.
+      hasMore = records.length === pageSize;
+    }
+
+    page++;
+  }
+
+  return allRecords;
+}
+
 
 
 
