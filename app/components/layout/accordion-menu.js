@@ -13,7 +13,7 @@ export default function SideAccordion({ Categories }) {
         if (!activeItem && Categories.length > 0) {
             setActiveItem(Categories[0].id)
         }
-    }, [activeItem])
+    }, [activeItem, Categories])
 
     return (
         <div className="flex  gap-0 w-full     ">

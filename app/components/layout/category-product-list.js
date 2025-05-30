@@ -16,6 +16,8 @@ const CategoryProductlist = async ({ selectedCategoryParent, productData, PageSi
     const Products = await productData;
     const pageSize = await PageSize;
 
+
+
     const PageCount = Products.meta.pagination.pageCount;
     const totalPage = Products.meta.pagination.total;
 

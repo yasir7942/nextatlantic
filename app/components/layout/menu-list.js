@@ -20,7 +20,7 @@ import SideAccordion from "./accordion-menu";
 
 const MenuList = ({ categories }) => {
     return (
-        <div className="hidden md:flex text-gray-200 md:space-x-3 lg:space-x-6  text-lg md:font-light  lg:font-normal capitalize tracking-wider">
+        <div className="hidden md:flex text-gray-200 md:space-x-3 lg:space-x-6  text-lg md:font-light  lg:font-normal capitalize tracking-wider  ">
 
             <NavigationMenu>
                 <NavigationMenuList>
@@ -48,6 +48,7 @@ const MenuList = ({ categories }) => {
                             <div className="grid w-[400px] gap-3 md:w-[500px] lg:w-[600px] ">
 
                                 <SideAccordion Categories={categories.data} />
+
                             </div>
                         </NavigationMenuContent>
                     </NavigationMenuItem>

@@ -52,7 +52,7 @@ const ProductReportTable = ({ Type, ProductCategory = "", ChildSlug = "" }) => {
         };
 
         fetchData();
-    }, [Type, ChildSlug]);
+    }, [Type, ChildSlug, ProductCategory]);
 
 
 

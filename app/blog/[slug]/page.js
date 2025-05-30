@@ -53,12 +53,13 @@ export const generateStaticParams = async () => {
 
   try {
     const postSlugs = await getAllPostSlugs();
-    const paramsSlugs = postSlugs?.data?.map((post) => {
+    const paramsSlugs = postSlugs?.map((post) => {
       // console.log("*******Post slug: "+ post.slug);
       return {
         slug: post.slug
       };
     })
+
     return paramsSlugs || [];
   } catch (error) {
     console.log(error);

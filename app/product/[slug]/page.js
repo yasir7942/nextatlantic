@@ -13,6 +13,7 @@ import siteConfig from "@/config/site";
 import SEOSchema from "@/app/components/elements/seo-schema";
 import ProductSize from "@/app/components/layout/product-size";
 import { notFound } from "next/navigation";
+import SearchBar from "@/app/components/layout/search-bar";
 
 // Cache the geSingleProduct function
 const cachedGeSingleProduct = cache(geSingleProduct);
@@ -50,7 +51,7 @@ export async function generateMetadata(props) {
   const metadataParams = {
     pageTitle: productData?.data[0]?.title,
     pageSlug: productData?.data[0]?.slug,
-    pageDescription: getFirstDescriptionText(productData?.data[0].description),
+    pageDescription: getFirstDescriptionText(productData?.data[0].description) || "",
     seoTitle: productData?.data[0].seo?.seoTitle,
     seoDescription: productData?.data[0].seo?.seoDescription,
     rebotStatus: productData?.data[0].seo?.preventIndexing,
@@ -61,6 +62,8 @@ export async function generateMetadata(props) {
     imageAlternativeText: productData?.data[0].productImage?.alternativeText,
     imageExt: productData?.data[0].productImage?.mime,
   };
+
+
 
   return await generatePageMetadata({ type: "product", path: "/product/", params: metadataParams });
 }
@@ -73,17 +76,17 @@ const SingleProductPage = async props => {
   const productData = await cachedGeSingleProduct(params.slug);
   let selectedCategoryParent = "";
 
-  /*
-    console.log("-----------------single product data --------------");
-    console.dir(productData.data[0].product_categories, { depth: null });
-    console.log("Product Categories---:", productData.data[0]?.product_categories.data[0].parent?.slug);
-    console.log("-----------------End------------");
-  */
+
+  //console.log("------------------single product data --------------", productData.data[0].title);
+  //console.dir(productData, { depth: null });
+  // console.log("Product Categories---:", productData.data[0]?.product_categories.data[0].parent?.slug);
+  //console.log("-----------------End------------");
+
 
 
   if (productData.data[0]?.product_categories?.data?.length > 0) {
 
-    const selectedCategory = productData.data[0]?.product_categories.data[0];
+    const selectedCategory = productData.data[0]?.product_categories?.data[0];
     if (!selectedCategory?.parent || Object.keys(selectedCategory?.parent).length === 0) {
       selectedCategoryParent = selectedCategory.slug;
     } else {
@@ -232,10 +235,12 @@ const SingleProductPage = async props => {
 
       <SEOSchema schemaList={productData?.data[0].seo?.schema} />
 
-      <TopBanner banner={productData?.data[0]?.product_categories.data[0]?.banner} />
+      <TopBanner banner={productData?.data[0]?.product_categories?.data[0]?.banner || ""} />
 
       <PaddingContainer>
+
         <div className="w-full h-auto flex flex-col md:flex-row topPadding">
+
           {/* Left Menu Column */}
           <div className="w-full md:w-3/12 lg:w-1/6 p-6 md:pl-0 overflow-hidden">
             {/* Menu content goes here  */}
@@ -244,6 +249,8 @@ const SingleProductPage = async props => {
 
           {/* Content Area */}
           <div className="w-full md:w-9/12 justify-between lg:w-5/6 flex flex-col  bg-[#2a3c4659] p-3 md:p-4 pb-3 ">
+
+            <SearchBar dataType="products" />
             {/* Content area content goes here */}
             <div className="flex flex-col md:flex-row w-full h-auto p-0 lg:p-8 ">
               {/* text section */}
@@ -270,7 +277,7 @@ const SingleProductPage = async props => {
                     {/* MSDS File */}
                     {productData?.data[0].MSDSFile?.url && (
                       <a
-                        href={`${process.env.NEXT_PUBLIC_ADMIN_BASE_URL}${productData?.data[0].MSDSFile.url}`}
+                        href={`${process.env.NEXT_PUBLIC_ADMIN_BASE_URL}${productData?.data[0].MSDSFile?.url}`}
                         target="_blank"
                         rel="nofollow"
                         className="w-full md:w-1/2 h-full"

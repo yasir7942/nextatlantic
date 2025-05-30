@@ -506,7 +506,7 @@ export async function getAllPostSlugs() {
 export async function geAllProductCategorySlug() {
   let allCategories = [];
   let page = 1;
-  const pageSize = 100;
+  const pageSize = 50;
 
   while (true) {
     const query = qs.stringify({

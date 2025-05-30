@@ -1,27 +1,19 @@
-import PaddingContainer from "@/app/components/layout/padding-container"
-import ProductCategoryMenu from "@/app/components/layout/product-category-menu";
-import SearchBar from "@/app/components/layout/search-bar";
+
 import TopBanner from "@/app/components/layout/top-banner"
-import Image from "next/image";
+
 import { geAllProductCategorySlug, geProductsByCategory, getProductCategory } from "@/app/data/loader"
 
-import { PaginationComponent } from "@/app/components/elements/pagination";
+
 import { generateMetadata as generatePageMetadata } from "@/libs/metadata";
 import { getFirstDescriptionText, getImageUrl } from "@/libs/helper";
-import { Suspense } from "react";
+
 import SEOSchema from "@/app/components/elements/seo-schema";
 import { notFound } from "next/navigation";
 import CategoryProductlist from "@/app/components/layout/category-product-list";
 import CategoryChildList from "@/app/components/layout/category-child-list";
 
 
-
-
-
-
-
-
-
+/*
 export const generateStaticParams = async () => {
   try {
     const pcategorySlugs = await geAllProductCategorySlug();
@@ -32,6 +24,8 @@ export const generateStaticParams = async () => {
       };
     });
 
+
+
     return paramsSlugs || [];
   } catch (error) {
     console.log(error);
@@ -40,7 +34,7 @@ export const generateStaticParams = async () => {
 }
 
 
-
+*/
 
 export async function generateMetadata(props) {
   const params = await props.params;
@@ -55,7 +49,7 @@ export async function generateMetadata(props) {
     pageSlug: categoryData.data[0].slug,
     pageDescription: getFirstDescriptionText(categoryData.data[0].description),   // 0
     seoTitle: categoryData.data[0].seo?.seoTitle,
-    seoDescription: categoryData.data[0].seo?.seoDescription | "",
+    seoDescription: categoryData.data[0].seo?.seoDescription || "",
     rebotStatus: categoryData.data[0].seo?.preventIndexing,
     canonicalLinks: categoryData.data[0].seo?.canonicalLinks,  // null
     dataPublishedTime: categoryData.data[0].publishedAt,
@@ -85,6 +79,8 @@ const ProductCategory = async props => {
   let isParent = false;
 
   const categoryData = await getProductCategory(params.pcategory);  // use cache
+
+
 
   if (!categoryData || !categoryData.data[0]) {
     notFound();
@@ -132,7 +128,7 @@ const ProductCategory = async props => {
 
 
       {isParent ? (
-        <CategoryChildList CategoryData={categoryData} ProductData={productData} />
+        <CategoryChildList CategoryData={categoryData} />
       ) : (
         <CategoryProductlist selectedCategoryParent={selectedCategoryParent} productData={productData} PageSize={pageSize} />
       )}
