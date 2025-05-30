@@ -9,18 +9,20 @@ export default async function sitemap() {
 
   //product category
   const productCatgory = await geProductCategoryLeftMenu();
-  const productCatgoryMap = productCatgory?.data?.map((category) => {
+
+  const productCatgoryMap = productCatgory?.map((category) => {
     return {
       url: `${baseURL}/product-category/${category.slug}`,
       lastModified: new Date(category.updatedAt),
       priority: 0.9,
       changeFrequency: 'weekly',
     };
+
   })
 
   //products
   const products = await geAllProductsSlug();
-  const productsMap = products?.data?.map((product) => {
+  const productsMap = products?.map((product) => {
     return {
       url: `${baseURL}/product/${product.slug}`,
       lastModified: new Date(product.updatedAt),
@@ -29,9 +31,11 @@ export default async function sitemap() {
     };
   })
 
+
   //blog posts
   const blogs = await getAllPostSlugs();
-  const blogsMap = blogs?.data?.map((post) => {
+
+  const blogsMap = blogs?.map((post) => {
     return {
       url: `${baseURL}/blog/${post.slug}`,
       lastModified: new Date(post.updatedAt),
@@ -39,6 +43,8 @@ export default async function sitemap() {
       changeFrequency: 'weekly',
     };
   })
+
+
 
   const dynamicLinks = (productCatgoryMap?.concat(productsMap ?? [])).concat(blogsMap ?? []).flat() ?? [];
 
