@@ -10,13 +10,13 @@ const BlogContainer = async () => {
 
   const postData = await getPostLimitedData();
 
-  console.log("------------------------------Post---Data-222222---------------------------------------");
+  // console.log("------------------------------Post---Data-222222---------------------------------------");
   // console.dir(postData, { depth:null});
 
   /*postData.data.map(post => {
-    console.log(post.PostDate);
+   // console.log(post.PostDate);
   });*/
-  console.log("---------------------------End-----------------------end-----------------------");
+  // console.log("---------------------------End-----------------------end-----------------------");
 
   return (
     <div>

@@ -1,10 +1,11 @@
 "use client";
 import { getParentProductCategoryList } from "@/app/data/loader";
-import { getImageUrl } from "@/libs/helper";
-import Image from "next/image";
+
 import React, { useState, useEffect } from 'react';
 import { MagnifyingGlass } from "react-loader-spinner";
-import ProductReportTable from "./product-report-table";
+import ProductReportTable from "@/app/components/layout/product-report-table";
+import { MessageCircleWarning } from "lucide-react";
+
 
 const ReadProductReport = () => {
     const [productCategory, setProductCategory] = useState([]);
@@ -12,11 +13,11 @@ const ReadProductReport = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    const getFileExtension = (filePath) => {
-        const extension = filePath.split('.').pop();
-        return extension.toLowerCase();
-    };
-
+    /* const getFileExtension = (filePath) => {
+         const extension = filePath.split('.').pop();
+         return extension.toLowerCase();
+     };
+ */
 
     useEffect(() => {
 
@@ -55,9 +56,13 @@ const ReadProductReport = () => {
     return (
         <div className="overflow-x-auto font-serif">
 
+            <div className="text-2xl text-center p-4 flex items-center justify-center ">
+                <MessageCircleWarning className=" text-2xl text-red-900 font-semibold mr-2 " />   <span className=" text-red-900">Red-colored products indicate incorrect category placement,</span> <span className=" text-green-800">while green-colored products indicate correct category placement.</span>
+            </div>
+
             {productCategory.data.map((category) => (
                 <div key={category.id} className="mb-10 bg-blue-50 border border-blue-100 border-collapse p-5">
-                    <div className="pb-2 pl-1 text-2xl">{category.index}- {category.title || "No Title"}   <span className="pl-5 text-sm text-blue-500"> Total Child:{category.child.data.length}</span></div>
+                    <div className="pb-2 pl-1 text-2xl text-red-900">{category.index}- {category.title || "No Title"}   <span className="pl-5 text-sm text-red-400"> Total Child:{category.child.data.length}</span></div>
 
 
                     <ProductReportTable Type="parent" ProductCategory={category} ChildSlug="" />
@@ -67,7 +72,7 @@ const ReadProductReport = () => {
                     {category.child.data.map((child) => (
 
                         <div key={child.id} className="ml-5 mt-10 p-5">
-                            <div className="pb-2 pl-1 text-xl" >  {child.title || "No Title"} <span className="pl-5 text-sm text-blue-500"> Parent is: {category.title}</span></div>
+                            <div className="pb-2 pl-1 text-xl text-gray-700" >  {child.title || "No Title"} <span className="pl-5 text-sm text-blue-500"> Parent is: {category.title}</span></div>
                             <ProductReportTable Type="child" ProductCategory="" ChildSlug={child.slug} />
                         </div>
 
@@ -76,6 +81,17 @@ const ReadProductReport = () => {
                 </div>
             ))
             }
+
+            <br />
+
+            <div className="mb-10 bg-blue-50 border border-blue-100 border-collapse p-5">
+                <div className="pb-2 pl-1 text-xl" >Uncategorized Products <span className="pl-5 text-sm text-blue-500"> Reassign products to the correct subcategory</span></div>
+                <ProductReportTable Type="uncategorized" ProductCategory="" ChildSlug="" />
+            </div>
+
+
+
+
         </div >
     );
 };

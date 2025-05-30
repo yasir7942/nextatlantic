@@ -1,12 +1,6 @@
 /** @type {import('next').NextConfig} */
 
 
-import fetchRedirects from './libs/fetch-redirects.mjs';
-
-const getRedirects = async () => {
-    const redirectsData = await fetchRedirects(); // Access the function via the imported module object
-    return redirectsData;
-};
 
 
 let unOptimized = true;
@@ -33,15 +27,15 @@ const nextConfig = {
         unoptimized: unOptimized,   //false in in live server make webp images 
         remotePatterns: [
             {
-                hostname: "front.atlanticlubes.com",
+                hostname: "front.atlanticlubes.ca",
                 protocol: "https",
             },
             {
-                hostname: "atlanticlubes.com",
+                hostname: "atlanticlubes.ca",
                 protocol: "https",
             },
             {
-                hostname: "admin.atlanticlubes.com",
+                hostname: "admin.atlanticlubes.ca",
                 protocol: "https",
             },
             {
@@ -51,9 +45,6 @@ const nextConfig = {
         ],
     },
 
-    async redirects() {
-        return await getRedirects();
-    },
 
 
 

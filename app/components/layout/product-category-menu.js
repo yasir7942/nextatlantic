@@ -3,43 +3,42 @@
 
 import Link from "next/link";
 import ProductCategoryMenuMobile from "./product-category-menu-mobile";
-import { geProductCategoryLeftMenu } from "@/app/data/loader";
+import { getProductCategoryLeftMenu } from "@/app/data/loader";
+import ProductCategoryManuDesktop from "./product-category-menu-desktop";
 
-const ProductCategoryMenu = async () => {
+
+const ProductCategoryMenu = async ({ Parent }) => {
+  const parentCategorySlug = await Parent;
 
 
-  const menuData = await geProductCategoryLeftMenu();
+  const productCategory = await getProductCategoryLeftMenu();
   // Ensure menuData.data is always an array
-  const filteredData = Array.isArray(menuData.data)
-    ? menuData.data.filter(menu => menu.products.data.length > 0)
-    : [];
+  /* const filteredData = Array.isArray(productCategory.data)
+     ? productCategory.data.map(parent => {
+       const filteredChildren = Array.isArray(parent.child)
+         ? parent.child.filter(child => child.products?.data?.length > 0)
+         : [];
+ 
+       return {
+         ...parent,
+         child: filteredChildren,
+       };
+     })
+     : [];   */
 
-
-  /* console.log("Raw menuData:", menuData);
-   console.log("menuData.data Type:", typeof menuData.data);
-   console.log("menuData.data isArray:", Array.isArray(menuData.data));
+  const filteredData = productCategory.data;
+  /* console.log("Raw menuData:", filteredData);
+   console.log("menuData.data Type:", typeof filteredData.data);
+   console.log("menuData.data isArray:", Array.isArray(filteredData.data));
  */
 
   return (
     <div>
       {/* Desktop Menu */}
-      <div className="hidden md:flex flex-row md:flex-col space-y-0 space-x-2 md:space-y-4 md:space-x-0 text-gray-300 uppercase">
-        <div className="flex flex-col space-y-3 text-base md:font-normal md:text-lg">
-          <a href="#">Product Categories</a>
-          <div className="w-full h-[1px] bg-[#0f0f0f]"></div>
-        </div>
-        {filteredData.map((menu) => (
-          <div key={menu.id} className="flex flex-col space-y-3 text-base md:font-light md:text-lg">
-            <Link href={`/product-category/${menu.slug}`}>
-              {menu.title} - <span className="text-base">({menu.products.data.length})</span>
-            </Link>
-            <div className="w-full h-[1px] bg-[#0f0f0f]"></div>
-          </div>
-        ))}
-      </div>
 
+      <ProductCategoryManuDesktop MenuData={filteredData} Selected={parentCategorySlug} />
       {/* Mobile Menu (Client-Side) */}
-      <ProductCategoryMenuMobile menuData={filteredData} />
+      <ProductCategoryMenuMobile MenuData={filteredData} Selected={parentCategorySlug} />
     </div>
   );
 };

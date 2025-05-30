@@ -29,7 +29,7 @@ export async function fetchData(path, filter) {
   url.search = filter;
 
   // show API links
-  console.log(url.href);
+  //console.log(url.href);
 
   try {
 
@@ -118,6 +118,28 @@ export async function geProductCategoryLeftMenu() {
 }
 
 
+export async function getProductCategoryLeftMenu() {
+
+  const blogBlockQuery = qs.stringify({
+    // publicationState: "preview", // This includes draft entries
+    filters: {
+
+      parent: {
+        $null: true, // This checks that 'parent' is null
+      },
+    },
+    sort: ['index'],
+    populate: ['products', 'seo.schema', 'child', 'child.products'],
+    pagination: {
+      pageSize: 100,
+      page: 1,
+    },
+
+  });
+  return await fetchData("product-categories", blogBlockQuery);
+}
+
+
 export async function geProductsByCategory(category, currentPage, pageSize) {
 
   const PAGE_SIZE = pageSize;
@@ -170,7 +192,7 @@ export async function geSingleProduct(slug) {
     },
     populate: ['productImage', 'seo', 'seo.schema', 'productSchema', 'productSchema.reviews',
       'related_products.productImage', 'product_categories', 'product_categories.banner.webBanner',
-      'product_categories.banner.mobileBanner', 'TDSFile.url', 'MSDSFile.url'],
+      'product_categories.banner.mobileBanner', 'product_categories.parent', 'TDSFile.url', 'MSDSFile.url'],
   });
 
 
@@ -353,37 +375,100 @@ export async function getContactUsPage() {
 
 
 export async function geAllProductsSlug() {
+  let allProducts = [];
+  let page = 1;
+  let pageSize = 100;
 
-  const productBlockQuery = qs.stringify({
+  while (true) {
+    const query = qs.stringify({
+      fields: ["slug", "updatedAt"],
+      pagination: {
+        page,
+        pageSize,
+      },
+    });
 
-    fields: ['slug', 'updatedAt']
+    const response = await fetchData("products", query);
 
-  });
-  return await fetchData("products", productBlockQuery);
+    const products = response?.data || [];
+    const pagination = response?.meta?.pagination;
 
+    allProducts.push(...products);
+
+    if (pagination.page >= pagination.pageCount) {
+      break;
+    }
+
+    page++;
+  }
+
+  return allProducts;
 }
 
-export async function geAllPostSlug() {
 
-  const blogBlockQuery = qs.stringify({
 
-    fields: ['slug', 'updatedAt']
+export async function getAllPostSlugs() {
+  const pageSize = 50;
+  let page = 1;
+  let allPosts = [];
+  let hasMore = true;
 
-  });
-  return await fetchData("posts", blogBlockQuery);
+  while (hasMore) {
+    const query = qs.stringify({
+      fields: ['slug', 'updatedAt'],
+      pagination: {
+        page,
+        pageSize
+      }
+    });
 
+    const response = await fetchData('posts', query);
+
+    if (!response?.data?.length) break;
+
+    allPosts.push(...response.data);
+
+    const total = response.meta?.pagination?.total || 0;
+    const pageCount = response.meta?.pagination?.pageCount || 1;
+
+    hasMore = page < pageCount;
+    page++;
+  }
+
+  return allPosts;
 }
+
 
 
 export async function geAllProductCategorySlug() {
+  let allCategories = [];
+  let page = 1;
+  const pageSize = 100;
 
-  const blogBlockQuery = qs.stringify({
+  while (true) {
+    const query = qs.stringify({
+      fields: ["slug"],
+      pagination: {
+        page,
+        pageSize,
+      },
+    });
 
-    fields: "slug",
+    const response = await fetchData("product-categories", query);
 
-  });
-  return await fetchData("product-categories", blogBlockQuery);
+    const categories = response?.data || [];
+    const pagination = response?.meta?.pagination;
 
+    allCategories.push(...categories);
+
+    if (pagination.page >= pagination.pageCount) {
+      break;
+    }
+
+    page++;
+  }
+
+  return allCategories;
 }
 
 
@@ -396,7 +481,7 @@ export async function getProductCategory(slug) {
         $eq: slug,
       },
     },
-    populate: ['banner', 'banner.webBanner', 'banner.mobileBanner', 'seo', 'seo.schema'],
+    populate: ['banner', 'banner.webBanner', 'banner.mobileBanner', 'seo', 'seo.schema', 'faq', 'parent', 'child', 'child.image', 'child.bImage', 'child.banner', 'child.banner.webBanner', 'child.banner.mobileBanner'],
 
   });
   return await fetchData("product-categories", blogBlockQuery);
@@ -457,6 +542,20 @@ export async function getChildProductCategory(slug) {
   return await fetchData("product-categories", blogBlockQuery);
 }
 
+
+export async function getUncategorizedProducts() {
+
+  const BlockQuery = qs.stringify({
+
+    filters: {
+      product_categories: {
+        $null: true,
+      },
+    },
+    populate: ['productImage', 'TDSFile', 'MSDSFile'],
+  });
+  return await fetchData("products", BlockQuery);
+}
 
 
 

@@ -2,7 +2,7 @@ import BodyDataParse from "@/app/components/elements/data-parse-content";
 import SEOSchema from "@/app/components/elements/seo-schema";
 import BlogContainer from "@/app/components/layout/blog-container";
 import PaddingContainer from "@/app/components/layout/padding-container";
-import { geAllPostSlug, geSinglePost } from "@/app/data/loader";
+import { geSinglePost, getAllPostSlugs } from "@/app/data/loader";
 import siteConfig from "@/config/site";
 import { getFirstDescriptionText, getImageUrl, validateCanonicalSlug } from "@/libs/helper";
 import { generateMetadata as generatePageMetadata } from "@/libs/metadata";
@@ -52,7 +52,7 @@ export async function generateMetadata(props) {
 export const generateStaticParams = async () => {
 
   try {
-    const postSlugs = await geAllPostSlug();
+    const postSlugs = await getAllPostSlugs();
     const paramsSlugs = postSlugs?.data?.map((post) => {
       // console.log("*******Post slug: "+ post.slug);
       return {

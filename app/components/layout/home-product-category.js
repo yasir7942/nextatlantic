@@ -9,14 +9,14 @@ const HomeProductCategory = async () => {
 
   const categoryData = await getProductCategoryForHome();
 
-
-
-  console.log("-------------------------parent-----category---Data----------------------------------------");
-
-  console.dir(categoryData, { depth: null });
-
-  console.log("---------------------------End-----------------------end-----------------------");
-
+  /*
+  
+    console.log("-------------------------parent-----category---Data----------------------------------------");
+  
+    console.dir(categoryData, { depth: null });
+  
+    console.log("---------------------------End-----------------------end-----------------------");
+  */
 
   return (
 

@@ -1,3 +1,8 @@
+/*
+   not use anymore keep for future reference
+*/
+
+
 "use client";
 
 import { useState } from 'react';
@@ -16,10 +21,15 @@ import Link from "next/link";
 import SocialIcons from '../elements/social-icons';
 import siteConfig from '@/config/site';
 import Image from 'next/image';
+import MobileMenu from './mobile-nav2';
 
 
 
 const MobileNavigation = () => {
+
+
+
+
 
   const [openSheet, setOpenSheet] = useState(false);
 
@@ -49,9 +59,14 @@ const MobileNavigation = () => {
                 <li><Link href={`/`} onClick={() => { setOpenSheet(false) }} > Home</Link></li>
                 <li><Link href={`/about-us`} onClick={() => { setOpenSheet(false) }} > About Us</Link></li>
                 <li> <Link href={`/products`} onClick={() => { setOpenSheet(false) }} > Products </Link></li>
+                <li> <Link href={`/engine`} onClick={() => { setOpenSheet(false) }} > engine  oil </Link></li>
+                <li> <Link href={`/grease`} onClick={() => { setOpenSheet(false) }} > grease </Link></li>
                 <li><Link href={`/blog`} onClick={() => { setOpenSheet(false) }} > Blog </Link></li>
                 <li><Link href={`/contact`} onClick={() => { setOpenSheet(false) }}  >Contact Us</Link></li>
               </ul>
+
+
+
 
               <ul className="flex text-white space-x-7 mt-10 ">
                 <li><SocialIcons plateform="facebook" link={siteConfig.socialMedia.facebook} /></li>

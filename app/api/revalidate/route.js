@@ -87,7 +87,7 @@ async function revalidate(req, model, slug) {
 
         }
         else if (model == 'post') {
-            console.log("revalidate post");
+            // console.log("revalidate post");
             revalidatePath(`/`); //home page
             revalidatePath(`/blog/`);
             revalidatePath(`/blog/${slug}/`);

@@ -55,8 +55,8 @@ const TopBanner = ({ banner = "", home = false }) => {
           className="w-full object-cover object-center" alt={banner.alternativeText ?? "Atlantic Grease and Lubricants"} />
         <PaddingContainer>
           <div className={`flex flex-col   ml-0 pb-16   ${home ? "-mt-16 " : " -mt-28 md:-mt-60"} `}>
-            <div className={`text-darkYellow uppercase font-semibold font  ${home ? " text-6xl md:text-8xl" : "text-6xl md:text-7xl"} `} >{banner.title}</div>
-            <div className={`text-white uppercase font-bold  leading-none ${home ? "text-4xl md:text-5xl" : "text-4xl md:text-5xl"}`}><div dangerouslySetInnerHTML={{ __html: banner.subTitle }} /> </div>
+            <div className={`text-darkYellow uppercase font-semibold font  ${home ? " text-6xl md:text-8xl" : "text-4xl md:text-6xl"} `} >{banner.title}</div>
+            <div className={`text-white uppercase font-bold  leading-none ${home ? "text-4xl md:text-5xl" : "text-3xl md:text-4xl"}`}><div dangerouslySetInnerHTML={{ __html: banner.subTitle }} /> </div>
           </div>
         </PaddingContainer>
       </section>

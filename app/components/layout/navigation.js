@@ -5,11 +5,20 @@ import PaddingContainer from "./padding-container"
 import SocialIcons from "../elements/social-icons"
 import siteConfig from "../../../config/site";
 import MobileNavigation from "./mobile-nav";
-import MenuList from "./menu-list";
+
 import Link from "next/link";
+import MainMenuWrapper from "./main-menu-warpper";
+import MobileNavigation2 from "./mobile-nav2";
+import { getProductCategoryLeftMenu } from "@/app/data/loader";
 
 
-const Navigation = () => {
+
+const Navigation = async () => {
+
+
+  const productCategoryData = await getProductCategoryLeftMenu();
+
+
 
   return (
 
@@ -27,7 +36,8 @@ const Navigation = () => {
             alt="Atlantic Grease and Lubricants logo" />
         </Link>
 
-        <MenuList />
+
+        <MainMenuWrapper productCategory={productCategoryData} />
 
         <ul className="hidden md:flex text-white  md:space-x-2 lg:space-x-5">
           <li><SocialIcons plateform="facebook" link={siteConfig.socialMedia.facebook} /></li>
@@ -38,7 +48,10 @@ const Navigation = () => {
 
         <div className="md:hidden text-white text-4xl">
 
-          <MobileNavigation />
+          <MobileNavigation2 productCategory={productCategoryData} />
+
+
+
         </div>
       </nav>
       {/* <!--End Nav Bar--> */}

@@ -1,7 +1,7 @@
 "use client";
 
 import { IoMdMenu } from "react-icons/io";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
     Sheet,
     SheetContent,
@@ -10,45 +10,82 @@ import {
     SheetTitle,
     SheetTrigger,
 } from "@/components/ui/sheet";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import Link from "next/link";
 
-const ProductCategoryMenuClient = ({ menuData }) => {
+
+const ProductCategoryMenuClient = ({ MenuData, Selected = "" }) => {
     const [openSheet, setOpenSheet] = useState(false);
+
+
+    const [open, setOpen] = useState(undefined);
+
+    useEffect(() => {
+        setOpen(Selected); // Open selected tab on load
+    }, [Selected]);
+
+
+
 
     return (
         <div className="flex flex-row justify-start md:hidden text-white">
             <Sheet open={openSheet} onOpenChange={setOpenSheet}>
                 <SheetTrigger className="flex justify-start items-end space-x-2">
                     <IoMdMenu size={20} />
-                    <div className="font-light">Product Category</div>
+                    <div className="font-semibold">Product Category</div>
                 </SheetTrigger>
-                <SheetContent side="left" className="w-[250px]">
+                <SheetContent side="left" className="w-[75%]">
                     <SheetHeader>
                         <SheetTitle className="hidden">Product Categories</SheetTitle>
                         <SheetDescription></SheetDescription>
                         <div className="h-screen w-full pb-16 ">
                             <div className="w-full h-full overflow-hidden py-3 text-gray-300 ">
                                 <div className="w-[218px] h-full overflow-y-auto">
-                                    <div className="flex flex-col space-y-3 text-left mb-5 text-base font-normal">
+                                    <div className="flex flex-col space-y-3 text-left mb-5 text-xl font-semibold">
                                         <a href="#">Products Categories</a>
                                     </div>
-                                    {menuData.map((menu) => (
-                                        <div
-                                            key={"mobile-" + menu.id}
-                                            className="flex flex-col text-left pl-2 space-y-3 mt-2 text-base font-light"
-                                        >
-                                            <div>
-                                                <Link href={`/product-category/${menu.slug}`} onClick={() => setOpenSheet(false)}>
-                                                    {menu.title}
-                                                </Link>
-                                            </div>
-                                            <div className="w-[70%] h-[1px] bg-[#0f0f0f]"></div>
-                                        </div>
-                                    ))}
+
+
+
+                                    <Accordion type="single" collapsible className="w-full" value={open} onValueChange={(value) => setOpen(value)}>
+                                        {
+                                            MenuData.map((menu) => (
+                                                <AccordionItem key={menu.id} value={menu.slug} className="border-b border-gray-700" >
+                                                    <AccordionTrigger className="text-left font-semibold"> {menu.title} </AccordionTrigger>
+                                                    <AccordionContent>
+                                                        {menu.child.data.map((cate) => (
+                                                            <div key={cate.id} className="flex flex-col space-y-0 text-left">
+                                                                <Link href={`/product-category/${cate.slug}`} onClick={() => setOpenSheet(false)} className="w-full block  text-left  p-1 pl-3">
+                                                                    {cate.title}
+                                                                </Link>
+                                                            </div>
+                                                        ))}
+                                                    </AccordionContent>
+                                                </AccordionItem>
+                                            ))
+                                        }
+                                    </Accordion>
+
+
+
+
+
+
                                 </div>
                             </div>
                         </div>
                     </SheetHeader>
+
+
+
+
+
+
+
+
+
+
+
                 </SheetContent>
             </Sheet>
         </div>

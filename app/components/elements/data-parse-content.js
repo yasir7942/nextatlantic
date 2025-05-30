@@ -13,9 +13,9 @@ const BodyDataParse = ({ content }) => {
 
    return <BlocksRenderer content={content} blocks={{
       image: ({ image }) => {
-         console.log(image);
+         //console.log(image);
          return (
-            <Image className="object-cover object-center my-3" src={image.url} width={image.width} height={image.height}
+            <Image className="object-cover object-center my-3 w-full" quality={100} src={image.url} width={image.width} height={image.height}
                alt={image.alternativeText || ""} />
          )
       }

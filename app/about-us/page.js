@@ -9,6 +9,7 @@ import { generateMetadata as generatePageMetadata } from "@/libs/metadata";
 import SEOSchema from "../components/elements/seo-schema";
 import SpeakableSchema from "../components/elements/speakable-schema";
 
+
 const cachedGetAboutPage = cache(getAboutPage);
 export async function generateMetadata(props) {
     const params = await props.params;
@@ -138,6 +139,10 @@ const AboutUsPage = async () => {
                 </div>
 
                 <div className="w-full h-16"></div>
+
+
+
+
 
 
             </PaddingContainer>

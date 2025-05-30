@@ -30,8 +30,8 @@ const SearchBarForPost = () => {
 
         const result = await gePostBySearch(query);
         setPostData(result.data);
-        console.log("****************serech****result***data*****************");
-        console.dir(result, { depth: null });
+        //  console.log("****************serech****result***data*****************");
+        // console.dir(result, { depth: null });
 
       } catch (error) {
         console.error('Error fetching search results:', error);

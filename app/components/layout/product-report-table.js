@@ -2,7 +2,7 @@
 
 'use client';
 
-import { getChildProductCategory } from "@/app/data/loader";
+import { getChildProductCategory, getUncategorizedProducts } from "@/app/data/loader";
 import { getImageUrl } from "@/libs/helper";
 import Image from "next/image";
 import React, { useState, useEffect } from 'react';
@@ -30,7 +30,17 @@ const ProductReportTable = ({ Type, ProductCategory = "", ChildSlug = "" }) => {
                      console.dir(productCategoryData.data[0], { depth: null });
                      console.log("---------------------------End-----child category---------------------");   */
                     setChildProducts(productCategoryData.data[0]);
-                } else {
+                } else if (Type === "uncategorized") {
+
+                    const uncategorizedProducts = {
+                        title: "Uncategorized",
+                        products: []
+                    };
+                    const allProducts = await getUncategorizedProducts();
+                    uncategorizedProducts.products = allProducts;
+                    setChildProducts(uncategorizedProducts);
+                }
+                else {
                     setChildProducts(ProductCategory);
                 }
             } catch (e) {
@@ -67,7 +77,8 @@ const ProductReportTable = ({ Type, ProductCategory = "", ChildSlug = "" }) => {
 
     return (
 
-        <table className="table-auto w-full border-collapse border  border-gray-300 text-gray-950">
+        <table className={`table-auto w-full border-collapse border border-gray-300 ${Type === "child" ? "text-gray-950" : "text-red-700"}`}>
+
             <thead>
                 <tr>
                     <th className="border border-gray-300 text-sm">P. Id</th>
@@ -84,14 +95,14 @@ const ProductReportTable = ({ Type, ProductCategory = "", ChildSlug = "" }) => {
                     <th className="border border-gray-300 text-sm">SEO ALT</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody className={` ${Type === "child" ? "text-green-800" : ""}`}>
                 {childProducts.products?.data?.map((product) => (
                     <tr key={product.id} className={product.publishedAt === null ? ' bg-red-400 cursor-not-allowed text-sm' : ''}>
                         <td className="border text-sm   border-gray-300 text-center font-semibold">
                             {product.id || <div className="text-center text-red-500"> --- </div>}
                         </td>
                         <td className="border text-sm font-light border-gray-300">
-                            {product.publishedAt === null ? 'Deleted ' : ''}  {<a rel="nofollow" href={product.publishedAt === null ? '#' : `/product/${product.slug}`} className={product.publishedAt === null ? ' no-underline cursor-not-allowed   pointer-events-none ' : 'underline'} target="_blank" > {product.title} </a> || <div className="text-center text-red-500"> --- </div>}
+                            {product.publishedAt === null ? 'Deleted ' : ''}  {<a rel="nofollow" href={product.publishedAt === null ? '#' : `/ product / ${product.slug}`} className={product.publishedAt === null ? ' no-underline cursor-not-allowed   pointer-events-none ' : 'underline'} target="_blank" > {product.title} </a> || <div className="text-center text-red-500"> --- </div>}
                         </td>
                         <td className="border text-sm font-light border-gray-300">
                             {product.name || <div className="text-center text-red-500"> --- </div>}
@@ -146,10 +157,10 @@ const ProductReportTable = ({ Type, ProductCategory = "", ChildSlug = "" }) => {
                         <td className="border text-sm font-light border-gray-300">
                             {product.productImage?.alternativeText || <div className="text-center text-red-500"> --- </div>}
                         </td>
-                    </tr>
+                    </tr >
                 ))}
-            </tbody>
-        </table>
+            </tbody >
+        </table >
     );
 };
 
