@@ -43,16 +43,27 @@ const TopBanner = ({ banner = "", home = false }) => {
           <div className={`text-white uppercase  font-bold tracking-wider   leading-none  ${home ? " mt-6  text-6xl xl:mt-7  xl:text-6xl" : " mt-2 xl:mt-3 text-4xl xl:text-5xl"}`}> <div dangerouslySetInnerHTML={{ __html: banner.subTitle }} /></div>
         </div>
 
-        <Image priority src={getImageUrl(banner.webBanner.url)} width={1440} height={home ? 810 : 600}
-          className=" absolute w-full object-cover object-center" alt={banner.alternativeText ?? "Atlantic Grease and Lubricants"} />
+        {banner?.webBanner?.url && banner?.webBanner?.url !== "" ? (
+          <Image
+            priority
+            src={getImageUrl(banner.webBanner.url)}
+            width={1440}
+            height={home ? 810 : 600}
+            alt="Banner" className=" absolute w-full object-cover object-center" alt={banner.alternativeText ?? "Atlantic Grease and Lubricants"} />
+
+        ) : null}
+
+
       </div>
 
 
       {/* show md to  sm */}
 
       <section className="lg:hidden relative z-20 w-full h-auto mt-[-85px] " >
-        <Image src={getImageUrl(banner.mobileBanner.url)} width={800} height={569}
-          className="w-full object-cover object-center" alt={banner.alternativeText ?? "Atlantic Grease and Lubricants"} />
+        {banner?.mobileBanner?.url && banner?.mobileBanner?.url !== "" ? (
+          <Image src={getImageUrl(banner.mobileBanner.url)} width={800} height={569} />
+        ) : null}
+        className="w-full object-cover object-center" alt={banner.alternativeText ?? "Atlantic Grease and Lubricants"} />
         <PaddingContainer>
           <div className={`flex flex-col   ml-0 pb-16   ${home ? "-mt-16 " : " -mt-28 md:-mt-60"} `}>
             <div className={`text-darkYellow uppercase font-semibold font  ${home ? " text-6xl md:text-8xl" : "text-4xl md:text-6xl"} `} >{banner.title}</div>
