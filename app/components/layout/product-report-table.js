@@ -27,8 +27,8 @@ const ProductReportTable = ({ Type, ProductCategory = "", ChildSlug = "" }) => {
                 if (Type === "child") {
                     const productCategoryData = await getChildProductCategory(ChildSlug);
                     /* console.log(productCategoryData.data[0].title + "-----------------------child category--------------------------------------------------");
-                     console.dir(productCategoryData.data[0], { depth: null });
-                     console.log("---------------------------End-----child category---------------------");   */
+                    console.dir(productCategoryData.data[0], { depth: null });
+                    console.log("---------------------------End-----child category---------------------");      */
                     setChildProducts(productCategoryData.data[0]);
                 } else if (Type === "uncategorized") {
 
@@ -108,7 +108,7 @@ const ProductReportTable = ({ Type, ProductCategory = "", ChildSlug = "" }) => {
                             {product.name || <div className="text-center text-red-500"> --- </div>}
                         </td>
                         <td className="border text-sm font-light border-gray-300">
-                            <a href={`http://localhost:1337/admin/content-manager/collection-types/api::product.product/${product.id}`} className="underline" target="_blank" rel="noopener noreferrer">  Edit </a>
+                            <a href={`${process.env.NEXT_PUBLIC_BASE_URL}/admin/content-manager/collection-types/api::product.product/${product.id}`} className="underline" target="_blank" rel="noopener noreferrer">  Edit </a>
                         </td>
                         <td className="border text-sm font-light border-gray-300">
                             {product.grade || <div className="text-center text-red-500"> --- </div>}

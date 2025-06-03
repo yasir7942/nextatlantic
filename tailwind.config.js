@@ -62,6 +62,7 @@ module.exports = {
 				sm: 'calc(var(--radius) - 4px)'
 			},
 			zIndex: {
+				'50': '50',
 				'60': '60',
 				'999': '999',
 				'max': '9999',

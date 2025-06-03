@@ -506,7 +506,7 @@ export async function getAllPostSlugs() {
 export async function geAllProductCategorySlug() {
   let allCategories = [];
   let page = 1;
-  const pageSize = 50;
+  const pageSize = 100;
 
   while (true) {
     const query = qs.stringify({
@@ -603,7 +603,7 @@ export async function getReportParentProductCategoryList() {
       },
     },
     sort: ['index'],
-    populate: ['products', 'products.productImage', 'products.TDSFile', 'products.MSDSFile', 'child', 'child.products'],
+    populate: ['products', 'image', 'bImage', 'banner', 'banner.webBanner', 'banner.mobileBanner', 'products.productImage', 'products.TDSFile', 'products.MSDSFile', 'child', 'child.image', 'child.bImage', 'child.banner', 'child.banner.webBanner', 'child.banner.mobileBanner'],
     pagination: {
       pageSize: 100,
       page: 1,

@@ -5,6 +5,8 @@ import React, { useState, useEffect } from 'react';
 import { MagnifyingGlass } from "react-loader-spinner";
 import ProductReportTable from "@/app/components/layout/product-report-table";
 import { MessageCircleWarning } from "lucide-react";
+import Image from "next/image";
+import { getImageUrl } from "@/libs/helper";
 
 
 const ReadProductReport = () => {
@@ -25,6 +27,11 @@ const ReadProductReport = () => {
         const fetchData = async () => {
             try {
                 const productCategoryData = await getReportParentProductCategoryList();
+                /*  console.log("----------------------- category--------------------------------------------------");
+                  console.dir(productCategoryData.data[0], { depth: null });
+                  console.log("---------------------------End----- category---------------------");
+    */
+
                 setProductCategory(productCategoryData);
             } catch (e) {
                 setError(e);
@@ -62,7 +69,55 @@ const ReadProductReport = () => {
 
             {productCategory.data.map((category) => (
                 <div key={category.id} className="mb-10 bg-blue-50 border border-blue-100 border-collapse p-5">
+
+
+                    <div className="flex items-center justify-center space-x-3 ">
+                        {category.banner?.webBanner.url && category.banner?.webBanner.url !== '' ? (
+                            <figure className="text-center">
+                                <Image
+                                    className="w-14 hover:scale-[10] hover:cursor-pointer transition-transform duration-300 text-right"
+                                    src={getImageUrl(category.banner?.webBanner.url)}
+                                    height={250}
+                                    width={250}
+                                    alt=" Web Banner"
+                                    priority
+                                />
+                                <figcaption className="mt-2 text-[10px] text-gray-500">
+                                    Web Banner
+                                </figcaption>
+                            </figure>
+                        ) : (
+                            <div className="text-center text-[9px] text-red-500">  Web Banner </div>
+                        )}
+
+                        {category.banner?.mobileBanner.url && category.banner?.mobileBanner.url !== '' ? (
+                            <figure className="text-center">
+                                <Image
+                                    className="w-12 hover:scale-[10] hover:cursor-pointer transition-transform duration-300 text-right"
+                                    src={getImageUrl(category.banner?.mobileBanner.url)}
+                                    height={250}
+                                    width={250}
+                                    alt="Mobile Banner"
+                                    priority
+                                />
+                                <figcaption className="mt-2 text-[10px] text-gray-500">
+                                    Mobile Banner
+                                </figcaption>
+                            </figure>
+                        ) : (
+                            <div className="text-center text-[9px] text-red-500"> Mobile Banner </div>
+                        )}
+
+
+
+
+                    </div>
+
                     <div className="pb-2 pl-1 text-2xl text-red-900">{category.index}- {category.title || "No Title"}   <span className="pl-5 text-sm text-red-400"> Total Child:{category.child.data.length}</span></div>
+
+
+
+
 
 
                     <ProductReportTable Type="parent" ProductCategory={category} ChildSlug="" />
@@ -73,6 +128,86 @@ const ReadProductReport = () => {
 
                         <div key={child.id} className="ml-5 mt-10 p-5">
                             <div className="pb-2 pl-1 text-xl text-gray-700" >  {child.title || "No Title"} <span className="pl-5 text-sm text-blue-500"> Parent is: {category.title}</span></div>
+
+
+
+                            <div className="flex items-center justify-center space-x-3 ">
+                                {child.banner?.webBanner.url && child.banner?.webBanner.url !== '' ? (
+                                    <figure className="text-center">
+                                        <Image
+                                            className="w-12 hover:scale-[10] hover:cursor-pointer transition-transform duration-300 text-right"
+                                            src={getImageUrl(child.banner?.webBanner.url)}
+                                            height={250}
+                                            width={250}
+                                            alt=" Web Banner"
+                                            priority
+                                        />
+                                        <figcaption className="mt-2 text-[10px] text-gray-500">
+                                            Web Banner
+                                        </figcaption>
+                                    </figure>
+                                ) : (
+                                    <div className="text-center text-[9px] text-red-500">  Web Banner </div>
+                                )}
+
+                                {child.banner?.mobileBanner.url && child.banner?.mobileBanner.url !== '' ? (
+                                    <figure className="text-center">
+                                        <Image
+                                            className="w-12 hover:scale-[10] hover:cursor-pointer transition-transform duration-300 text-right"
+                                            src={getImageUrl(child.banner?.mobileBanner.url)}
+                                            height={250}
+                                            width={250}
+                                            alt="Mobile Banner"
+                                            priority
+                                        />
+                                        <figcaption className="mt-2 text-[10px] text-gray-500">
+                                            Mobile Banner
+                                        </figcaption>
+                                    </figure>
+                                ) : (
+                                    <div className="text-center text-[9px] text-red-500"> Mobile Banner </div>
+                                )}
+
+                                {child.image?.url && category.image?.url !== '' ? (
+                                    <figure className="text-center">
+                                        <Image
+                                            className="w-10  hover:scale-[8] hover:cursor-pointer transition-transform duration-300 text-right"
+                                            src={getImageUrl(child.image?.url)}
+                                            height={250}
+                                            width={250}
+                                            alt=" Button Color"
+                                            priority
+                                        />
+                                        <figcaption className="mt-2 text-[10px] text-gray-500">
+                                            Button Color
+                                        </figcaption>
+                                    </figure>
+                                ) : (
+                                    <div className="text-center text-[9px] text-red-500"> Button Color </div>
+                                )}
+
+                                {child.bImage?.url && child.bImage?.url !== '' ? (
+                                    <figure className="text-center">
+                                        <Image
+                                            className="w-10  hover:scale-[8] hover:cursor-pointer transition-transform duration-300 text-right"
+                                            src={getImageUrl(child.bImage?.url)}
+                                            height={250}
+                                            width={250}
+                                            alt=" Button Black"
+                                            priority
+                                        />
+                                        <figcaption className="mt-2 text-[10px] text-gray-500">
+                                            Button Black
+                                        </figcaption>
+                                    </figure>
+                                ) : (
+                                    <div className="text-center text-[9px] text-red-500">  Button Black </div>
+                                )}
+
+
+                            </div>
+
+
                             <ProductReportTable Type="child" ProductCategory="" ChildSlug={child.slug} />
                         </div>
 

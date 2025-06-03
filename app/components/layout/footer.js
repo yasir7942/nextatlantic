@@ -11,7 +11,7 @@ const Footer = async () => {
 
   const categoryData = await getProductCategoryForHome();
 
-
+  console.log(categoryData);
   return (
 
     <footer className="w-full mt-10 pt-5 pb-8 bg-[#040404]">

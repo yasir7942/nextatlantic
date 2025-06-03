@@ -13,7 +13,7 @@ import CategoryProductlist from "@/app/components/layout/category-product-list";
 import CategoryChildList from "@/app/components/layout/category-child-list";
 
 
-/*
+
 export const generateStaticParams = async () => {
   try {
     const pcategorySlugs = await geAllProductCategorySlug();
@@ -34,12 +34,14 @@ export const generateStaticParams = async () => {
 }
 
 
-*/
+
 
 export async function generateMetadata(props) {
   const params = await props.params;
 
   const categoryData = await getProductCategory(params.pcategory);
+
+  // console.log("-----,", categoryData.data[0].title)
   if (!categoryData || !categoryData.data[0]) {
     NotFound();
   }
@@ -119,7 +121,7 @@ const ProductCategory = async props => {
   // console.log();
 
   return (
-    <div>
+    <div >
 
 
       <SEOSchema schemaList={productData.data[0]?.seo?.schema} />

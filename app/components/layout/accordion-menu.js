@@ -16,7 +16,7 @@ export default function SideAccordion({ Categories }) {
     }, [activeItem, Categories])
 
     return (
-        <div className="flex  gap-0 w-full     ">
+        <div className="flex  gap-0 w-full   z-999   ">
             {/* Left side: tab list */}
             <div className="w-[45%] pr-1 pl-1 bg-[#587482]">
                 <div className="pb-2">

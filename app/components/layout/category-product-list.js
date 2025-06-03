@@ -23,7 +23,7 @@ const CategoryProductlist = async ({ selectedCategoryParent, productData, PageSi
 
 
     return (
-        <div>
+        <div className="z-60 relative">
 
 
 
@@ -50,7 +50,19 @@ const CategoryProductlist = async ({ selectedCategoryParent, productData, PageSi
                                 <div key={product.id} className=" pt-0 mt-10 relative text-center flex flex-col  justify-center">
 
                                     <div className="w-full flex justify-center  ">
-                                        <a href={`/product/${product.slug}`} > <Image className="relative w-28 text-center" src={getImageUrl(product?.productImage.url)} priority height={400} width={400} alt={product.name} /> </a>
+                                        {product?.productImage?.url && (
+                                            <Link href={`/product/${product.slug}`}>
+                                                <Image
+                                                    className="relative w-28 text-center"
+                                                    src={getImageUrl(product.productImage.url)}
+                                                    priority
+                                                    height={400}
+                                                    width={400}
+                                                    alt={product.name}
+                                                />
+                                            </Link>
+                                        )}
+
                                     </div>
                                     <div className="flex flex-col w-full h-full " >
                                         <h2 className="uppercase text-lg text-burnYellow mt-3 leading-1"> <a href={`/product/${product.slug}`} >

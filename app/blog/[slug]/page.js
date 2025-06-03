@@ -122,7 +122,7 @@ const SingleBlogPage = async props => {
       <PaddingContainer>
 
         {/*  Post Area   */}
-        <div className=" w-full  flex flex-col mt-20   p-10 pt-0 space-y-7   ">
+        <div className=" w-full  flex flex-col mt-20   p-10 pt-0 space-y-7      ">
 
           <div className="W-full h-auto  " >
             <Image className="w-full h-auto " quality={100} src={getImageUrl(postData.data[0].featureImage.url)} height={1200} width={1200} alt={postData.data[0].title} />
