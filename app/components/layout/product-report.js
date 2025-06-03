@@ -64,7 +64,7 @@ const ReadProductReport = () => {
         <div className="overflow-x-auto font-serif">
 
             <div className="text-2xl text-center p-4 flex items-center justify-center ">
-                <MessageCircleWarning className=" text-2xl text-red-900 font-semibold mr-2 " />   <span className=" text-red-900">Red-colored products indicate incorrect category placement,</span> <span className=" text-green-800">while green-colored products indicate correct category placement.</span>
+                <MessageCircleWarning className=" text-2xl text-red-900 font-semibold mr-2 " />   <span className=" text-red-900">Red-colored products indicate incorrect category placement,</span> <span className=" text-green-800"> Green-colored products may indicate correct category placement.</span>
             </div>
 
             {productCategory.data.map((category) => (
