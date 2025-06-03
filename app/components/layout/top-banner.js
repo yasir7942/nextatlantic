@@ -49,7 +49,7 @@ const TopBanner = ({ banner = "", home = false }) => {
             src={getImageUrl(banner.webBanner.url)}
             width={1440}
             height={home ? 810 : 600}
-            alt="Banner" className=" absolute w-full object-cover object-center" alt={banner.alternativeText ?? "Atlantic Grease and Lubricants"} />
+            className=" absolute w-full object-cover object-center" alt={banner.alternativeText ?? "Atlantic Grease and Lubricants"} />
 
         ) : null}
 
