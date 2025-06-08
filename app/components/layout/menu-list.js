@@ -45,7 +45,7 @@ const MenuList = ({ categories }) => {
                     <NavigationMenuItem>
                         <NavigationMenuTrigger>Products</NavigationMenuTrigger>
                         <NavigationMenuContent>
-                            <div className="grid w-[400px] gap-3 md:w-[500px] lg:w-[600px] relative z-max ">
+                            <div className="grid w-[400px] gap-3 md:w-[500px] lg:w-[600px] relative z-max  ">
 
                                 <SideAccordion Categories={categories.data} />
 

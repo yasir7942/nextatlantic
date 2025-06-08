@@ -32,12 +32,12 @@ const MobileNavigation2 = ({ productCategory }) => {
           </button>
         </SheetTrigger>
 
-        <SheetContent side="left" className="w-72 bg-[#1c1c1c] text-white">
+        <SheetContent side="left" className="w-72 bg-[#1c1c1c] text-white z-max ">
           <SheetHeader>
             <SheetTitle className="hidden" />
             <SheetDescription />
 
-            <div className="flex flex-col w-full h-full justify-between items-left relative">
+            <div className="flex flex-col w-full h-full justify-between items-left relative  ">
               {/* Logo */}
               <Link href="/" onClick={() => setOpenSheet(false)} className="w-[80%] mb-6">
                 <Image

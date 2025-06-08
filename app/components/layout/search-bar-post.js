@@ -75,7 +75,7 @@ const SearchBarForPost = () => {
   }, []);
 
   return (
-    <div className="flex flex-col relative w-full p-6 text-white text-center justify-center" ref={searchContainerRef}>
+    <div className="flex flex-col relative w-full py-6 text-white text-center justify-center" ref={searchContainerRef}>
       <form className="flex item bg-center w-full gap-2 font-light text-gray-900">
         <input
           placeholder={'Search  Post'}
@@ -112,17 +112,17 @@ const SearchBarForPost = () => {
         </button>
       </form>
 
-      <div className={`${postData.length <= 0 || !isSearchVisible ? 'hidden' : ''} w-[90%] text-left h-auto absolute top-[67px] z-40 left-5 bg-gray-500 backdrop-blur-md bg-opacity-80 border border-1 border-gray-700 mt-1 p-5`}>
+      <div className={`${postData.length <= 0 || !isSearchVisible ? 'hidden' : ''} w-[90%] text-left h-auto absolute top-[67px] z-40 left-0   bg-gray-500 backdrop-blur-md bg-opacity-80 border border-1 border-gray-700 mt-1 p-5`}>
         <div className="flex flex-col space-y-2 " >
           {postData.length > 0 ? (
             postData.map((post, index) => (
               <div key={post.id} className="flex flex-col space-y-3 ">
                 <div className="flex justify-start space-x-5 items-center pl-1">
                   {post?.featureImage?.formats?.thumbnail?.url && (
-                    <Link href={`/post/${post.slug}`}>
+                    <Link href={`/blog/${post.slug}`}>
                       <Image
                         src={getImageUrl(post.featureImage.formats.thumbnail.url)}
-                        className="items-center w-16"
+                        className="items-center w-96 md:w-16"
                         width={200}
                         height={200}
                         alt={post?.featureImage?.alternativeText ?? post.title}
@@ -134,7 +134,14 @@ const SearchBarForPost = () => {
                       {post.title}  <span className="text-xs text-gray-50 ">- {moment(post.PostDate).format('MMMM D, YYYY')}</span>
                     </div>
                     <div className="flex text-gray-50  justify-center items-center text-left font-light text-base space-x-2">
-                      <div>{post.seo?.seoDesctiption}</div>
+                      <div>
+
+                        {post.seo?.seoDesctiption ? post.seo.seoDesctiption.split(" ").length > 30
+                          ? post.seo.seoDesctiption.split(" ").slice(0, 20).join(" ") + "..."
+                          : post.seo.seoDesctiption
+                          : ""}
+
+                      </div>
                     </div>
                   </Link>
                 </div>

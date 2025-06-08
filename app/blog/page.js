@@ -71,16 +71,16 @@ const Blog = async props => {
 
       <TopBanner banner={pageData.banner} />
 
-      <div className='-mt-60 block topPadding'>
+      <div className=' block topPadding '>
         <PaddingContainer  >
           {/*  Post Area   */}
-          <div className=" w-full  flex flex-col  lg:mt-48 px-16 -mt-60      ">
+          <div className="mt-0 w-full  flex flex-col  lg:mt-48 px-0 md:px-16     ">
             {/*   Content area content goes here  bg-[#2a3c46] */}
             {/* <SearchBar /> */}
 
             <SearchBarForPost />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4   gap-7   ">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4  gap-7   ">
 
               {postsData.data.map((post) => (
 

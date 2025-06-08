@@ -248,17 +248,17 @@ const SingleProductPage = async props => {
           </div>
 
           {/* Content Area */}
-          <div className="w-full md:w-9/12 justify-between lg:w-5/6 flex flex-col  bg-[#2a3c4659] p-3 md:p-4 pb-3 ">
+          <div className="w-full md:w-9/12 justify-between lg:w-5/6 flex flex-col  bg-[#2a3c4659] p-2  md:p-0 pb-3 ">
 
             <SearchBar dataType="products" />
             {/* Content area content goes here */}
-            <div className="flex flex-col md:flex-row w-full h-auto p-0 lg:p-8 ">
+            <div className="flex flex-col md:flex-row w-full h-auto pt-4 lg:p-8   ">
               {/* text section */}
               <div className="w-full md:w-4/6 flex flex-col text-white  ">
-                <div className="uppercase font-semibold text-4xl tracking-widest">
+                <div className="uppercase font-semibold text-2xl md:text-4xl tracking-widest">
                   {productData?.data[0].name}
                 </div>
-                <div className="uppercase font-light text-2xl text-gray-300 tracking-widest">
+                <div className="uppercase font-light text-xl md:text-2xl text-gray-300 tracking-widest">
                   {(productData?.data[0].grade ? productData?.data[0].grade : "") + (productData?.data[0].api ? productData?.data[0].api : "") + (productData?.data[0].acea ? " " + productData?.data[0].acea : "")}
                 </div>
                 <div className="text-white font-light text-base mt-5 max-w-xl pr-5 md:pr-2 2xl:max-w-5xl rich-text  ">
@@ -283,7 +283,7 @@ const SingleProductPage = async props => {
                         className="w-full md:w-1/2 h-full"
                         download
                       >
-                        <div className="h-full w-full bg-gray-400 text-black flex justify-center items-center space-x-2 font-light text-center p-4">
+                        <div className="h-full w-full bg-gray-400 text-black flex justify-center text-xl items-center space-x-2 font-light text-center p-4">
                           <div>Material Safety Data Sheet</div>
                           <FaDownload />
                         </div>
@@ -299,7 +299,7 @@ const SingleProductPage = async props => {
                         className="w-full md:w-1/2 h-full"
                         download
                       >
-                        <div className="h-full w-full bg-white text-black flex justify-center items-center space-x-2 font-light text-center p-4">
+                        <div className="h-full w-full bg-white text-black flex justify-center text-xl items-center space-x-2 font-light text-center p-4">
                           <div>Technical Data Sheet</div>
                           <FaDownload />
                         </div>
@@ -321,6 +321,7 @@ const SingleProductPage = async props => {
                       src={getImageUrl(productData.data[0].productImage.url)}
                       height={1000}
                       width={1000}
+                      quality={100}
                       alt={productData?.data?.[0]?.title || "Product image"}
                     />
                   ) : null}

@@ -31,15 +31,15 @@ const CategoryProductlist = async ({ selectedCategoryParent, productData, PageSi
             <PaddingContainer>
 
 
-                <div className="w-full h-auto flex flex-col md:flex-row  topPadding ">
+                <div className="w-full h-auto flex flex-col md:flex-row  topPaddin  relative z-50 ">
                     {/*  Left Menu Column  */}
-                    <div className="w-full md:w-3/12 lg:w-1/6  p-6 md:pl-0  overflow-hidden ">
+                    <div className="w-full md:w-3/12 lg:w-[20%]  p-6 md:pl-0  overflow-hidden ">
                         {/* <!-- Menu content goes here   */}
                         <ProductCategoryMenu Parent={categoryParent} />
                     </div>
 
                     {/*  Content Area   */}
-                    <div className=" w-full md:w-9/12 lg:w-5/6  flex flex-col bg-[#2a3c4659] p-3 md:p-4 pb-3 ">
+                    <div className=" w-full md:w-9/12 lg:w-[80%] flex flex-col bg-[#2a3c4659] p-3 md:p-4 pb-3 ">
                         {/*   Content area content goes here  */}
                         <SearchBar dataType="products" />
 

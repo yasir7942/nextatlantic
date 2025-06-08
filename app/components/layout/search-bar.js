@@ -76,7 +76,7 @@ const SearchBar = ({ dataType }) => {
   }, []);
 
   return (
-    <div className="flex flex-col relative w-full p-6 text-white text-center justify-center" ref={searchContainerRef}>
+    <div className="flex flex-col relative w-full py-2  text-white text-center justify-center" ref={searchContainerRef}>
       <form className="flex item bg-center w-full gap-2 font-light text-gray-900">
         <input
           placeholder={'Search  ' + dataType}
@@ -106,7 +106,7 @@ const SearchBar = ({ dataType }) => {
 
           </div>
         ) : (<span></span>)}
-        <button onClick={clearSearch} className="px-5 py-2 whitespace-nowrap bg-white border border-gray-300 border-solid">
+        <button onClick={clearSearch} className="px-5 py-3 whitespace-nowrap bg-white border border-gray-300 border-solid">
           Clear
         </button>
 
@@ -124,7 +124,7 @@ const SearchBar = ({ dataType }) => {
                     {product?.productImage?.formats?.thumbnail?.url ? (
                       <Image
                         src={getImageUrl(product.productImage.formats.thumbnail.url)}
-                        className="items-center w-9"
+                        className="items-center w-16 md:w-12"
                         width={100}
                         height={100}
                         alt={product?.productImage?.alternativeText ?? product?.title ?? "Product"}

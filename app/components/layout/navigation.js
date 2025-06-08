@@ -32,7 +32,7 @@ const Navigation = async () => {
           <Image
             src="/images/logo-486x124.png"
             width={500}
-            height={250}
+            height={200}
             alt="Atlantic Grease and Lubricants logo" />
         </Link>
 

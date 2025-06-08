@@ -21,10 +21,12 @@ const ProductCategoryManuDesktop = ({ MenuData, Selected = "" }) => {
 
 
 
-        <div className="hidden md:flex flex-row md:flex-col space-y-0 space-x-2 md:space-y-4 md:space-x-0 text-gray-300 uppercase">
+        <div className="hidden md:flex flex-row md:flex-col space-y-0 space-x-2 md:space-y-4 md:space-x-0 text-gray-300   ">
 
 
-
+            <div className="flex flex-col space-y-0 text-left mb-2 text-xl font-semibold">
+                <a href="#">Products Categories</a>
+            </div>
 
             <Accordion type="single" collapsible className="w-full" value={open} onValueChange={(value) => setOpen(value)}>
                 {

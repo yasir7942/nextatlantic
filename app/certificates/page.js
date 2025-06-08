@@ -7,6 +7,7 @@ import { generateMetadata as generatePageMetadata } from "@/libs/metadata";
 import { cache } from 'react';
 import TopBanner from "../components/layout/top-banner";
 import SEOSchema from "../components/elements/seo-schema";
+import Link from "next/link";
 
 // Cache the GetApprovalPage function
 const cachedGetApprovalPage = cache(getCertificateApprovalPage);
@@ -65,16 +66,24 @@ const CertificatePage = async () => {
 
       <TopBanner banner={pageData.banner} />
 
-      <div className="mt-20 pb-20 topPadding">
-        <PaddingContainer>
-
+      <div className="mt-0  pb-20 topPadding   z-41  ">
+        <PaddingContainer  >
           {CertificatesData.data.map((CertiItems, parentIndex) => (
             <div key={parentIndex}>
               <h2 className='text-xl'>  <TbCertificate size={30} className="inline-block pr-1 -mt-1" />  {CertiItems.title}</h2>
               <ul className=' inline-block py-2 pl-8'>
                 {CertiItems.certificates.data.map((item, itemIndex) => (
                   <li className='font-light py-1  ' key={itemIndex} >
-                    <FaCertificate size={20} className="inline-block pr-2 -mt-1" />  {item.title} <a className="inline-block pl-3 align-middle" href={item.certificatePdf.url} download={item.title + ".pdf"} > <FaRegFilePdf size={18} />  </a>
+                    <FaCertificate size={20} className="inline-block pr-2 -mt-1" />
+                    {item.title}
+                    <a
+                      className="inline-block pl-3 align-middle"
+                      href={item.certificatePdf.url}
+                      download={`${item.title}.pdf`}
+                      rel="nofollow"
+                    >
+                      <FaRegFilePdf size={18} />
+                    </a>
                   </li>
                 ))}
               </ul>
@@ -83,7 +92,9 @@ const CertificatePage = async () => {
 
         </PaddingContainer>
       </div>
-    </div>
+
+    </div >
+
   );
 };
 

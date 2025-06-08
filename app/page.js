@@ -86,6 +86,7 @@ export default async function Home() {
               className="w-auto h-[350px] md:h-[300px] lg:h-[400px] "
               width={600}
               height={500}
+              quality={100}
               alt="Atlantic Product Range"
             />
           </div>

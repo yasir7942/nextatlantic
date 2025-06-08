@@ -28,7 +28,7 @@ const CategoryChildList = async ({ CategoryData }) => {
 
             <PaddingContainer>
 
-                <div className="topPadding 2xl:pt-[3%] 2xl:px-[10%]  lg:px-[5%]  ">
+                <div className="topPadding 2xl:pt-[3%] 2xl:px-[10%]  lg:px-[5%]   ">
                     <SearchBar dataType="products" />
 
 

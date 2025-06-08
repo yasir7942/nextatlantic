@@ -28,19 +28,19 @@ const ProductCategoryMenuClient = ({ MenuData, Selected = "" }) => {
 
 
     return (
-        <div className="flex flex-row justify-start md:hidden text-white">
+        <div className="flex flex-row justify-start md:hidden text-white ">
             <Sheet open={openSheet} onOpenChange={setOpenSheet}>
                 <SheetTrigger className="flex justify-start items-end space-x-2">
                     <IoMdMenu size={20} />
                     <div className="font-semibold">Product Category</div>
                 </SheetTrigger>
-                <SheetContent side="left" className="w-[75%]">
+                <SheetContent side="left" className="w-[70%]  z-max">
                     <SheetHeader>
                         <SheetTitle className="hidden">Product Categories</SheetTitle>
                         <SheetDescription></SheetDescription>
-                        <div className="h-screen w-full pb-16 ">
-                            <div className="w-full h-full overflow-hidden py-3 text-gray-300 ">
-                                <div className="w-[218px] h-full overflow-y-auto">
+                        <div className="h-screen w-full pb-16   ">
+                            <div className="w-full h-full overflow-hidden py-3 text-gray-300   ">
+                                <div className="w-full h-full overflow-y-auto overflow-x-hidden over ">
                                     <div className="flex flex-col space-y-3 text-left mb-5 text-xl font-semibold">
                                         <a href="#">Products Categories</a>
                                     </div>

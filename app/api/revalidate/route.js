@@ -86,13 +86,27 @@ async function revalidate(req, model, slug) {
             revalidatePath('/', 'layout');
 
         }
-        else if (model == 'post') {
+        else if (model == 'about-us') {
+            revalidatePath(`/about-us`);
+        }
+        else if (model == 'certificates' || model == 'certificate-and-approval' || model == 'certificate-categories') {
+            revalidatePath(`/certificates`);
+        }
+
+        else if (model == 'contact-us') {
+            revalidatePath(`/contact`);
+        }
+        else if (model == 'home-page') {
+            revalidatePath(`/`); //home page
+        }
+        else if (model == 'blog-page' || model == 'posts' || model == 'post-categories') {
             // console.log("revalidate post");
             revalidatePath(`/`); //home page
-            revalidatePath(`/blog/`);
+            revalidatePath(`/blog`);
             revalidatePath(`/blog/${slug}/`);
         }
-        else if (model == 'product') {
+
+        else if (model == 'products') {
 
             revalidatePath(`/product/${slug}/`);
             const categorySlug = await getProductCategoryBySlug(slug);
@@ -100,7 +114,7 @@ async function revalidate(req, model, slug) {
 
         }
 
-        else if (model == 'product-category') {
+        else if (model == 'product-categories') {
             revalidatePath(`/`); //home page
             revalidatePath(`/product-category/${slug}/`);
 

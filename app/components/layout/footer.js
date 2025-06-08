@@ -11,14 +11,14 @@ const Footer = async () => {
 
   const categoryData = await getProductCategoryForHome();
 
-  console.log(categoryData);
+
   return (
 
-    <footer className="w-full mt-10 pt-5 pb-8 bg-[#040404]">
+    <footer className="w-full mt-10 pt-5 pb-8 bg-[#040404]   ">
       <PaddingContainer>
-        <div className="w-full flex flex-col md:flex-row mt-10 pl-12 md:pl-0 space-y-10 md:space-y-0 justify-between">
+        <div className="w-full flex flex-col md:flex-row mt-10 pl-0 md:pl-0 space-y-10 md:space-y-0 justify-between  ">
           {/* About Company */}
-          <div className="flex flex-col space-y-3">
+          <div className="flex flex-col space-y-3  ">
             <div className="uppercase text-white font-medium py-4 text-xl">About Company</div>
             <Link href="/" className="w-64">
               <Image
@@ -61,6 +61,7 @@ const Footer = async () => {
 
           {/* Quick Links */}
           <div className="flex flex-col space-y-3">
+
             <div className="uppercase text-white font-medium py-4 text-xl">Quick Links</div>
             {/* <MenuFooterList /> */}
 
@@ -113,7 +114,7 @@ const Footer = async () => {
           </div>
         </div>
       </PaddingContainer>
-    </footer>
+    </footer >
 
   );
 }
