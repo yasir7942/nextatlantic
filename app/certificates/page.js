@@ -47,6 +47,7 @@ export async function generateMetadata(props) {
 
 const CertificatePage = async () => {
 
+  const adminUrl = process.env.NEXT_PUBLIC_ADMIN_BASE_URL;
 
   const pageData = await cachedGetApprovalPage();
   const CertificatesData = await getCertifcateCategories();
@@ -78,7 +79,7 @@ const CertificatePage = async () => {
                     {item.title}
                     <a
                       className="inline-block pl-3 align-middle"
-                      href={item.certificatePdf.url}
+                      href={`${adminUrl}${item.certificatePdf.url}`}
                       download={`${item.title}.pdf`}
                       rel="nofollow"
                     >

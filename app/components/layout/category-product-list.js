@@ -39,7 +39,7 @@ const CategoryProductlist = async ({ selectedCategoryParent, productData, PageSi
                     </div>
 
                     {/*  Content Area   */}
-                    <div className=" w-full md:w-9/12 lg:w-[80%] flex flex-col bg-[#2a3c4659] p-3 md:p-4 pb-3 ">
+                    <div className=" w-full md:w-9/12 lg:w-[80%] flex flex-col bg-[#2a3c4670] p-3 md:p-4 pb-3 ">
                         {/*   Content area content goes here  */}
                         <SearchBar dataType="products" />
 

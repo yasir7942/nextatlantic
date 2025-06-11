@@ -247,8 +247,8 @@ const SingleProductPage = async props => {
             <ProductCategoryMenu Parent={selectedCategoryParent} />
           </div>
 
-          {/* Content Area */}
-          <div className="w-full md:w-9/12 justify-between lg:w-5/6 flex flex-col  bg-[#2a3c4659] p-2  md:p-0 pb-3 ">
+          {/* Content Area  2a3c4659 2a3c4670*/}
+          <div className="w-full md:w-9/12 justify-between lg:w-5/6 flex flex-col  bg-[#2a3c4670] p-2  md:p-0 pb-3 ">
 
             <SearchBar dataType="products" />
             {/* Content area content goes here */}

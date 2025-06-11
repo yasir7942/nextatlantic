@@ -32,12 +32,12 @@ const MobileNavigation2 = ({ productCategory }) => {
           </button>
         </SheetTrigger>
 
-        <SheetContent side="left" className="w-72 bg-[#1c1c1c] text-white z-max ">
+        <SheetContent side="left" className="w-72 bg-[#1c1c1c] text-white z-max overflow-y-auto hide-scrollbar ">
           <SheetHeader>
             <SheetTitle className="hidden" />
             <SheetDescription />
 
-            <div className="flex flex-col w-full h-full justify-between items-left relative  ">
+            <div className="flex flex-col w-full h-full justify-between items-left relative     ">
               {/* Logo */}
               <Link href="/" onClick={() => setOpenSheet(false)} className="w-[80%] mb-6">
                 <Image
@@ -100,7 +100,14 @@ const MobileNavigation2 = ({ productCategory }) => {
                   >
                     <ArrowLeft className="h-4 w-4 mr-1" /> Back
                   </button>
-                  <h2 className="text-lg font-semibold mb-4">{activeParent.title}</h2>
+                  <Link
+                    href={`/product-category/${activeParent.slug || ''}`}
+                    onClick={() => setOpenSheet(false)}
+                    className="block hover:underline pl-2 text-base tracking-wide"
+                  >
+                    <h2 className="text-lg font-semibold mb-4">{activeParent.title} </h2>
+                  </Link>
+
                   <ul className="space-y-3">
                     {activeParent.child?.data?.map((child) => (
                       <li key={child.id}>
@@ -121,7 +128,7 @@ const MobileNavigation2 = ({ productCategory }) => {
               )}
 
               {/* Social Icons */}
-              <ul className="flex text-white space-x-7 mt-10">
+              <ul className="flex text-white space-x-7 mt-10 mb-10">
                 <li>
                   <SocialIcons plateform="facebook" link={siteConfig.socialMedia.facebook} />
                 </li>

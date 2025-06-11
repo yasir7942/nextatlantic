@@ -45,7 +45,7 @@ const CategoryChildList = async ({ CategoryData }) => {
                 </div>
                 <div className="flex flex-col pt-10 w-full h-auto text-center my-20 2xl:px-[18%]">
 
-                    {categoryTitle && <h1 className="text-lg text-darkYellow"> {categoryTitle} </h1>}
+                    {categoryTitle && <h1 className="text-lg text-darkYellow "> {categoryTitle} </h1>}
                     {categoryDescription && <div className="text-white  pb-10 rich-text">
                         <BodyDataParse content={categoryDescription} />
                     </div>}

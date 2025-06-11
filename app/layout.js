@@ -40,6 +40,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
 
+  const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
+
 
   const jsonLdBusiness = {
     "@context": "https://schema.org",
@@ -138,28 +140,6 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en" className="dark">
-
-
-      {/*  Google tag (gtag.js)    */}
-      {/*   <Script 
-      strategy="afterInteractive" 
-      src="https://www.googletagmanager.com/gtag/js?id=AW-11316755137" 
-      async 
-       />
-      <Script 
-      id="google-analytics" 
-      strategy="afterInteractive" 
-      dangerouslySetInnerHTML={{
-        __html: `
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'AW-11316755137');
-        `
-      }} 
-    />
-      <body className={oswald.className} >
-*/}
 
 
       <body  >

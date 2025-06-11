@@ -76,7 +76,7 @@ const SearchBar = ({ dataType }) => {
   }, []);
 
   return (
-    <div className="flex flex-col relative w-full py-2  text-white text-center justify-center" ref={searchContainerRef}>
+    <div className="flex flex-col relative w-full py-3 md:px-4    text-white text-center justify-center" ref={searchContainerRef}>
       <form className="flex item bg-center w-full gap-2 font-light text-gray-900">
         <input
           placeholder={'Search  ' + dataType}
