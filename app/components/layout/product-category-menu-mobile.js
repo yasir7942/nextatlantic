@@ -40,7 +40,7 @@ const ProductCategoryMenuClient = ({ MenuData, Selected = "" }) => {
                         <SheetDescription></SheetDescription>
                         <div className="h-screen w-full pb-20     ">
                             <div className="w-full h-full overflow-hidden py-3 text-gray-300   ">
-                                <div className="w-full h-full overflow-y-auto overflow-x-hidden   hide-scrollbar">
+                                <div className="w-full h-full overflow-y-auto overflow-x-hidden pb-20    hide-scrollbar">
                                     <div className="flex flex-col space-y-3 text-left mb-5 text-xl font-semibold">
                                         <a href="#">Products Categories</a>
                                     </div>

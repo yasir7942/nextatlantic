@@ -1,0 +1,30 @@
+[26/06/2025, 5:40:43 pm] ❌ Backup failed: Command failed: mysqldump -u root -p atlantic_strapi4 > "D:\Atlantic Projects\AtlanticNew2024\nextjs\nextatlantic15\backups\backup-2025-06-26T12-40-43-584Z.sql"
+'mysqldump' is not recognized as an internal or external command,
+operable program or batch file.
+
+[26/06/2025, 5:55:52 pm] ❌ Backup failed: Command failed: mysqldump -u root -p atlantic_strapi4 > "D:\Atlantic Projects\AtlanticNew2024\nextjs\nextatlantic15\backups\backup-2025-06-26T12-55-52-340Z.sql"
+'mysqldump' is not recognized as an internal or external command,
+operable program or batch file.
+
+[26/06/2025, 5:56:29 pm] ❌ Backup failed: Command failed: mysqldump -u root -p atlantic_strapi4 > "D:\Atlantic Projects\AtlanticNew2024\nextjs\nextatlantic15\backups\backup-2025-06-26T12-56-29-933Z.sql"
+'mysqldump' is not recognized as an internal or external command,
+operable program or batch file.
+
+[26/06/2025, 5:59:33 pm] ✅ Backup created: D:\Atlantic Projects\AtlanticNew2024\nextjs\nextatlantic15\backups\backup-2025-06-26T12-59-06-750Z.sql
+[26/06/2025, 6:06:07 pm] ✅ Backup created: D:\Atlantic Projects\AtlanticNew2024\nextjs\nextatlantic15\backups\backup-2025-06-26T13-06-05-197Z.sql
+[26/06/2025, 6:07:40 pm] ✅ Backup created: D:\Atlantic Projects\AtlanticNew2024\nextjs\nextatlantic15\backups\backup-2025-06-26T13-07-37-399Z.sql
+[26/06/2025, 6:07:45 pm] ✅ Backup created: D:\Atlantic Projects\AtlanticNew2024\nextjs\nextatlantic15\backups\backup-2025-06-26T13-07-43-119Z.sql
+[26/06/2025, 6:08:02 pm] ✅ Backup created: D:\Atlantic Projects\AtlanticNew2024\nextjs\nextatlantic15\backups\backup-2025-06-26T13-07-59-928Z.sql
+[26/06/2025, 6:08:07 pm] ✅ Backup created: D:\Atlantic Projects\AtlanticNew2024\nextjs\nextatlantic15\backups\backup-2025-06-26T13-08-04-327Z.sql
+[26/06/2025, 6:08:11 pm] ✅ Backup created: D:\Atlantic Projects\AtlanticNew2024\nextjs\nextatlantic15\backups\backup-2025-06-26T13-08-08-954Z.sql
+[26/06/2025, 6:08:16 pm] ✅ Backup created: D:\Atlantic Projects\AtlanticNew2024\nextjs\nextatlantic15\backups\backup-2025-06-26T13-08-13-498Z.sql
+[26/06/2025, 6:08:16 pm] 🗑️ Deleted old backup: backup-2025-06-26T12-40-43-584Z.sql
+[26/06/2025, 6:08:30 pm] ✅ Backup created: D:\Atlantic Projects\AtlanticNew2024\nextjs\nextatlantic15\backups\backup-2025-06-26T13-08-27-418Z.sql
+[26/06/2025, 6:08:30 pm] 🗑️ Deleted old backup: backup-2025-06-26T12-55-52-340Z.sql
+[26/06/2025, 6:09:06 pm] ✅ Backup created: D:\Atlantic Projects\AtlanticNew2024\nextjs\nextatlantic15\backups\backup-2025-06-26T13-09-03-495Z.sql
+[26/06/2025, 6:12:35 pm] ✅ Backup created & zipped: D:\Atlantic Projects\AtlanticNew2024\nextjs\nextatlantic15\backups\backup-2025-06-26T13-12-32-840Z.zip
+[27/06/2025, 4:52:52 pm] ✅ Backup created & zipped: D:\Atlantic Projects\AtlanticNew2024\nextjs\nextatlantic15\backups\backup-2025-06-27T11-52-49-650Z.zip
+[27/06/2025, 4:52:52 pm] ☁️ Uploaded to Google Drive: 1iERwwbwnptUYYGIdyYBlAarFaG7UsZ4_
+[27/06/2025, 4:52:52 pm] ❌ Zip or Drive upload failed: totalbackups is not defined
+[27/06/2025, 4:57:06 pm] ✅ Backup created & zipped: D:\Atlantic Projects\AtlanticNew2024\nextjs\nextatlantic15\backups\backup-2025-06-27T11-57-03-565Z.zip
+[27/06/2025, 4:57:06 pm] ☁️ Uploaded to Google Drive: 1x_ij4LqRA9OXCYFfaHMgx4TE_i_zPi2P

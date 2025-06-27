@@ -1,4 +1,7 @@
 {
     "tailwindCSS.hovers": true,
-    "tailwindCSS.suggestions": true
+    "tailwindCSS.suggestions": true,
+    "workbench.colorTheme": "GitHub Dark Dimmed",
+    "workbench.preferredDarkColorTheme": "Default Dark Modern",
+    "workbench.preferredHighContrastLightColorTheme": "Visual Studio Dark"
 }
