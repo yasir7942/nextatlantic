@@ -16,6 +16,9 @@
 /out/
 .next
 
+/backup
+*.zip
+*.log
 # production
 /build
 
