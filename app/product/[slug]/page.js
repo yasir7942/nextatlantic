@@ -255,11 +255,11 @@ const SingleProductPage = async props => {
             <div className="flex flex-col md:flex-row w-full h-auto pt-4 lg:p-8   ">
               {/* text section */}
               <div className="w-full md:w-4/6 flex flex-col text-white  ">
-                <div className="uppercase font-semibold text-2xl md:text-4xl tracking-widest">
+                <h1 className="uppercase font-semibold text-2xl md:text-4xl tracking-widest">
                   {productData?.data[0].name}
-                </div>
+                </h1>
                 <div className="uppercase font-light text-xl md:text-2xl text-gray-300 tracking-widest">
-                  {(productData?.data[0].grade ? productData?.data[0].grade : "") + (productData?.data[0].api ? productData?.data[0].api : "") + (productData?.data[0].acea ? " " + productData?.data[0].acea : "")}
+                  {(productData?.data[0].grade ? productData?.data[0].grade : "") + (productData?.data[0].api ? " " + productData?.data[0].api : "") + (productData?.data[0].acea ? " " + productData?.data[0].acea : "")}
                 </div>
                 <div className="text-white font-light text-base mt-5 max-w-xl pr-5 md:pr-2 2xl:max-w-5xl rich-text  ">
                   <BodyDataParse content={content} />

@@ -39,8 +39,9 @@ const TopBanner = ({ banner = "", home = false }) => {
 
       <div className={`hidden lg:relative lg:flex   w-full  z-40  mt-[-85px] ${home ? "h-[600px]  xl:h-[810px]" : "h-[480px]  xl:h-[500px]"}  `}>
         <div className={`lg:flex flex-col  justify-center text-left largeScreenPadding 2xl:mx-60   z-20  ${home ? "pt-28 xl:pt-36 pl-20 xl:pl-24 2xl:pl-0 " : "pl-24 pt-0 xl:pt-24 2xl:pl-0 "} `}>
-          <div className={`text-darkYellow uppercase font-bold font tracking-wide  ${home ? " text-8xl xl:text-9xl" : "text-6xl xl:text-8xl"} `} >{banner.title}</div>
-          <div className={`text-white uppercase  font-bold tracking-wider   leading-none  ${home ? " mt-6  text-6xl xl:mt-7  xl:text-6xl" : " mt-2 xl:mt-3 text-4xl xl:text-5xl"}`}> <div dangerouslySetInnerHTML={{ __html: banner.subTitle }} /></div>
+
+          <h1 className={`text-darkYellow uppercase font-bold font tracking-wide  ${home ? " text-8xl xl:text-9xl" : "text-6xl xl:text-8xl"} `} >{banner.title}</h1>
+          <h2 className={`text-white uppercase  font-bold tracking-wider   leading-none  ${home ? " mt-6  text-6xl xl:mt-7  xl:text-6xl" : " mt-2 xl:mt-3 text-4xl xl:text-5xl"}`}> <span dangerouslySetInnerHTML={{ __html: banner.subTitle }} /></h2>
         </div>
 
         {banner?.webBanner?.url && banner?.webBanner?.url !== "" ? (

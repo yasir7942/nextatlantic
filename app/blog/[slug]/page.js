@@ -80,10 +80,10 @@ const SingleBlogPage = async props => {
 
 
 
-  // console.log("-----------------------single post page--------------------------------------------------");
+  console.log("-----------------------single post page--------------------------------------------------");
   //  console.dir(postData, { depth: null });
   //  console.log("---------------------------End-----single post------------------end-----------------------");
-
+  console.log(postData.data[0].featureImage);
   const firstDescriptionText = getFirstDescriptionText(postData.data[0].description);
   const seoDesctiption = postData.data[0]?.seo?.seoDesctiption?.trim() ? postData.data[0]?.seo?.seoDesctiption?.trim() : firstDescriptionText;
 
@@ -109,8 +109,6 @@ const SingleBlogPage = async props => {
 
   return (
 
-
-
     <div>
 
       {/*  JSON-LD of Page */}
@@ -122,13 +120,13 @@ const SingleBlogPage = async props => {
       <PaddingContainer>
 
         {/*  Post Area   */}
-        <div className=" w-full  flex flex-col mt-20 p-0  md:p-10 pt-0 space-y-7      ">
+        <div className=" w-full  flex flex-col mt-20 p-0  md:p-10 pt-0 space-y-7 ">
 
-          <div className="W-full h-auto  " >
-            <Image className="w-full h-auto " quality={100} src={getImageUrl(postData.data[0].featureImage.url)} height={1200} width={1200} alt={postData.data[0].title} />
+          <div className="W-full h-auto  z-1 " >
+            {postData.data[0].featureImage && <Image className="w-full h-auto " quality={100} src={getImageUrl(postData.data[0].featureImage.url)} height={1200} width={1200} alt={postData.data[0].title} />}
           </div>
           <h1 className="text-white text-2xl md:text-3xl" >{postData.data[0].title}</h1>
-          <div className="text-white font-light text-base mt-5   pr-5 md:pr-2 rich-text " >
+          <div className="text-white font-light text-base mt-5   pr-5 md:pr-2 rich-text blog-rich-text " >
 
             <BodyDataParse content={postData.data[0].description} />
 

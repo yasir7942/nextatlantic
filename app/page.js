@@ -13,6 +13,9 @@ import SEOSchema from "./components/elements/seo-schema";
 
 import siteConfig from "@/config/site";
 import HomeProductCategory from "./components/layout/home-product-category";
+import SearchBar from "./components/layout/search-bar";
+import { getImageUrl } from "@/libs/helper";
+import ImageTextBlock from "./components/layout/home-image-text-block";
 
 
 
@@ -46,12 +49,12 @@ export default async function Home() {
 
 
   const homeData = await cachedGetHomePage();
-
-  //  console.log("-----------------------home page--------------------------------------------------");
-  //  console.dir(homeData, { depth:null});
-  //  console.log("---------------------------End-----------------------end-----------------------");
-
-
+  /*
+    console.log("-----------------------home page--------------------------------------------------");
+    console.dir(homeData, { depth: null });
+    console.log("---------------------------End-----------------------end-----------------------");
+    console.log(homeData.imageText[1].__component)
+  */
   return (
     <div className="bg-backgroundColor">
 
@@ -65,10 +68,12 @@ export default async function Home() {
 
         <HomeProductCategory />
 
-
+        <div className="   w-full mt-4   ">
+          <SearchBar dataType="products" />
+        </div>
 
         {/* <!-- media section--> */}
-        <section className="flex flex-col md:flex-row w-full h-auto mt-20 p-0 pb-0 2xl:mt-52 justify-between items-center space-x-0 space-y-0">
+        <section className="flex flex-col md:flex-row w-full h-auto mt-10 p-0 pb-0 2xl:mt-52 justify-between items-center md:items-stretch">
           <div className="w-full h-auto md:w-1/2 lg:w-1/2 flex justify-center">
             <iframe
               className="w-[100%] h-[350px] md:w-[100%] md:h-[350px] lg:w-[100%] lg:h-[400px] 2xl:h-[580px]"
@@ -80,17 +85,16 @@ export default async function Home() {
             ></iframe>
           </div>
 
-          <div className="w-full md:w-1/2 lg:w-1/2 p-4 flex justify-center items-center">
-            <Image
-              src="/images/atlantic-products.png"
-              className="w-auto h-[350px] md:h-[300px] lg:h-[400px] "
-              width={600}
-              height={500}
-              quality={100}
-              alt="Atlantic Product Range"
-            />
+          {/* allow this column to match the iframe column’s height */}
+          <div className="w-full md:w-1/2 lg:w-1/2 p-4 flex md:self-stretch ">
+            {/* make the ImageTextBlock fill and center inside */}
+            <div className="flex-1 flex items-center justify-center">
+              <ImageTextBlock homeData={homeData} />
+            </div>
           </div>
         </section>
+
+
 
         {/* <!-- end media section--> */}
 

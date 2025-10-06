@@ -24,10 +24,6 @@ export const metadata = {
     canonical: process.env.NEXT_PUBLIC_BASE_URL,
     languages: {
       'en-US': process.env.NEXT_PUBLIC_BASE_URL,
-      'en-UK': process.env.NEXT_PUBLIC_BASE_URL,
-      'ar-AR': process.env.NEXT_PUBLIC_BASE_URL,
-      'fr-FR': process.env.NEXT_PUBLIC_BASE_URL,
-      'es-ES': process.env.NEXT_PUBLIC_BASE_URL,
     },
   },
   openGraph: {
@@ -40,7 +36,9 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
 
-  const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
+
+
+  //const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
 
 
   const jsonLdBusiness = {

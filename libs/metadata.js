@@ -41,10 +41,7 @@ export async function generateMetadata({ type, path, params }) {
       canonical: canonicalLink,
       languages: {
         'en-US': canonicalLink,
-        'en-UK': canonicalLink,
-        'ar-AR': canonicalLink,
-        'fr-FR': canonicalLink,
-        'es-ES': canonicalLink,
+
       },
     },
     openGraph: {

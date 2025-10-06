@@ -1,7 +1,7 @@
 
 
 import Image from "next/image"
-import PaddingContainer from "./padding-container"
+
 import SocialIcons from "../elements/social-icons"
 import siteConfig from "../../../config/site";
 import MobileNavigation from "./mobile-nav";
@@ -9,7 +9,8 @@ import MobileNavigation from "./mobile-nav";
 import Link from "next/link";
 import MainMenuWrapper from "./main-menu-warpper";
 import MobileNavigation2 from "./mobile-nav2";
-import { getProductCategoryLeftMenu } from "@/app/data/loader";
+import { getHomePage, getProductCategoryLeftMenu } from "@/app/data/loader";
+import PaddingContainerTop from "./padding-container-top";
 
 
 
@@ -20,13 +21,14 @@ const Navigation = async () => {
 
 
 
+
   return (
 
 
-    <PaddingContainer >
+    <PaddingContainerTop >
 
       {/* <!--Nav Bar --> */}
-      <nav className="flex w-full h-full justify-between items-center py-6 px-4 relative z-50   ">
+      <nav className="flex w-full h-full justify-between items-center py-6 px-4 relative z-50  ">
 
         <Link href="/" className="w-52 2xl:w-64">
           <Image
@@ -56,7 +58,7 @@ const Navigation = async () => {
       </nav>
       {/* <!--End Nav Bar--> */}
 
-    </PaddingContainer>
+    </PaddingContainerTop>
 
   )
 }

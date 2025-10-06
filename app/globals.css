@@ -89,6 +89,11 @@
  
        }
 
+       .blog-rich-text a{
+        @apply text-[#11609C] underline  ;
+ 
+       }
+
        .topPadding {
         @apply 2xl:mt-72;
       }

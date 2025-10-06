@@ -1,4 +1,5 @@
 import { flattenAttributes } from "@/libs/data-utils";
+import { expandQueryToVariants } from "@/libs/helper";
 import qs from 'qs';
 
 let baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
@@ -28,8 +29,8 @@ export async function fetchData(path, filter) {
   const url = new URL(path, baseUrl);
   url.search = filter;
 
-  // show API links
-  //console.log(url.href);
+  //show API links
+  console.log(url.href);
 
   try {
 
@@ -52,7 +53,7 @@ export async function getHomePage() {
 
   const blogBlockQuery = qs.stringify({
 
-    populate: ['banner.webBanner', 'banner.mobileBanner', 'seo.schema'],
+    populate: ['banner.webBanner', 'banner.mobileBanner', 'seo.schema', 'imageText', 'imageText.image', 'imageText.TextImage'],
 
   });
 
@@ -172,7 +173,7 @@ export async function geProductsByCategory(category, currentPage, pageSize) {
         },
       },
     },
-    populate: ['productImage', 'product_categories', 'product_categories.banner.webBanner', 'product_categories.banner.mobileBanner', 'seo.schema'],
+    populate: ['productImage', 'product_categories', 'product_categories.banner.webBanner', 'product_categories.banner.mobileBanner', 'seo', 'seo.schema'],
 
 
     pagination: {
@@ -258,28 +259,188 @@ export async function geProductsByGroup(productSlug, groupSlug) {
 }
 
 
+
+
+function extractWVariants(text) {    //extract W Variants
+  if (!text) return [];
+
+  // allow optional spaces around W and hyphen; accept hyphen/en-dash/em-dash
+  const re = /(\d+(?:\.\d+)?)\s*[wW]\s*[-–—]?\s*(\d+(?:\.\d+)?)/g;
+
+  const out = new Set();
+
+  for (const m of text.matchAll(re)) {
+    const a = String(m[1]).toLowerCase(); // before W
+    const b = String(m[2]).toLowerCase(); // after W
+
+    out.add(`${a}w-${b}`);
+    out.add(`${a}w ${b}`);
+    out.add(`${a}w${b}`);
+  }
+
+  return Array.from(out);
+}
+
+
+// NEW: extracts "right-W" patterns like "SAE 40W", "40w", "40 W", "40-W"
+function extractRightWVariants(text) {
+  if (!text) return [];
+  const s = String(text);
+
+  const out = new Set();
+
+  // SAE {num}W  →  numw / num w / num-w
+  for (const m of s.matchAll(/\bsae\s*(\d+(?:\.\d+)?)\s*[wW]\b/g)) {
+    const n = m[1];
+    out.add(`${n}w`);
+    out.add(`${n} w`);
+    out.add(`${n}-w`);
+  }
+
+  // {num}{optional (space|dash)}W  →  numw / num w / num-w
+  for (const m of s.matchAll(/\b(\d+(?:\.\d+)?)\s*[- ]?\s*[wW]\b/g)) {
+    const n = m[1];
+    out.add(`${n}w`);
+    out.add(`${n} w`);
+    out.add(`${n}-w`);
+  }
+
+  return Array.from(out);
+}
+
+
+// Finds PM/MP patterns like "PM3", "PM 3", "PM-3", "mp12", etc.
+// Returns variants: "PM 3", "PM-3", "PM3" (uppercase prefix, original number)
+function extractPMMPVariants(text) {
+  if (!text) return [];
+  const s = String(text);
+
+  const out = new Set();
+
+  // Match PM or MP (case-insensitive), optional space/hyphen, then number (allow decimals)
+  const re = /\b(PM|MP)\s*[- ]?\s*(\d+(?:\.\d+)?)\b/gi;
+  for (const m of s.matchAll(re)) {
+    const prefix = m[1].toUpperCase();    // PM or MP
+    const num = m[2];                     // e.g. "3", "12", "5.1"
+    out.add(`${prefix} ${num}`);          // "PM 3"
+    out.add(`${prefix}-${num}`);          // "PM-3"
+    out.add(`${prefix}${num}`);           // "PM3"
+  }
+
+  return Array.from(out);
+}
+
+/**
+ * Find HVI patterns like: "HVI 100", "HVI-100", "HVI100" anywhere,
+ * and return variants: "HVI-100", "HVI100", "HVI 100"
+ */
+function extractHviVariants(text) {
+  if (!text) return [];
+  const s = String(text);
+
+  const out = new Set();
+  const re = /\bHVI\s*[- ]?\s*(\d+(?:\.\d+)?)\b/gi; // captures the number after HVI
+
+  for (const m of s.matchAll(re)) {
+    const n = m[1];              // number part, e.g. "100" or "7.5"
+    out.add(`HVI-${n}`);
+    out.add(`HVI${n}`);
+    out.add(`HVI ${n}`);
+  }
+  return Array.from(out);
+}
+
+/**
+ * Find AW patterns like: "AW 100", "AW-100", "AW100" anywhere,
+ * and return variants: "AW-100", "AW100", "AW 100".
+ */
+function extractAwVariants(text) {
+  if (!text) return [];
+  const s = String(text);
+
+  const out = new Set();
+  // AW + optional spaces/hyphen + number (int or decimal)
+  const re = /\bAW\s*[- ]?\s*(\d+(?:\.\d+)?)\b/gi;
+
+  for (const m of s.matchAll(re)) {
+    const n = m[1];        // "100", "7.5", etc.
+    out.add(`AW-${n}`);
+    out.add(`AW${n}`);
+    out.add(`AW ${n}`);
+  }
+  return Array.from(out);
+}
+
+
 export async function geProductsBySearch(query) {
+  const q = String(query ?? "").trim();
+  if (!q) {
+    const empty = qs.stringify(
+      { filters: { id: { $null: true } }, pagination: { pageSize: 10, page: 1 } },
+      { encodeValuesOnly: true }
+    );
+    return await fetchData("products", empty);
+  }
 
+  // ---- collect variants ---------------------------------------------------
+  const vW = extractWVariants(q);          // 10w-40 / 10w 40 / 10w40
+  const vRightW = extractRightWVariants(q);     // 40w / 40 w / 40-w (+ SAE 40W)
+  const vPMMP = extractPMMPVariants(q);       // PM/MP 3 → PM 3 / PM-3 / PM3
+  const vHVI = extractHviVariants(q);        // HVI 100 → HVI-100 / HVI100 / HVI 100
+  const vAW = extractAwVariants(q);         // AW 46 → AW-46 / AW46 / AW 46
 
-  const searchProductQuery = qs.stringify({
-    filters: {
-      $or: [
-        { title: { $containsi: query } },
-        { name: { $containsi: query } },
-        { api: { $containsi: query } },
-        { acea: { $containsi: query } },
-        { product_categories: { title: { $containsi: query } } }
-      ],
+  const allVariants = Array.from(
+    new Set([...(vW || []), ...(vRightW || []), ...(vPMMP || []), ...(vHVI || []), ...(vAW || [])])
+  ).slice(0, 50);
+
+  // ---- base OR across common fields (raw query) ---------------------------
+  const baseOr = [
+    { title: { $containsi: q } },
+    { name: { $containsi: q } },
+    { grade: { $containsi: q } },
+    { api: { $containsi: q } },
+    { acea: { $containsi: q } },
+    { product_categories: { title: { $containsi: q } } },
+  ];
+
+  // ---- one OR per variant on grade ---------------------------------------
+  const variantOr = allVariants.map(v => ({ grade: { $containsi: v } }));
+
+  // ---- guards to tighten matching (reduce false positives) ----------------
+  const guards = [];
+
+  // HVI guard: require "HVI" and the number to both appear in grade
+  const hviNum = q.match(/\bHVI\s*[- ]?\s*(\d+(?:\.\d+)?)\b/i)?.[1];
+  if (hviNum) {
+    guards.push({ $and: [{ grade: { $containsi: "HVI" } }, { grade: { $containsi: hviNum } }] });
+  }
+
+  // AW guard: require "AW" and the number
+  const awNum = q.match(/\bAW\s*[- ]?\s*(\d+(?:\.\d+)?)\b/i)?.[1];
+  if (awNum) {
+    guards.push({ $and: [{ grade: { $containsi: "AW" } }, { grade: { $containsi: awNum } }] });
+  }
+
+  // Multi-grade guard: if user typed aW-b, ensure both parts exist in grade
+  const mg = q.match(/\b(\d+(?:\.\d+)?)\s*[wW]\s*[- ]?\s*(\d+(?:\.\d+)?)\b/);
+  if (mg) {
+    const [, a, b] = mg;
+    guards.push({ $and: [{ grade: { $containsi: `${a}W` } }, { grade: { $containsi: `${b}` } }] });
+  }
+
+  // ---- final query --------------------------------------------------------
+  const searchProductQuery = qs.stringify(
+    {
+      filters: { $or: [...baseOr, ...variantOr, ...guards] },
+      populate: ["productImage", "product_categories", "seo.schema"],
+      pagination: { pageSize: 10, page: 1 },
     },
-    populate: ['productImage', 'product_categories', 'seo.schema'],
-    pagination: {
-      pageSize: 10,
-      page: 1,
-    },
-  });
+    { encodeValuesOnly: true }
+  );
 
   return await fetchData("products", searchProductQuery);
 }
+
 
 
 export async function geProductsBySearchAdvance(query) {
@@ -732,4 +893,36 @@ export async function geAllRedirectionUrl() {
   });
   return await fetchData("redirection-url", UrllockQuery);
 
+}
+
+
+export async function getAllProductsWithDetails() {    // delete it later use for  data correction
+  let allProducts = [];
+  let page = 1;
+  let pageSize = 100;
+
+  while (true) {
+    const query = qs.stringify({
+      fields: ["id", "name", "description"],
+      pagination: {
+        page,
+        pageSize,
+      },
+    });
+
+    const response = await fetchData("products", query);
+
+    const products = response?.data || [];
+    const pagination = response?.meta?.pagination;
+
+    allProducts.push(...products);
+
+    if (pagination.page >= pagination.pageCount) {
+      break;
+    }
+
+    page++;
+  }
+
+  return allProducts;
 }

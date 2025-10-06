@@ -28,3 +28,13 @@ operable program or batch file.
 [27/06/2025, 4:52:52 pm] ❌ Zip or Drive upload failed: totalbackups is not defined
 [27/06/2025, 4:57:06 pm] ✅ Backup created & zipped: D:\Atlantic Projects\AtlanticNew2024\nextjs\nextatlantic15\backups\backup-2025-06-27T11-57-03-565Z.zip
 [27/06/2025, 4:57:06 pm] ☁️ Uploaded to Google Drive: 1x_ij4LqRA9OXCYFfaHMgx4TE_i_zPi2P
+[24/07/2025, 3:07:11 pm] ✅ Backup created & zipped: D:\Atlantic Projects\AtlanticNew2024\nextjs\nextatlantic15\backups\backup-2025-07-24T10-07-07-990Z.zip
+[24/07/2025, 3:07:11 pm] ❌ Zip or Drive upload failed: invalid_grant: Invalid JWT Signature.
+[24/07/2025, 3:12:19 pm] ✅ Backup created & zipped: D:\Atlantic Projects\AtlanticNew2024\nextjs\nextatlantic15\backups\backup-2025-07-24T10-12-16-403Z.zip
+[24/07/2025, 3:12:19 pm] ❌ Zip or Drive upload failed: invalid_grant: Invalid JWT Signature.
+[24/07/2025, 4:35:15 pm] ✅ Backup created & zipped: D:\Atlantic Projects\AtlanticNew2024\nextjs\nextatlantic15\backups\backup-2025-07-24T11-35-12-455Z.zip
+[24/07/2025, 4:35:15 pm] ❌ Zip or Drive upload failed: Service Accounts do not have storage quota. Leverage shared drives (https://developers.google.com/workspace/drive/api/guides/about-shareddrives), or use OAuth delegation (http://support.google.com/a/answer/7281227) instead.
+[24/07/2025, 5:00:33 pm] ✅ Backup zipped: D:\Atlantic Projects\AtlanticNew2024\nextjs\nextatlantic15\backups\backup-2025-07-24T12-00-30-335Z.zip
+[24/07/2025, 5:00:33 pm] ☁️ Uploaded to Shared Drive: 1rTuvEmF0yzvpsewP4uGUilgfFtbw5zpj
+[24/07/2025, 5:02:29 pm] ✅ Backup zipped: D:\Atlantic Projects\AtlanticNew2024\nextjs\nextatlantic15\backups\AGL-backup-2025-07-24T12-02-26-184Z.zip
+[24/07/2025, 5:02:29 pm] ☁️ Uploaded to Shared Drive: 1Bnb5VQ9zOTTZfUlzvJ6JIQoQXjUEyUAT

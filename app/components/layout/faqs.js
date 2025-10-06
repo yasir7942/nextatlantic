@@ -9,7 +9,7 @@ import {
 import PaddingContainer from "./padding-container";
 
 
-const FAQs = ({ faqList, heading = "", text = "" }) => {
+const FAQs = ({ faqList }) => {
 
 
     const jsonLd = {
@@ -33,8 +33,7 @@ const FAQs = ({ faqList, heading = "", text = "" }) => {
 
             <div className="w-full mt-10 mb-10 text-center h-auto">
 
-                <h4 className="w-full text-textBlue text-left md:text-center text-xl font-semibold"  >{heading}</h4>
-                <p className="text-gray-800 text-left md:text-center font-light py-0 summary text-base md:text-lg ">{text}</p>
+
 
                 <Accordion type="single" collapsible>
                     {faqList.map((data) => (

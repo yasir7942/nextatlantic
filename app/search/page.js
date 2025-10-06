@@ -39,11 +39,6 @@ export async function generateMetadata(props) {
 }
 
 
-
-
-
-
-
 const searchPage = async props => {
   const searchParams = await props.searchParams;
 
@@ -68,7 +63,7 @@ const searchPage = async props => {
   // console.log();
 
   return (
-    <div>
+    <div className="z-40 relative">
 
       <SEOSchema schemaList={pageData.seo?.schema} />
 

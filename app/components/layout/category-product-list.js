@@ -6,6 +6,8 @@ import { Suspense } from "react";
 import Image from "next/image";
 import ProductCategoryMenu from "./product-category-menu";
 import { getImageUrl } from "@/libs/helper";
+import SEOSchema from "../elements/seo-schema";
+import TopBanner from "./top-banner";
 
 
 
@@ -22,11 +24,21 @@ const CategoryProductlist = async ({ selectedCategoryParent, productData, PageSi
     const totalPage = Products.meta.pagination.total;
 
 
+
+    console.log("-----------------------category product list------------------------------------------");
+    console.dir(Products.data[0]?.seo?.schema, { depth: null });
+    console.log("---------------------------End--------p category----child-----------end-----------------------");
+
+
+
+
     return (
-        <div className="z-60 relative">
+        <div className="z-85 relative">
+
+            <SEOSchema schemaList={Products.data[0]?.seo?.schema} />
 
 
-
+            <TopBanner banner={Products?.data[0]?.product_categories.data[0]?.banner} />
 
             <PaddingContainer>
 

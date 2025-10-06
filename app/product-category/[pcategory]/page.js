@@ -121,21 +121,20 @@ const ProductCategory = async props => {
   // console.log();
 
   return (
-    <div >
-
-
-      <SEOSchema schemaList={productData.data[0]?.seo?.schema} />
-
-      <TopBanner banner={productData?.data[0]?.product_categories.data[0]?.banner} />
-
+    < >
 
       {isParent ? (
+
         <CategoryChildList CategoryData={categoryData} />
+
       ) : (
         <CategoryProductlist selectedCategoryParent={selectedCategoryParent} productData={productData} PageSize={pageSize} />
       )}
 
-    </div>
+
+
+
+    </>
 
 
   )

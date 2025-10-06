@@ -41,7 +41,7 @@ export async function generateMetadata(props) {
 
 const numbers = Array.from({ length: 12 }, (_, index) => index + 1);
 
-const pageSize = 9;
+const pageSize = 8;
 
 
 const Blog = async props => {
