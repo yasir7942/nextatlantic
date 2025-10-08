@@ -22,7 +22,7 @@ const SearchBar = ({ dataType }) => {
 
   const fetchResults = async (query) => {
     if (query.length >= MIN_CHARS) {
-      setIsSearchVisible(true); // NEW: ensure dropdown stays open while fetching
+      setIsSearchVisible(true);
       setIsLoading(true);
       try {
         const result = await geProductsBySearch(query);
@@ -36,13 +36,12 @@ const SearchBar = ({ dataType }) => {
     } else {
       setProductData([]);
       setIsLoading(false);
-      // Don’t forcibly close here—let user decide; we’ll rely on outside click / escape / clear
     }
   };
 
   const handleSearch = useDebouncedCallback((term) => {
     setSearchQuery(term);
-    if (term.length >= MIN_CHARS) setIsSearchVisible(true); // NEW
+    if (term.length >= MIN_CHARS) setIsSearchVisible(true);
     fetchResults(term);
   }, 300);
 
@@ -55,7 +54,6 @@ const SearchBar = ({ dataType }) => {
     setIsLoading(false);
   };
 
-  // Use pointerdown so it runs before focus/blur reorderings
   useEffect(() => {
     const handlePointerDownOutside = (event) => {
       const el = searchContainerRef.current;
@@ -75,7 +73,6 @@ const SearchBar = ({ dataType }) => {
     };
   }, []);
 
-  // Show dropdown when visible AND (loading OR we have a long-enough query)
   const showDropdown = isSearchVisible && (isLoading || searchQuery.length >= MIN_CHARS);
 
   const hasNoResults =
@@ -91,22 +88,28 @@ const SearchBar = ({ dataType }) => {
     >
       <form
         className="flex item bg-center w-full gap-2 font-light text-gray-900"
-        onSubmit={(e) => e.preventDefault()} // NEW: prevent form submit
+        onSubmit={(e) => e.preventDefault()}
         role="search"
-        aria-expanded={showDropdown}
-        aria-haspopup="listbox"
+      /* REMOVED aria-expanded / aria-haspopup from the search landmark */
       >
         <input
           placeholder={`Search ${dataType}`}
           name="searchbar"
           ref={inputRef}
           onChange={(e) => handleSearch(e.target.value)}
-          onFocus={() => searchQuery.length >= MIN_CHARS && setIsSearchVisible(true)} // NEW
+          onFocus={() => searchQuery.length >= MIN_CHARS && setIsSearchVisible(true)}
           className="w-full px-5 py-2 text-white text-base bg-transparent outline-none border border-gray-300 border-solid"
           autoComplete="off"
+
+          /* ✅ ARIA goes on the input (combobox pattern) */
+          role="combobox"
+          aria-autocomplete="list"
+          aria-expanded={showDropdown}
+          aria-haspopup="listbox"
+          aria-controls="search-results"
+          aria-owns="search-results"
         />
 
-        {/* Loader */}
         {isLoading ? (
           <div>
             <div className="right-24 md:right-32 -top-[0px] absolute hidden md:block">
@@ -143,7 +146,7 @@ const SearchBar = ({ dataType }) => {
         )}
 
         <button
-          type="button" // NEW
+          type="button"
           onClick={clearSearch}
           className="px-5 py-3 whitespace-nowrap bg-white border border-gray-300 border-solid"
         >
@@ -152,19 +155,20 @@ const SearchBar = ({ dataType }) => {
       </form>
 
       {/* Results / Empty state */}
-      <div
-        className={`${showDropdown ? "" : "hidden"} w-[93%] text-left h-auto absolute top-[67px] z-50 left-5 bg-gray-500 backdrop-blur-md bg-opacity-50 border border-1 border-gray-700 mt-1 p-5`} // z-50 (safe)
+      <ul
+        id="search-results"
+        className={`${showDropdown ? "" : "hidden"} w-[93%] text-left h-auto absolute top-[67px] z-50 left-5 bg-gray-500 backdrop-blur-md bg-opacity-50 border border-1 border-gray-700 mt-1 p-5`}
         role="listbox"
         aria-live="polite"
       >
         {/* Results */}
-        {productData?.length > 0 && (
-          <div className="flex flex-col space-y-2">
-            {productData.map((product, index) => (
+        {productData?.length > 0 &&
+          productData.map((product, index) => (
+            <li key={product.id} role="option" aria-selected="false">
               <Link
-                key={product.id}
                 href={`/product/${product.slug}`}
-                onClick={() => setIsSearchVisible(false)} // optional: close on selection
+                onClick={() => setIsSearchVisible(false)}
+                className="block"
               >
                 <div className="flex flex-col space-y-3 hover:bg-gray-600">
                   <div className="flex justify-start space-x-5 items-center pl-1">
@@ -198,28 +202,29 @@ const SearchBar = ({ dataType }) => {
                   )}
                 </div>
               </Link>
-            ))}
-          </div>
-        )}
+            </li>
+          ))}
 
         {/* Empty state */}
         {hasNoResults && (
-          <div className="py-4 px-3 text-gray-100">
+          <li className="py-4 px-3 text-gray-100" role="option" aria-disabled="true">
             <div className="text-base font-medium">Not found</div>
             <div className="text-sm opacity-90">Try different words or check spelling.</div>
-          </div>
+          </li>
         )}
 
         {/* Footer link */}
         {searchQuery.length >= MIN_CHARS && (
-          <Link
-            href={`/search?s=${encodeURIComponent(searchQuery)}`}
-            className="w-full block h-auto mt-5 py-1 text-base bg-slate-500 z-50 font-light tracking-wider text-center cursor-pointer first-letter:uppercase"
-          >
-            View More Search Results
-          </Link>
+          <li className="mt-5" role="option" aria-selected="false">
+            <Link
+              href={`/search?s=${encodeURIComponent(searchQuery)}`}
+              className="w-full block h-auto py-1 text-base bg-slate-500 z-50 font-light tracking-wider text-center cursor-pointer first-letter:uppercase"
+            >
+              View More Search Results
+            </Link>
+          </li>
         )}
-      </div>
+      </ul>
     </div>
   );
 };

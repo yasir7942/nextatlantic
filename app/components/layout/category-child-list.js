@@ -18,7 +18,7 @@ const CategoryChildList = async ({ CategoryData }) => {
     const categoryTitle = categoryData.data[0].categoryTitle;
     const categoryDescription = categoryData.data[0].categoryDescription;
     const readMore = categoryData.data[0].readMore;
-    const faq = categoryData.data[0].faq;
+    const faq = categoryData.data[0].faq ?? [];
 
     /*
         console.log("-----------------------category child list------------------------------------------");

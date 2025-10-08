@@ -4,20 +4,21 @@ import Image from "next/image"
 
 import SocialIcons from "../elements/social-icons"
 import siteConfig from "../../../config/site";
-import MobileNavigation from "./mobile-nav";
+
 
 import Link from "next/link";
 import MainMenuWrapper from "./main-menu-warpper";
 import MobileNavigation2 from "./mobile-nav2";
-import { getHomePage, getProductCategoryLeftMenu } from "@/app/data/loader";
+
 import PaddingContainerTop from "./padding-container-top";
+import { cachedGetProductCategoryLeftMenu } from "@/app/data/cacheLoader";
 
 
 
 const Navigation = async () => {
 
 
-  const productCategoryData = await getProductCategoryLeftMenu();
+  const productCategoryData = await cachedGetProductCategoryLeftMenu();
 
 
 

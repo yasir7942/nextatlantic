@@ -22,8 +22,6 @@ const BlogContainer = async () => {
     <div>
 
 
-
-
       {/* <!--Latest News --> */}
       <section className="flex flex-col p-12 md:p-0 lg:p-12 mt-4 largeScreenPadding 2xl:mx-60" >
 

@@ -1,15 +1,19 @@
 import Image from "next/image";
 import PaddingContainer from "./padding-container";
-import { getContactUsPage, getProductCategoryForHome } from "@/app/data/loader";
 import siteConfig from "@/config/site";
 import SocialIcons from "../elements/social-icons";
 import Link from "next/link";
+import { cachedGetContactUsPage, cachedGetProductCategoryFeature } from "@/app/data/cacheLoader";
+
 
 
 const Footer = async () => {
 
-  const categoryData = await getProductCategoryForHome();
-  const contactData = await getContactUsPage();
+
+
+  const categoryData = await cachedGetProductCategoryFeature();
+  const contactData = await cachedGetContactUsPage();
+
 
 
   return (
@@ -17,6 +21,8 @@ const Footer = async () => {
     <footer className="w-full mt-10 pt-5 z-30 relative pb-8 bg-[#040404]   ">
       <PaddingContainer>
         <div className="w-full flex flex-col md:flex-row mt-10 pl-0 md:pl-0 space-y-10 md:space-y-0 justify-between  ">
+
+
           {/* About Company */}
           <div className="flex flex-col space-y-3  ">
             <div className="uppercase text-white font-medium py-4 text-xl">About Company</div>
@@ -29,7 +35,7 @@ const Footer = async () => {
               />
             </Link>
             <p className="text-base text-gray-300 font-light max-w-sm md:max-w-60 lg:max-w-80">
-              {contactData.footerAboutUs}
+              {contactData?.footerAboutUs}
             </p>
             <div className="flex flex-wrap space-x-2 line pr-3">
 
@@ -89,22 +95,25 @@ const Footer = async () => {
           {/* Get in Touch */}
           <div className="flex flex-col space-y-3">
             <div className="uppercase text-white font-medium py-4 text-xl">Get in Touch</div>
-            <p className="text-base text-gray-300 font-light max-w-60">{contactData.fzcPhone}</p>
+            <p className="text-base text-gray-300 font-light max-w-60">{contactData?.fzcPhone}</p>
             <p className="text-base text-gray-300 font-light max-w-60">
-              Email: <Link href="mailto:info@atlanticlubes.com">{contactData.email}</Link>
+              Email: <Link href="mailto:info@atlanticlubes.com">{contactData?.email}</Link>
             </p>
             <div className="uppercase text-white font-medium py-4 text-xl">Head Office</div>
             <p className="text-base text-gray-300 font-light max-w-60">
-              <Link href={contactData.mapUrl} target="_blank" rel="noopener noreferrer">
-                {contactData.fzcAddress}
+              <Link href={contactData?.mapUrl} target="_blank" rel="noopener noreferrer">
+                {contactData?.fzcAddress}
               </Link>
             </p>
             <p className="text-base text-gray-300 font-light max-w-60">
-              <Link href={contactData.mapUrl} target="_blank" rel="noopener noreferrer">
+              <Link href={contactData?.mapUrl} target="_blank" rel="noopener noreferrer">
                 Open in Google Maps
               </Link>
             </p>
           </div>
+
+
+
         </div>
       </PaddingContainer>
     </footer >

@@ -1,5 +1,6 @@
 
-import { getProductCategoryForHome } from "@/app/data/loader";
+import { cachedGetProductCategoryFeature } from "@/app/data/cacheLoader";
+
 import { getImageUrl } from "@/libs/helper";
 import Image from "next/image"
 
@@ -7,7 +8,7 @@ import Image from "next/image"
 
 const HomeProductCategory = async () => {
 
-  const categoryData = await getProductCategoryForHome();
+  const categoryData = await cachedGetProductCategoryFeature();
 
   /*
   

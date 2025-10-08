@@ -26,7 +26,8 @@ const CategoryProductlist = async ({ selectedCategoryParent, productData, PageSi
 
 
     console.log("-----------------------category product list------------------------------------------");
-    console.dir(Products.data[0]?.seo?.schema, { depth: null });
+
+    console.dir(categoryParent, { depth: null });
     console.log("---------------------------End--------p category----child-----------end-----------------------");
 
 

@@ -6,8 +6,9 @@ import { cache } from 'react';
 import { generateMetadata as generatePageMetadata } from "@/libs/metadata";
 import SEOSchema from "../components/elements/seo-schema";
 import ContactForm from "../components/elements/contact-form";
+import { cachedGetContactUsPage } from "../data/cacheLoader";
 
-const cachedGetContactUsPage = cache(getContactUsPage);
+
 export async function generateMetadata(props) {
   const params = await props.params;
 
@@ -18,9 +19,9 @@ export async function generateMetadata(props) {
     pageTitle: pageData.slug,
     pageSlug: "contact",
     pageDescription: "",
-    seoTitle: pageData.seo?.seoTitle,
-    seoDescription: pageData.seo?.seoDescription,
-    rebotStatus: pageData.seo?.preventIndexing,
+    seoTitle: pageData.seo?.seoTitle ?? "",
+    seoDescription: pageData.seo?.seoDescription ?? "",
+    rebotStatus: pageData.seo?.preventIndexing ?? false,
     canonicalLinks: pageData.seo?.canonicalLinks ?? "contact",
     dataPublishedTime: pageData.publishedAt,
     category: "",
@@ -45,9 +46,9 @@ const ContactUs = async () => {
   return (
     <div >
 
-      <SEOSchema schemaList={pageData.seo?.schema} />
+      {pageData.seo?.schema && <SEOSchema schemaList={pageData.seo?.schema} />}
 
-      <TopBanner banner={pageData.banner} />
+      {pageData.banner && <TopBanner banner={pageData.banner} />}
 
       <PaddingContainer  >
         <div className="w-full h-auto topPadding" ></div>

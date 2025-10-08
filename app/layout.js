@@ -152,8 +152,6 @@ export default function RootLayout({ children }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSearchBox) }} />
 
 
-
-
         <Navigation />
 
         {children}

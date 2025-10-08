@@ -1,53 +1,215 @@
+
 import { flattenAttributes } from "@/libs/data-utils";
-import { expandQueryToVariants } from "@/libs/helper";
-import qs from 'qs';
+import qs from "qs";
 
 let baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 let appMode = process.env.NEXT_PUBLIC_MODE;
-let cacheSystem = "";
-if (appMode == "dev") {
-  cacheSystem = "no-cache";
+
+
+function formatError(err) {
+  const cause = err?.cause ?? {};
+  return {
+    name: err?.name,
+    message: err?.message,
+    stack: err?.stack,
+    cause: {
+      code: cause?.code,
+      errno: cause?.errno,
+      syscall: cause?.syscall,
+      address: cause?.address,
+      port: cause?.port,
+      message: cause?.message,
+      stack: cause?.stack,
+    },
+  };
 }
 
-
-export async function fetchData(path, filter) {
-
+/*
+export async function fetchData(path, filter, init = {}) {
   const authToken = null;
-  const header =
-  {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      "Strapi-Response-Format": "v4",
-      Authorization: `Bearer ${authToken}`,
-    },
-    cache: cacheSystem,
 
+  const headers = {
+    "Content-Type": "application/json",
+    "Strapi-Response-Format": "v4",
+    ...(authToken ? { Authorization: `Bearer ${authToken}` } : {}),
+  };
+
+  if (!baseUrl) {
+    console.error("[fetchData] NEXT_PUBLIC_API_BASE_URL is missing.", { path });
+    return { data: [] };
   }
-
 
   const url = new URL(path, baseUrl);
-  url.search = filter;
+  if (filter) url.search = filter;
 
-  //show API links
-  console.log(url.href);
+  // Build final init (your defaults + caller overrides)
+  const reqInit = {
+    method: "GET",
+    headers,
+    // cache: cacheSystem,        // stays as you had it
+    ...init,                   // allows ISR: { next: { revalidate: N } }
+  };
+
+  // Timeout to avoid hanging during build
+  const ac = new AbortController();
+  const timer = setTimeout(() => ac.abort(), 12_000);
+  try {
+    const res = await fetch(url.href, { ...reqInit, signal: ac.signal });
+    clearTimeout(timer);
+
+    if (!res.ok) {
+      let bodySnippet = "";
+      try { bodySnippet = (await res.text()).slice(0, 600); } catch { }
+      console.error("[fetchData] Non-OK response", {
+        url: url.href,
+        status: res.status,
+        statusText: res.statusText,
+        // cache: cacheSystem,
+        appMode,
+        bodySnippet,
+      });
+      return { data: [] }; // fail-soft so SSG doesn't crash
+    }
+
+    let json;
+    try {
+      json = await res.json();
+    } catch (e) {
+      console.error("[fetchData] JSON parse failed", { url: url.href, e: formatError(e) });
+      return { data: [] };
+    }
+
+    const flattened = flattenAttributes(json);
+    return flattened ?? { data: [] };
+  } catch (error) {
+    clearTimeout(timer);
+    const details = formatError(error);
+
+    // Improve hinting for dynamic-server errors (not network)
+    const isDynamicUsage =
+      typeof error?.message === "string" &&
+      error.message.startsWith("Dynamic server usage:");
+
+    const hint = isDynamicUsage
+      ? "This route is static but a fetch used revalidate:0/no-store (or dynamic flags)."
+      : details?.cause?.code === "ECONNREFUSED"
+        ? "API unreachable (is Strapi running?)"
+        : details?.cause?.code === "ECONNRESET"
+          ? "Server reset connection (restart/crash/transient)."
+          : details?.name === "AbortError"
+            ? "Request timed out."
+            : "Network failure or server down.";
+
+    console.error("[fetchData] Request failed", {
+      url: url.href,
+      //  cache: cacheSystem,
+      appMode,
+      error: details,
+      hint,
+    });
+    return { data: [] };
+  }
+}
+*/
+
+
+export async function fetchData(path, filter, init = {}) {
+  const authToken = null;
+
+  const headers = {
+    "Content-Type": "application/json",
+    "Strapi-Response-Format": "v4",
+    ...(authToken ? { Authorization: `Bearer ${authToken}` } : {}),
+  };
+
+  if (!baseUrl) {
+    console.error("[fetchData] NEXT_PUBLIC_API_BASE_URL is missing.", { path });
+    return { data: [] };
+  }
+
+  const url = new URL(path, baseUrl);
+  if (filter) url.search = filter;
+
+  // You can set a longer timeout here (e.g., 30 seconds)
+  const TIMEOUT_MS = 30_000;
+
+  const ac = new AbortController();
+  const timer = setTimeout(() => ac.abort(), TIMEOUT_MS);
+
+  // Start measuring time
+  const start = Date.now();
 
   try {
+    const res = await fetch(url.href, {
+      method: "GET",
+      headers,
+      ...init,
+      signal: ac.signal,
+    });
 
-    const response = await fetch(url.href, authToken ? header : {});
-    const data = await response.json();
+    clearTimeout(timer);
 
-    const flattenedData = flattenAttributes(data);
+    // Measure total duration
+    const duration = Date.now() - start;
 
+    // Log slow responses (>1000 ms = 15 s)
+    if (duration > 15000) {
+      console.warn(`Slow response: ${duration} ms`, { url: url.href });
+    }
 
-    // console.log(flattenedData)
+    if (!res.ok) {
+      let bodySnippet = "";
+      try { bodySnippet = (await res.text()).slice(0, 600); } catch { }
+      console.error("[fetchData] Non-OK response", {
+        url: url.href,
+        status: res.status,
+        statusText: res.statusText,
+        appMode,
+        bodySnippet,
+      });
+      return { data: [] };
+    }
 
-    return flattenedData;
+    let json;
+    try {
+      json = await res.json();
+    } catch (e) {
+      console.error("[fetchData] JSON parse failed", { url: url.href, e: formatError(e) });
+      return { data: [] };
+    }
+
+    const flattened = flattenAttributes(json);
+    return flattened ?? { data: [] };
+
   } catch (error) {
-    console.log(error);
+    clearTimeout(timer);
+    const details = formatError(error);
+    const isDynamicUsage =
+      typeof error?.message === "string" &&
+      error.message.startsWith("Dynamic server usage:");
+
+    const hint = isDynamicUsage
+      ? "This route is static but a fetch used revalidate:0/no-store (or dynamic flags)."
+      : details?.cause?.code === "ECONNREFUSED"
+        ? "API unreachable (is Strapi running?)"
+        : details?.cause?.code === "ECONNRESET"
+          ? "Server reset connection (restart/crash/transient)."
+          : details?.name === "AbortError"
+            ? `Request timed out after ${TIMEOUT_MS / 1000}s.`
+            : "Network failure or server down.";
+
+    console.error("[fetchData] Request failed", {
+      url: url.href,
+      appMode,
+      error: details,
+      hint,
+    });
+
+    return { data: [] };
   }
 }
 
+/*---------------------------------------------------------------------------------------------------------------------------*/
 
 export async function getHomePage() {
 
@@ -156,8 +318,10 @@ export async function getProductCategoryLeftMenu() {
     },
 
   });
+
   return await fetchData("product-categories", blogBlockQuery);
 }
+
 
 
 export async function geProductsByCategory(category, currentPage, pageSize) {
@@ -540,15 +704,26 @@ export async function getAboutPage() {
 
 export async function getContactUsPage() {
 
-  const blogBlockQuery = qs.stringify({
+  const contactBlockQuery = qs.stringify({
 
     populate: ['banner.webBanner', 'banner.mobileBanner', 'seo', 'seo.schema'],
 
   });
 
+  let contactPage = await fetchData("contact-us", contactBlockQuery);
+  return contactPage
 
-  let contactPage = await fetchData("contact-us", blogBlockQuery);
+}
 
+export async function getContactUsPageFooter() {
+
+  const contactBlockQuery = qs.stringify({
+
+
+
+  });
+
+  let contactPage = await fetchData("contact-us", contactBlockQuery);
   return contactPage
 
 }
@@ -705,7 +880,27 @@ export async function getProductCategory(slug) {
         $eq: slug,
       },
     },
-    populate: ['banner', 'banner.webBanner', 'banner.mobileBanner', 'seo', 'seo.schema', 'faq', 'parent', 'child', 'child.image', 'child.bImage', 'child.banner', 'child.banner.webBanner', 'child.banner.mobileBanner'],
+    // populate: ['banner', 'banner.webBanner', 'banner.mobileBanner', 'seo', 'seo.schema', 'faq', 'parent', 'child', 'child.image', 'child.bImage', 'child.banner', 'child.banner.webBanner', 'child.banner.mobileBanner'],
+
+
+    populate: {
+      banner: { populate: ["webBanner", "mobileBanner"] },
+      seo: { populate: ["schema"] },
+      faq: true,
+      parent: true,
+      child: {
+        // ✅ sort the children themselves
+        sort: ["index:desc"],           // not "child.index:asc"
+        fields: ["id", "title", "slug", "index"],
+        populate: {
+          image: true,
+          bImage: true,
+          banner: { populate: ["webBanner", "mobileBanner"] },
+        },
+      },
+    }
+
+
 
   });
   return await fetchData("product-categories", blogBlockQuery);
@@ -809,7 +1004,7 @@ export async function getUncategorizedProducts() {
 
 
 
-export async function getProductCategoryForHome() {
+export async function getProductCategoryFeature() {
   const blogBlockQuery = qs.stringify({
     fields: ['title', 'slug'],
     filters: {
@@ -826,6 +1021,7 @@ export async function getProductCategoryForHome() {
 
   return await fetchData("product-categories", blogBlockQuery);
 }
+
 
 
 

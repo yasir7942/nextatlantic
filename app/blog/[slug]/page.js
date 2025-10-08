@@ -80,10 +80,10 @@ const SingleBlogPage = async props => {
 
 
 
-  console.log("-----------------------single post page--------------------------------------------------");
+  // console.log("-----------------------single post page--------------------------------------------------");
   //  console.dir(postData, { depth: null });
   //  console.log("---------------------------End-----single post------------------end-----------------------");
-  console.log(postData.data[0].featureImage);
+  // console.log(postData.data[0].featureImage);
   const firstDescriptionText = getFirstDescriptionText(postData.data[0].description);
   const seoDesctiption = postData.data[0]?.seo?.seoDesctiption?.trim() ? postData.data[0]?.seo?.seoDesctiption?.trim() : firstDescriptionText;
 

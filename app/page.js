@@ -1,30 +1,31 @@
 //Home Page
 
-import Image from "next/image";
+
 import TopBanner from "./components/layout/top-banner";
 import PaddingContainer from "./components/layout/padding-container";
 import BlogContainer from "./components/layout/blog-container";
-import { getHomePage } from "@/app/data/loader"
+
 import SpeakableSchema from "./components/elements/speakable-schema";
 import CertificateText from "./components/layout/certification-text";
 import { generateMetadata as generatePageMetadata } from "@/libs/metadata";
-import { cache } from 'react';
+
 import SEOSchema from "./components/elements/seo-schema";
 
 import siteConfig from "@/config/site";
 import HomeProductCategory from "./components/layout/home-product-category";
 import SearchBar from "./components/layout/search-bar";
-import { getImageUrl } from "@/libs/helper";
+
 import ImageTextBlock from "./components/layout/home-image-text-block";
+import { cachedGetGetHomePage } from "./data/cacheLoader";
 
 
 
-const cachedGetHomePage = cache(getHomePage);
+
 export async function generateMetadata(props) {
   const params = await props.params;
 
 
-  const pageData = await cachedGetHomePage();
+  const pageData = await cachedGetGetHomePage();
 
   const metadataParams = {
     pageTitle: pageData.title,
@@ -48,7 +49,7 @@ export default async function Home() {
 
 
 
-  const homeData = await cachedGetHomePage();
+  const homeData = await cachedGetGetHomePage();
   /*
     console.log("-----------------------home page--------------------------------------------------");
     console.dir(homeData, { depth: null });

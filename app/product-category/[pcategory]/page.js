@@ -1,22 +1,25 @@
 
-import TopBanner from "@/app/components/layout/top-banner"
+
 
 import { geAllProductCategorySlug, geProductsByCategory, getProductCategory } from "@/app/data/loader"
 
 
 import { generateMetadata as generatePageMetadata } from "@/libs/metadata";
-import { getFirstDescriptionText, getImageUrl } from "@/libs/helper";
+import { getFirstDescriptionText } from "@/libs/helper";
 
-import SEOSchema from "@/app/components/elements/seo-schema";
+
 import { notFound } from "next/navigation";
 import CategoryProductlist from "@/app/components/layout/category-product-list";
 import CategoryChildList from "@/app/components/layout/category-child-list";
+import { cache } from "react";
 
-
+const cachedGetProductCategory = cache(getProductCategory);
 
 export const generateStaticParams = async () => {
   try {
     const pcategorySlugs = await geAllProductCategorySlug();
+
+
 
     const paramsSlugs = pcategorySlugs?.map((category) => {
       return {
@@ -24,7 +27,9 @@ export const generateStaticParams = async () => {
       };
     });
 
-
+    //console.log()("-------static params pcategory slugs----------------");
+    //console.dir(paramsSlugs, { depth: null });
+    // console.log("-------End static params pcategory slugs----------------");
 
     return paramsSlugs || [];
   } catch (error) {
@@ -39,7 +44,7 @@ export const generateStaticParams = async () => {
 export async function generateMetadata(props) {
   const params = await props.params;
 
-  const categoryData = await getProductCategory(params.pcategory);
+  const categoryData = await cachedGetProductCategory(params.pcategory);
 
   // console.log("-----,", categoryData.data[0].title)
   if (!categoryData || !categoryData.data[0]) {
@@ -80,9 +85,15 @@ const ProductCategory = async props => {
   let selectedCategoryParent = "";
   let isParent = false;
 
-  const categoryData = await getProductCategory(params.pcategory);  // use cache
+  const currentPage = Number(searchParams.page) || 1;
 
+  // product show by category
 
+  const productData = await geProductsByCategory(params.pcategory, currentPage, pageSize);
+
+  const categoryData = await cachedGetProductCategory(params.pcategory);  // use cache
+
+  //console.log("-----,", categoryData.data[0])
 
   if (!categoryData || !categoryData.data[0]) {
     notFound();
@@ -90,6 +101,9 @@ const ProductCategory = async props => {
 
 
   const selectedCategory = categoryData.data[0];
+
+
+  //console.log("-----,", selectedCategory)
 
   if (!selectedCategory.parent || Object.keys(selectedCategory.parent).length === 0) {
     selectedCategoryParent = selectedCategory.slug;
@@ -100,11 +114,7 @@ const ProductCategory = async props => {
     selectedCategoryParent = selectedCategory.parent.slug;
   }
 
-  const currentPage = Number(searchParams.page) || 1;
 
-  // product show by category
-
-  const productData = await geProductsByCategory(params.pcategory, currentPage, pageSize);
 
 
 

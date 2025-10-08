@@ -42,7 +42,7 @@ export const generateStaticParams = async () => {
 
 export async function generateMetadata(props) {
   const params = await props.params;
-  const productData = await geSingleProduct(params.slug);
+  const productData = await cachedGeSingleProduct(params.slug);
 
   if (!productData || !productData?.data[0]) {
     notFound();
@@ -74,6 +74,12 @@ export async function generateMetadata(props) {
 const SingleProductPage = async props => {
   const params = await props.params;
   const productData = await cachedGeSingleProduct(params.slug);
+
+  if (!productData || !productData?.data[0]) {
+    notFound();
+  }
+
+
   let selectedCategoryParent = "";
 
 
@@ -93,15 +99,6 @@ const SingleProductPage = async props => {
       selectedCategoryParent = selectedCategory?.parent.slug;
     }
   }
-
-
-
-
-
-  if (!productData || !productData?.data[0]) {
-    notFound();
-  }
-
 
 
   const content = productData?.data[0].description;
@@ -243,7 +240,7 @@ const SingleProductPage = async props => {
 
           {/* Left Menu Column */}
           <div className="w-full md:w-3/12 lg:w-1/6 p-6 md:pl-0 overflow-hidden">
-            {/* Menu content goes here  */}
+            {/* Menu content goes here */}
             <ProductCategoryMenu Parent={selectedCategoryParent} />
           </div>
 
