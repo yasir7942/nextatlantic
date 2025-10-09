@@ -14,29 +14,63 @@ const ImageTextBlock = ({ homeData }) => {
     if (comp === "layout.text-image") {
         // show heading, text, and image
         return (
-            <section className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+            <section className="w-full">
+                {/* Heading stays full-width; never wraps around the image */}
+                {block?.title && (
+                    <h2 className="text-2xl md:text-3xl font-semibold text-white md:mb-4">
+                        {block.title}
+                    </h2>
+                )}
+
+                {/* Text + floated image wrapper */}
                 <div className="space-y-3 md:pl-3">
-                    {block?.title && (
-                        <h2 className="text-2xl md:text-3xl font-semibold text-white">{block.title}</h2>
+                    {/* Desktop: floated image (does NOT affect the heading above) */}
+                    {block?.image?.url && (
+                        <div
+                            className="
+          hidden md:block float-right ml-6 mb-3
+          w-[320px] h-[320px]
+          [shape-outside:ellipse(55%_45%_at_55%_50%)]
+          [shape-margin:12px]
+        "
+                        >
+                            <Image
+                                src={getImageUrl(block.image.url)}
+                                alt={block.image?.alternativeText ?? "Atlantic Product"}
+                                width={500}
+                                height={500}
+                                quality={100}
+                                className="w-full h-full object-contain"
+                                priority
+                            />
+                        </div>
                     )}
+
+                    {/* Paragraph(s) will wrap nicely around the image */}
                     {block?.description2 && (
                         <p className="text-gray-200 leading-relaxed">{block.description2}</p>
                     )}
-                </div>
 
-                {block?.image?.url && (
-                    <div >
-                        <Image
-                            src={getImageUrl(block.image.url)}
-                            className="w-auto h-[350px] md:h-[300px] lg:h-[400px]"
-                            width={500}
-                            height={500}
-                            quality={100}
-                            alt={block.image?.alternativeText ?? "Atlantic Product Range"}
-                        />
-                    </div>
-                )}
+                    {/* Mobile: stacked image below text */}
+                    {block?.image?.url && (
+                        <div className="md:hidden mt-6">
+                            <Image
+                                src={getImageUrl(block.image.url)}
+                                alt={block.image?.alternativeText ?? "Atlantic Product"}
+                                width={450}
+                                height={450}
+                                quality={100}
+                                className="w-auto h-[340px]"
+                            />
+                        </div>
+                    )}
+
+                    {/* Ensure anything after this block doesn’t wrap around the float */}
+                    <div className="clear-both" />
+                </div>
             </section>
+
+
         );
 
     }

@@ -215,7 +215,7 @@ export async function getHomePage() {
 
   const blogBlockQuery = qs.stringify({
 
-    populate: ['banner.webBanner', 'banner.mobileBanner', 'seo.schema', 'imageText', 'imageText.image', 'imageText.TextImage'],
+    populate: ['banner.webBanner', 'banner.mobileBanner', 'seo.schema', 'bodyImage', 'imageText', 'imageText.image', 'imageText.TextImage', 'infoBlock', 'infoBlock.image'],
 
   });
 

@@ -17,6 +17,10 @@ import SearchBar from "./components/layout/search-bar";
 
 import ImageTextBlock from "./components/layout/home-image-text-block";
 import { cachedGetGetHomePage } from "./data/cacheLoader";
+import HomeInfoBlock from "./components/layout/home-info";
+
+
+
 
 
 
@@ -52,10 +56,10 @@ export default async function Home() {
   const homeData = await cachedGetGetHomePage();
   /*
     console.log("-----------------------home page--------------------------------------------------");
-    console.dir(homeData, { depth: null });
-    console.log("---------------------------End-----------------------end-----------------------");
-    console.log(homeData.imageText[1].__component)
-  */
+    console.dir(homeData, { depth: null }); 
+  console.log("---------------------------End-----------------------end-----------------------");
+  console.log(homeData.infoBlock) */
+
   return (
     <div className="bg-backgroundColor">
 
@@ -100,7 +104,9 @@ export default async function Home() {
         {/* <!-- end media section--> */}
 
 
-        <CertificateText heading1={homeData.bodyHeading1} text1={homeData.bodyText1} heading2={homeData.bodyHeading2} text2={homeData.bodyText2} />
+        <CertificateText heading1={homeData.bodyHeading1} text1={homeData.bodyText1} heading2={homeData.bodyHeading2} text2={homeData.bodyText2} image={homeData.bodyImage} />
+
+        {homeData.infoBlock.title && (<HomeInfoBlock heading={homeData.infoBlock.title} description={homeData.infoBlock.description2} image={homeData.infoBlock.image} />)}
 
       </PaddingContainer>
 
