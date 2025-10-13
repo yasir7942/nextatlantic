@@ -85,7 +85,7 @@
      
 
       .rich-text p{
-        @apply text-lg font-light  ;
+        @apply text-lg font-light mb-2  ;
  
        }
 

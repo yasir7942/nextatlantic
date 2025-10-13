@@ -106,7 +106,7 @@ export default async function Home() {
 
         <CertificateText heading1={homeData.bodyHeading1} text1={homeData.bodyText1} heading2={homeData.bodyHeading2} text2={homeData.bodyText2} image={homeData.bodyImage} />
 
-        {homeData.infoBlock.title && (<HomeInfoBlock heading={homeData.infoBlock.title} description={homeData.infoBlock.description2} image={homeData.infoBlock.image} />)}
+        {homeData.infoBlock.title && (<HomeInfoBlock heading={homeData.infoBlock.title} description={homeData.infoBlock.description} image={homeData.infoBlock.image} />)}
 
       </PaddingContainer>
 

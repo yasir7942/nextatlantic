@@ -84,12 +84,13 @@ export async function POST(request) {
 
 
             const ContactPageData = await getContactUsPage();
-            const toEmail = ContactPageData?.formReceiverTo?.trim();
+            const toEmail = ContactPageData?.receiverTo?.trim();
+            const replyTo = ContactPageData?.replyTo?.trim();
             const fromEmail = ContactPageData?.fromEmail?.trim();
-            const ccEmail = ContactPageData?.formReceiverCC?.trim();
-            const bccEmail = ContactPageData?.formReceiverBCC?.trim();
+            const ccEmail = ContactPageData?.receiverCC?.trim();
+            const bccEmail = ContactPageData?.receiverBCC?.trim();
             const emailSubject = ContactPageData?.contactFormSubject?.trim() ?? "Contact Form";
-            const fromHeader = `Email Sender <${fromEmail}>`;
+            const fromHeader = fromEmail;
 
             if (!toEmail && !fromEmail) {
                 return new Response(JSON.stringify({ error: 'No receiver configured (formReceiverTo or fromEmail).' }), { status: 500 });
@@ -116,7 +117,7 @@ export async function POST(request) {
                 to: [toEmail], // always single email (still needs to be an array/string)
                 subject: `${emailSubject}  ${fullName}`,
                 // Optional but handy so replies go to the submitter:
-                replyTo: email,
+                replyTo: replyTo,
                 react: EmailTemplate({
                     name: fullName,
                     phone: phoneNumber,

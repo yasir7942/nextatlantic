@@ -8,6 +8,7 @@ import ProductCategoryMenu from "./product-category-menu";
 import { getImageUrl } from "@/libs/helper";
 import SEOSchema from "../elements/seo-schema";
 import TopBanner from "./top-banner";
+import BodyDataParse from "../elements/data-parse-content";
 
 
 
@@ -22,6 +23,8 @@ const CategoryProductlist = async ({ selectedCategoryParent, productData, PageSi
 
     const PageCount = Products.meta.pagination.pageCount;
     const totalPage = Products.meta.pagination.total;
+
+    const ProductDescription = Products.data[0]?.product_categories.data[0]?.description || "";
 
 
 
@@ -41,6 +44,25 @@ const CategoryProductlist = async ({ selectedCategoryParent, productData, PageSi
 
             <TopBanner banner={Products?.data[0]?.product_categories.data[0]?.banner} />
 
+
+
+            {ProductDescription && (
+                <PaddingContainer>
+
+                    <div className="w-full h-auto mb-5 flex flex-col md:flex-row    relative z-50 bg-[#2a3c4670] p-3 md:p-4 pb-3 ">
+
+                        <div className="text-white   rich-text summary " >
+                            <BodyDataParse content={ProductDescription} />
+                        </div>
+                        {/*  Left Menu Column  */}
+
+
+                        {/*  Content Area   */}
+
+                    </div>
+                </PaddingContainer>
+            )}
+
             <PaddingContainer>
 
 
@@ -53,6 +75,10 @@ const CategoryProductlist = async ({ selectedCategoryParent, productData, PageSi
 
                     {/*  Content Area   */}
                     <div className=" w-full md:w-9/12 lg:w-[80%] flex flex-col bg-[#2a3c4670] p-3 md:p-4 pb-3 ">
+
+
+
+
                         {/*   Content area content goes here  */}
                         <SearchBar dataType="products" />
 

@@ -67,7 +67,7 @@ const ContactUs = async () => {
           {pageData.mapUrl &&
             <div className=" w-full   text-white mt-10 md:mt-0  ">
               <iframe
-                className="w-full h-96 md:h-80 lg:h-96 xl:h-112 border-0 filter grayscale"
+                className="w-full h-96 md:h-80 lg:h-96 xl:h-112 border-0 filter "
                 src={pageData.mapUrl}
                 allowFullScreen=""
                 loading="lazy"
@@ -94,7 +94,7 @@ const ContactUs = async () => {
               <div className="font-light text-lg max-w-72"><strong className="pr-1 uppercase">Address:</strong> {pageData.llcAddress}</div>
               <div className="font-light text-lg max-w-72"><strong className="pr-1 uppercase">Phone:</strong>  {pageData.lldPhone}</div>
               <div className="font-light text-lg max-w-72"><strong className="pr-1 uppercase">Fax:</strong>  {pageData.llcFax}</div>
-              <div className="font-light text-lg max-w-72"><strong className="pr-1 uppercase">Email: </strong> <a href='mailto:{pageData.email}' >{pageData.email} </a></div>
+              <div className="font-light text-lg max-w-72"><strong className="pr-1 uppercase">Email: </strong> <a href='mailto:{pageData.email}' >{pageData.llcEmail} </a></div>
             </div>
 
           }

@@ -1,3 +1,5 @@
+import BodyDataParse from "@/app/components/elements/data-parse-content";
+
 const { getImageUrl } = require("@/libs/helper");
 const { default: Image } = require("next/image");
 
@@ -9,6 +11,7 @@ const ImageTextBlock = ({ homeData }) => {
     const block = homeData?.imageText?.[0];
     const comp = block?.__component;
 
+
     if (!block || !comp) return null;
 
     if (comp === "layout.text-image") {
@@ -17,7 +20,7 @@ const ImageTextBlock = ({ homeData }) => {
             <section className="w-full">
                 {/* Heading stays full-width; never wraps around the image */}
                 {block?.title && (
-                    <h2 className="text-2xl md:text-3xl font-semibold text-white md:mb-4">
+                    <h2 className="text-2xl md:text-3xl font-semibold text-darkYellow md:mb-4">
                         {block.title}
                     </h2>
                 )}
@@ -46,9 +49,14 @@ const ImageTextBlock = ({ homeData }) => {
                         </div>
                     )}
 
-                    {/* Paragraph(s) will wrap nicely around the image */}
-                    {block?.description2 && (
-                        <p className="text-gray-200 leading-relaxed">{block.description2}</p>
+                    {/* Paragraph(s) will wrap nicely around the image   <p className="text-gray-200 leading-relaxed">{block.description2}</p> */}
+                    {block?.description && (
+
+                        <div className="text-white   rich-text summary " >
+
+                            <BodyDataParse content={block.description} />
+                        </div>
+
                     )}
 
                     {/* Mobile: stacked image below text */}

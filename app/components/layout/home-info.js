@@ -1,5 +1,6 @@
 import { getImageUrl } from "@/libs/helper"
 import Image from "next/image"
+import BodyDataParse from "../elements/data-parse-content";
 
 
 const HomeInfoBlock = ({ heading, description, image }) => {
@@ -14,7 +15,11 @@ const HomeInfoBlock = ({ heading, description, image }) => {
 
             <div className={`flex flex-col ${textWidth}`}>
                 <h2 className="text-darkYellow uppercase pb-4 font-bold text-3xl headline">{heading}</h2>
-                <p className="text-white text-base text-left summary " >{description}</p>
+
+                <div className="text-white text-base text-left summary  rich-text summary " >
+                    <BodyDataParse content={description} />
+                </div>
+
 
             </div>
 

@@ -1,5 +1,6 @@
 import { getImageUrl } from "@/libs/helper"
 import Image from "next/image"
+import BodyDataParse from "../elements/data-parse-content"
 
 
 const CertificateText = ({ heading1, text1, heading2, text2, image }) => {
@@ -14,9 +15,14 @@ const CertificateText = ({ heading1, text1, heading2, text2, image }) => {
             </div>
             <div className="flex flex-col  md:w-2/3">
                 <h2 className="text-darkYellow uppercase pb-4 font-bold text-3xl headline">{heading1}</h2>
-                <p className="text-white text-base text-left summary " >{text1}</p>
+
+                <div className="text-white text-base text-left  rich-text summary " >
+                    <BodyDataParse content={text1} />
+                </div>
                 <h2 className="text-darkYellow uppercase   mt-8 pb-4 font-bold text-3xl headline" >{heading2}</h2>
-                <p className="text-white text-base text-left summary"  >{text2}</p>
+                <div className="text-white text-base text-left  rich-text summary " >
+                    <BodyDataParse content={text2} />
+                </div>
             </div>
 
         </section>

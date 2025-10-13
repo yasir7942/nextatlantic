@@ -1,80 +1,170 @@
 'use client';
-import { useState } from 'react';
-
-import React from "react";
-import ReCAPTCHA from "react-google-recaptcha";
+import React, { useRef, useState } from 'react';
+import ReCAPTCHA from 'react-google-recaptcha';
+import toast, { Toaster } from 'react-hot-toast';
 
 const ContactForm = () => {
-
   const [fullName, setFullName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
   const [country, setCountry] = useState('');
   const [message, setMessage] = useState('');
-  const [status, setStatus] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isCaptchaCode, setIsCaptchaCode] = useState('');
-  const recaptchaRef = React.createRef();
+
+  // inline status banner
+  const [statusMessage, setStatusMessage] = useState('');
+  const [statusVariant, setStatusVariant] = useState(''); // 'success' | 'error' | ''
+
+  const recaptchaRef = useRef(null);
+  const formRef = useRef(null);
+
+  // Single toast ID so we never stack multiple
+  const TOAST_ID = 'contact-status';
+
+  const renderToast = (variant, text) => {
+    const isLoading = variant === 'loading';
+    const isSuccess = variant === 'success';
+
+    return toast.custom(
+      (t) => (
+        <div
+          className={`w-full max-w-2xl mx-auto rounded-xl border p-4 shadow-lg
+          ${isLoading ? 'border-white/20 bg-white/5 text-gray-200'
+              : isSuccess ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-200'
+                : 'border-rose-500/30 bg-rose-500/10 text-rose-200'}`}
+          role="status"
+          aria-live="polite"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="flex items-start gap-3">
+            {isLoading ? (
+              <span className="mt-0.5 h-4 w-4 rounded-full border-2 border-white/30 border-t-white animate-spin" />
+            ) : (
+              <span className={`mt-1 h-2.5 w-2.5 rounded-full ${isSuccess ? 'bg-emerald-400' : 'bg-rose-400'}`} />
+            )}
+            <p className="text-sm leading-relaxed grow">{text}</p>
+
+            {!isLoading && (
+              <button
+                type="button" // not a submit
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  toast.dismiss(TOAST_ID);
+                }}
+                className="ml-3 inline-flex items-center rounded-md px-3 py-1.5 text-xs font-medium
+                           border border-white/20 hover:bg-white/10 transition"
+              >
+                Dismiss
+              </button>
+            )}
+          </div>
+        </div>
+      ),
+      { id: TOAST_ID, duration: Infinity } // persistent until Dismiss
+    );
+  };
+
+  const showLoadingToast = (msg) => renderToast('loading', msg);
+  const showSuccessToast = (msg) => renderToast('success', msg);
+  const showErrorToast = (msg) => renderToast('error', msg);
+
+  const setBanner = (variant, msg) => {
+    setStatusVariant(variant); // 'success' or 'error'
+    setStatusMessage(msg);
+  };
+
+  const clearBanner = () => {
+    setStatusVariant('');
+    setStatusMessage('');
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // clear old banner on new submit
+    clearBanner();
+
+    // Early validation: don't show loading if captcha missing
+    if (!isCaptchaCode) {
+      const msg = 'reCAPTCHA is required. Please verify and try again.';
+      setBanner('error', msg);
+      showErrorToast(msg);
+      return;
+    }
+
     setIsSubmitting(true);
-    setStatus('');
-    //recaptchaRef.current.execute();
+    showLoadingToast('Sending…');
 
     try {
-      const response = await fetch('/api/send', {
+      // Timeout guard (20s)
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 20000);
+
+      const res = await fetch('/api/send', {
         method: 'POST',
+        signal: controller.signal,
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${process.env.NEXT_PUBLIC_CONTACT_API_KEY}`, // API key for authorization
+          'Authorization': `Bearer ${process.env.NEXT_PUBLIC_CONTACT_API_KEY}`,
         },
         body: JSON.stringify({ fullName, phoneNumber, email, country, message, isCaptchaCode }),
-      });
+      }).finally(() => clearTimeout(timer));
 
-      if (response.ok) {
-        setStatus('Email sent successfully!');
-      } else {
-        const result = await response.json();
-        console.log(result.error);
-        setStatus(`Failed to send email: ${'System Error Email Us'}`);
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data?.error || 'Send failed');
       }
-    } catch (error) {
-      console.log("contact form error 2 ");
-      console.log(error);
-      setStatus(`Failed to send email: System Error Email Us`);
+
+      // Reset form & captcha
+      setFullName('');
+      setPhoneNumber('');
+      setEmail('');
+      setCountry('');
+      setMessage('');
+      setIsCaptchaCode('');
+      formRef.current?.reset();
+      recaptchaRef.current?.reset();
+
+      // Toast + Banner success
+      const successMsg = 'Email sent successfully!';
+      showSuccessToast(successMsg);
+      setBanner('success', successMsg);
+    } catch (err) {
+      // Toast + Banner error
+      const errMsg =
+        err && err.name === 'AbortError'
+          ? 'Request timed out. Please try again.'
+          : 'Failed to send email: System Error — please email us directly.';
+      showErrorToast(errMsg);
+      setBanner('error', errMsg);
     } finally {
-      // Finish the submission process
       setIsSubmitting(false);
     }
   };
 
-  const onReCAPTCHAChange = (captchaCode) => {
-    // If the reCAPTCHA code is null or undefined indicating that
-    // the reCAPTCHA was expired then return early
-    if (!captchaCode) {
-      return;
-    }
+  const onReCAPTCHAChange = (code) => {
+    if (!code) return; // expired
+    setIsCaptchaCode(code);
+  };
 
-    setIsCaptchaCode(captchaCode);
-
-    // Else reCAPTCHA was executed successfully so proceed with the 
-    // alert
-    //  alert(`Hey `);
-    // Reset the reCAPTCHA so that it can be executed again if user 
-    // submits another email.
-    //recaptchaRef.current.reset();
-  }
+  // banner classes (success/error)
+  const bannerClasses =
+    statusVariant === 'success'
+      ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-200'
+      : statusVariant === 'error'
+        ? 'border-rose-500/30 bg-rose-500/10 text-rose-200'
+        : '';
 
   return (
-    <div className='md:mt-10'>
-      <form onSubmit={handleSubmit}>
+    <div className="md:mt-10">
+      <form ref={formRef} onSubmit={handleSubmit}>
         <div className="flex mb-4">
           <div className="w-1/2 mr-2">
-            <label className="block text-white text-sm font-semibold mb-2  " htmlFor="name">Name</label>
+            <label className="block text-white text-sm font-semibold mb-2" htmlFor="fullName">Name</label>
             <input
-              className="shadow appearance-none border  rounded w-full py-2 px-3  tracking-wide text-white bg-transparent font-light leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none border rounded w-full py-2 px-3 tracking-wide text-white bg-transparent font-light leading-tight focus:outline-none focus:shadow-outline"
               id="fullName"
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
@@ -86,17 +176,17 @@ const ContactForm = () => {
           <div className="w-1/2 ml-2">
             <label className="block text-white text-sm font-semibold mb-2" htmlFor="phoneNumber">Phone</label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3  tracking-wide text-white bg-transparent font-light font-lightleading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none border rounded w-full py-2 px-3 tracking-wide text-white bg-transparent font-light leading-tight focus:outline-none focus:shadow-outline"
               id="phoneNumber"
               type="tel"
               value={phoneNumber}
               onChange={(e) => setPhoneNumber(e.target.value)}
               placeholder="Valid phone number"
-
               required
             />
           </div>
         </div>
+
         <div className="flex mb-4">
           <div className="w-1/2 mr-2">
             <label className="block text-white text-sm font-semibold mb-2" htmlFor="email">Email</label>
@@ -104,7 +194,6 @@ const ContactForm = () => {
               className="shadow appearance-none border rounded w-full py-2 px-3 tracking-wide text-white bg-transparent font-light leading-tight focus:outline-none focus:shadow-outline"
               id="email"
               type="email"
-
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Your email"
@@ -114,10 +203,9 @@ const ContactForm = () => {
           <div className="w-1/2 ml-2">
             <label className="block text-white text-sm font-semibold mb-2" htmlFor="country">Country</label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3  tracking-wide text-white bg-transparent font-light leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none border rounded w-full py-2 px-3 tracking-wide text-white bg-transparent font-light leading-tight focus:outline-none focus:shadow-outline"
               id="country"
               type="text"
-
               value={country}
               onChange={(e) => setCountry(e.target.value)}
               placeholder="Your country"
@@ -125,20 +213,23 @@ const ContactForm = () => {
             />
           </div>
         </div>
+
         <div className="mb-4">
           <label className="block text-white text-sm font-semibold mb-2" htmlFor="message">Message</label>
           <textarea
-            className="shadow appearance-none border rounded w-full py-2 px-3  tracking-wide text-white bg-transparent font-light leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border rounded w-full py-2 px-3 tracking-wide text-white bg-transparent font-light leading-tight focus:outline-none focus:shadow-outline"
             id="message"
-            rows="4"
+            rows={4}
             placeholder="Your message"
-
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             required
-          ></textarea>
-          <small className="error text-gray-300 font-light">Please avoid including hyperlinks or URLs in your message.</small>
+          />
+          <small className="error text-gray-300 font-light">
+            Please avoid including hyperlinks or URLs in your message.
+          </small>
         </div>
+
         <div className="mb-4">
           <ReCAPTCHA
             ref={recaptchaRef}
@@ -147,20 +238,35 @@ const ContactForm = () => {
             theme="dark"
           />
         </div>
+
         <div className="flex items-center justify-between">
-          <button disabled={isSubmitting}
-            className="font-medium text-lg bg-transparent border border-spacing-1 border-white hover:bg-gray-50 transition duration-150 text-white hover:text-gray-800  py-2 px-12 rounded focus:outline-none focus:shadow-outline"
+          <button
+            disabled={isSubmitting}
+            className="font-medium text-lg bg-transparent border border-white hover:bg-gray-50 transition duration-150 text-white hover:text-gray-800 py-2 px-12 rounded focus:outline-none focus:shadow-outline"
             type="submit"
           >
-            Send
+            {isSubmitting ? 'Sending…' : 'Send'}
           </button>
         </div>
 
-        {status && <p className='pt-5 text-[#A81B1A]'>{status}</p>}
+        {/* Toast right under the button */}
+        <div className="pt-4">
+          <Toaster
+            position="bottom-left"   // adjust as you prefer
+            gutter={12}
+            toastOptions={{ duration: Infinity }} // lifetime via Dismiss
+          />
+        </div>
+
+        {/* Inline status banner (text) right under the toast area */}
+        {statusMessage && statusVariant && (
+          <div className={`mt-3 rounded-xl border p-4 ${bannerClasses}`}>
+            <p className="text-sm leading-relaxed">{statusMessage}</p>
+          </div>
+        )}
       </form>
-
     </div>
-  )
-}
+  );
+};
 
-export default ContactForm
+export default ContactForm;
