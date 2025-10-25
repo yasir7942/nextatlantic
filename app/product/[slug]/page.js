@@ -14,6 +14,7 @@ import SEOSchema from "@/app/components/elements/seo-schema";
 import ProductSize from "@/app/components/layout/product-size";
 import { notFound } from "next/navigation";
 import SearchBar from "@/app/components/layout/search-bar";
+import FAQs from "@/app/components/layout/faqs";
 
 // Cache the geSingleProduct function
 const cachedGeSingleProduct = cache(geSingleProduct);
@@ -53,7 +54,7 @@ export async function generateMetadata(props) {
     pageSlug: productData?.data[0]?.slug,
     pageDescription: getFirstDescriptionText(productData?.data[0].description) || "",
     seoTitle: productData?.data[0].seo?.seoTitle,
-    seoDescription: productData?.data[0].seo?.seoDescription,
+    seoDescription: productData?.data[0].seo?.seoDesctiption,
     rebotStatus: productData?.data[0].seo?.preventIndexing,
     canonicalLinks: productData?.data[0].seo?.canonicalLinks,
     dataPublishedTime: productData?.data[0].publishedAt,
@@ -62,7 +63,6 @@ export async function generateMetadata(props) {
     imageAlternativeText: productData?.data[0].productImage?.alternativeText,
     imageExt: productData?.data[0].productImage?.mime,
   };
-
 
 
   return await generatePageMetadata({ type: "product", path: "/product/", params: metadataParams });
@@ -326,14 +326,29 @@ const SingleProductPage = async props => {
                 </div>
               </div>
             </div>
+
+
+
+            {productData?.data?.[0]?.faq.length > 0 && (
+              <div className="px-5">
+
+
+
+                <FAQs faqList={productData?.data?.[0].faq} />
+
+              </div>
+
+            )}
+
+
             {/* Related Product section */}
             <div className="w-full flex flex-col justify-center items-center text-gray-300 mt-5">
               <GroupProducts productGroup={productGroup} />
             </div>
           </div>
         </div>
-      </PaddingContainer>
-    </div>
+      </PaddingContainer >
+    </div >
   );
 };
 

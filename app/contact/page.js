@@ -20,7 +20,7 @@ export async function generateMetadata(props) {
     pageSlug: "contact",
     pageDescription: "",
     seoTitle: pageData.seo?.seoTitle ?? "",
-    seoDescription: pageData.seo?.seoDescription ?? "",
+    seoDescription: pageData.seo?.seoDesctiption ?? "",
     rebotStatus: pageData.seo?.preventIndexing ?? false,
     canonicalLinks: pageData.seo?.canonicalLinks ?? "contact",
     dataPublishedTime: pageData.publishedAt,

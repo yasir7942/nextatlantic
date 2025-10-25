@@ -56,7 +56,7 @@ export async function generateMetadata(props) {
     pageSlug: categoryData.data[0].slug,
     pageDescription: getFirstDescriptionText(categoryData.data[0].description),   // 0
     seoTitle: categoryData.data[0].seo?.seoTitle,
-    seoDescription: categoryData.data[0].seo?.seoDescription || "",
+    seoDescription: categoryData.data[0].seo?.seoDesctiption || "",
     rebotStatus: categoryData.data[0].seo?.preventIndexing,
     canonicalLinks: categoryData.data[0].seo?.canonicalLinks,  // null
     dataPublishedTime: categoryData.data[0].publishedAt,

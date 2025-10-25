@@ -1,6 +1,7 @@
 import BodyDataParse from "@/app/components/elements/data-parse-content";
 import SEOSchema from "@/app/components/elements/seo-schema";
 import BlogContainer from "@/app/components/layout/blog-container";
+import FAQs from "@/app/components/layout/faqs";
 import PaddingContainer from "@/app/components/layout/padding-container";
 import { geSinglePost, getAllPostSlugs } from "@/app/data/loader";
 import siteConfig from "@/config/site";
@@ -31,7 +32,7 @@ export async function generateMetadata(props) {
     pageSlug: postData.data[0].slug,
     pageDescription: getFirstDescriptionText(postData.data[0].description),
     seoTitle: postData.data[0].seo?.seoTitle,
-    seoDesctiption: postData.data[0]?.seo?.seoDesctiption ?? "",
+    seoDescription: postData.data[0]?.seo?.seoDesctiption ?? "",
     rebotStatus: postData.data[0].seo?.preventIndexing,
     canonicalLinks: postData.data[0].seo?.canonicalLinks,
     dataPublishedTime: postData.data[0].publishedAt,
@@ -40,7 +41,6 @@ export async function generateMetadata(props) {
     imageAlternativeText: postData.data[0].featureImage?.alternativeText,
     imageExt: postData.data[0].featureImage?.mime,
   };
-
 
 
 
@@ -80,9 +80,9 @@ const SingleBlogPage = async props => {
 
 
 
-  // console.log("-----------------------single post page--------------------------------------------------");
-  //  console.dir(postData, { depth: null });
-  //  console.log("---------------------------End-----single post------------------end-----------------------");
+  //console.log("-----------------------single post page--------------------------------------------------");
+  // console.dir(postData, { depth: null });
+  // console.log("---------------------------End-----single post------------------end-----------------------");
   // console.log(postData.data[0].featureImage);
   const firstDescriptionText = getFirstDescriptionText(postData.data[0].description);
   const seoDesctiption = postData.data[0]?.seo?.seoDesctiption?.trim() ? postData.data[0]?.seo?.seoDesctiption?.trim() : firstDescriptionText;
@@ -131,6 +131,9 @@ const SingleBlogPage = async props => {
             <BodyDataParse content={postData.data[0].description} />
 
           </div>
+
+
+          {(postData.data[0].faq && postData.data[0].faq.length > 0) && (<FAQs faqList={postData.data[0].faq} />)}
 
         </div>
 

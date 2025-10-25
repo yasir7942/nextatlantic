@@ -25,6 +25,53 @@ function formatError(err) {
 }
 
 /*
+let cacheSystem = "";
+if (appMode == "dev") {
+  cacheSystem = "no-cache";
+}
+*/
+
+export async function fetchData(path, filter) {
+
+  const authToken = null;
+  const header =
+  {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "Strapi-Response-Format": "v4",
+      Authorization: `Bearer ${authToken}`,
+    },
+    // cache: cacheSystem,
+
+  }
+
+
+  const url = new URL(path, baseUrl);
+  url.search = filter;
+
+  // show API links
+  //console.log(url.href);
+
+  try {
+
+    const response = await fetch(url.href, authToken ? header : {});
+    const data = await response.json();
+
+    const flattenedData = flattenAttributes(data);
+
+
+    // console.log(flattenedData)
+
+    return flattenedData;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
+
+/*
 export async function fetchData(path, filter, init = {}) {
   const authToken = null;
 
@@ -111,7 +158,7 @@ export async function fetchData(path, filter, init = {}) {
   }
 }
 */
-
+/*
 
 export async function fetchData(path, filter, init = {}) {
   const authToken = null;
@@ -208,7 +255,7 @@ export async function fetchData(path, filter, init = {}) {
     return { data: [] };
   }
 }
-
+*/
 /*---------------------------------------------------------------------------------------------------------------------------*/
 
 export async function getHomePage() {
@@ -376,7 +423,7 @@ export async function geSingleProduct(slug) {
     },
     populate: ['productImage', 'seo', 'seo.schema', 'productSchema', 'productSchema.reviews',
       'related_products.productImage', 'product_categories', 'product_categories.banner.webBanner',
-      'product_categories.banner.mobileBanner', 'product_categories.parent', 'TDSFile.url', 'MSDSFile.url'],
+      'product_categories.banner.mobileBanner', 'product_categories.parent', 'TDSFile.url', 'MSDSFile.url', 'faq'],
   });
 
 
@@ -538,6 +585,9 @@ function extractAwVariants(text) {
 
 export async function geProductsBySearch(query) {
   const q = String(query ?? "").trim();
+
+  console.log("Search query:", q);
+
   if (!q) {
     const empty = qs.stringify(
       { filters: { id: { $null: true } }, pagination: { pageSize: 10, page: 1 } },
@@ -557,6 +607,12 @@ export async function geProductsBySearch(query) {
     new Set([...(vW || []), ...(vRightW || []), ...(vPMMP || []), ...(vHVI || []), ...(vAW || [])])
   ).slice(0, 50);
 
+  console.log("Extracted variants:", allVariants);
+
+  if (allVariants.length > 20) {
+    console.warn("Too many variants extracted, limiting to 20 for performance.");
+  }
+
   // ---- base OR across common fields (raw query) ---------------------------
   const baseOr = [
     { title: { $containsi: q } },
@@ -566,6 +622,8 @@ export async function geProductsBySearch(query) {
     { acea: { $containsi: q } },
     { product_categories: { title: { $containsi: q } } },
   ];
+
+  console.log("Base OR conditions:", baseOr);
 
   // ---- one OR per variant on grade ---------------------------------------
   const variantOr = allVariants.map(v => ({ grade: { $containsi: v } }));
@@ -602,7 +660,12 @@ export async function geProductsBySearch(query) {
     { encodeValuesOnly: true }
   );
 
-  return await fetchData("products", searchProductQuery);
+  console.log("Final search query:", searchProductQuery);
+
+  const result = await fetchData("products", searchProductQuery);
+  console.log("Search results count:", result);
+
+  return result;
 }
 
 
@@ -677,7 +740,7 @@ export async function geSinglePost(slug) {
       },
 
     },
-    populate: ['featureImage', 'seo', 'seo.schema', 'post_categories'],
+    populate: ['featureImage', 'seo', 'seo.schema', 'post_categories', 'faq'],
   });
 
 

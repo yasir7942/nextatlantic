@@ -10,6 +10,7 @@ export async function generateMetadata({ type, path, params }) {
     pageDescription,
     seoTitle,
     seoDescription,
+
     rebotStatus,
     canonicalLinks,
     dataPublishedTime,

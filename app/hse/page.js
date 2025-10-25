@@ -37,7 +37,7 @@ const HSE = () => {
                 <h1 className="text-white pt-32 font-medium text-3xl ">HSE at Atlantic Grease & Lubricants</h1>
                 <p className="text-white pt-3 font-light text-lg tracking-wider  ">
                     The purpose of HSE at Atlantic Grease & Lubricants is to develop the industry’s best-recognized practices for the safety of employees and environmental health.
-                    <br /> 
+                    <br />
                     Atlantic Grease & Lubricants (AGL) is committed to promoting a healthy, safe, secure, and sustainable environment. We take all reasonable and practical measures to prevent and eliminate the risk of injuries, health hazards, and damage to properties.
 
                     <strong className="block text-2xl pt-3">Health Safety & Environment Goals</strong>

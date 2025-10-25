@@ -15,9 +15,7 @@ import SEOSchema from '../components/elements/seo-schema';
 const cachedGetBlogPage = cache(getBlogPage);
 
 export async function generateMetadata(props) {
-  const params = await props.params;
-
-
+  // const params = await props.params;
   const pageData = await cachedGetBlogPage();
 
   const metadataParams = {
@@ -25,7 +23,7 @@ export async function generateMetadata(props) {
     pageSlug: "blog",
     pageDescription: "",
     seoTitle: pageData.seo?.seoTitle,
-    seoDescription: pageData.seo?.seoDescription,
+    seoDescription: pageData.seo?.seoDesctiption,
     rebotStatus: pageData.seo?.preventIndexing,
     canonicalLinks: pageData.seo?.canonicalLinks ?? "blog",
     dataPublishedTime: pageData.publishedAt,
@@ -35,6 +33,7 @@ export async function generateMetadata(props) {
     imageExt: pageData.banner?.mobileBanner?.mime,
   };
 
+  console.log("blog page ----:", metadataParams);
   return await generatePageMetadata({ type: "page", path: "", params: metadataParams });
 }
 
@@ -56,7 +55,7 @@ const Blog = async props => {
 
 
   // console.log("-----------------------blog page--------------------------------------------------");
-  //console.dir(postsData, { depth: null });
+  // console.dir(pageData, { depth: null });
   // console.log("---------------------------End-------- Blog---------------end-----------------------");
   //  console.log(productData.data);
   // if(productData.data.length === 0)  return  <NotFound />

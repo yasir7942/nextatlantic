@@ -20,9 +20,9 @@ export async function generateMetadata(props) {
     const metadataParams = {
         pageTitle: "About Us",
         pageSlug: "about-us",
-        pageDescription: pageData.seo?.seoDescription,
+        seoDescription: pageData.seo?.seoDesctiption,
         seoTitle: pageData.seo?.seoTitle,
-        seoDescription: pageData.seo?.seoDescription,
+        seoDescription: pageData.seo?.seoDesctiption,
         rebotStatus: pageData.seo?.preventIndexing,
         canonicalLinks: pageData.seo?.canonicalLinks ?? "about-us",
         dataPublishedTime: pageData.publishedAt,
@@ -60,7 +60,7 @@ const AboutUsPage = async () => {
 
                 <div className="flex flex-col md:flex-row justify-center items-center mt-5 topPadding ">
                     <div className="w-full h-auto pr-10 ">
-                        <Image className="w-lg block mx-auto " src={getImageUrl(pageData.aboutus.image.url)} width={800} height={500} alt={pageData.aboutus.image.alternativeText || pageData.title} />
+                        {pageData.aboutus.image.url && (<Image className="w-lg block mx-auto " src={getImageUrl(pageData.aboutus.image.url)} width={800} height={500} alt={pageData.aboutus.image.alternativeText || pageData.title} />)}
                     </div>
                     <div className="text-white font-light    mt-5  leading-snug   pr-5 md:pr-2 rich-text text-2xl" >
                         <h1 className="text-white text-3xl mt-5 md:mt-0 pb-5 md:pb-10 headline  uppercase"> {pageData.aboutus.title}   </h1>
@@ -82,11 +82,13 @@ const AboutUsPage = async () => {
                 </div>
 
             </PaddingContainer>
+
             {/*  the founder */}
+
             <div className="w-full h-auto py-10 bg-blue-950 mt-10 text-white ">
                 <PaddingContainer  >
                     <div className="flex flex-col lg:flex-row justify-center items-center space-x-0 md:space-x-7 " >
-                        <Image className="w-full md:w-96 h-auto" src={getImageUrl(pageData?.founder?.image.url)} width={800} height={500} alt={pageData?.founder?.image.alternativeText || pageData.founder.title} />
+                        {pageData?.founder?.image.url && (< Image className="w-full md:w-96 h-auto" src={getImageUrl(pageData?.founder?.image.url)} width={800} height={500} alt={pageData?.founder?.image.alternativeText || pageData.founder.title} />)}
                         <div className="flex flex-col space-y-3">
                             <h2 className="text-3xl font-light mt-7 lg:mt-0 headline uppercase">{pageData.founder.title}</h2>
                             <div className="text-white font-light   mt-5   pr-5 md:pr-2 rich-text max-w-4xl summary " >
@@ -120,7 +122,7 @@ const AboutUsPage = async () => {
 
                 <div className="flex flex-col md:flex-row justify-center items-center mt-10   ">
                     <div className=" w-full md:w-1/2  h-auto pr-0 md:pr-10 ">
-                        <Image className="w-full md:w-lg block mx-auto " src={getImageUrl(pageData.ourMission.image.url)} width={800} height={500} alt={pageData.aboutus.image.alternativeText || pageData.ourMission.title} />
+                        {pageData.ourMission.image.url && (<Image className="w-full md:w-lg block mx-auto " src={getImageUrl(pageData.ourMission.image.url)} width={800} height={500} alt={pageData.aboutus.image.alternativeText || pageData.ourMission.title} />)}
                     </div>
                     <div className="w-full md:w-1/2  text-white font-light    mt-5  leading-snug   pr-5 md:pr-2 rich-text text-2xl" >
                         <h1 className="text-white text-3xl mt-5 md:mt-0 pb-5 md:pb-10   uppercase headline"> {pageData.ourMission.title}   </h1>
@@ -130,7 +132,7 @@ const AboutUsPage = async () => {
 
                 <div className="flex flex-col md:flex-row-reverse justify-center items-center mt-5 ">
                     <div className=" w-full md:w-1/2   h-auto pr-0 md:pr-10 ">
-                        <Image className="w-lg block mx-auto " src={getImageUrl(pageData.overVisson.image.url)} width={800} height={500} alt={pageData.aboutus.image.alternativeText || pageData.overVisson.title} />
+                        {pageData.overVisson?.image.url && (<Image className="w-lg block mx-auto " src={getImageUrl(pageData.overVisson?.image.url)} width={800} height={500} alt={pageData.aboutus.image.alternativeText || pageData.overVisson.title} />)}
                     </div>
                     <div className=" w-full md:w-1/2   text-white font-light    mt-5  leading-snug pr-10 md:pr-2 rich-text text-2xl" >
                         <h1 className="text-white text-3xl mt-5 md:mt-0 pb-5 md:pb-10   uppercase headline"> {pageData.overVisson.title}   </h1>

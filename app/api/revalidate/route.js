@@ -93,7 +93,7 @@ async function revalidate(req, model, slug) {
             revalidatePath(`/certificates`);
         }
 
-        else if (model == 'contact-us') {
+        else if (model == 'contact') {
             revalidatePath(`/contact`);
         }
         else if (model == 'home-page') {
