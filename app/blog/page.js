@@ -33,7 +33,7 @@ export async function generateMetadata(props) {
     imageExt: pageData.banner?.mobileBanner?.mime,
   };
 
-  console.log("blog page ----:", metadataParams);
+
   return await generatePageMetadata({ type: "page", path: "", params: metadataParams });
 }
 
