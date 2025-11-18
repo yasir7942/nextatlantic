@@ -28,3 +28,7 @@ module.exports = {
 
 // npx pm2 start ecosystem.config.js
 //npx pm2 save
+
+
+//pm2 scale AGL-PK-NextJS 2   # or "max" to use all cores
+//pm2 reload AGL-PK-NextJS
